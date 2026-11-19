@@ -1,0 +1,51 @@
+[
+ {
+  "type": "Course",
+  "slug": "frpb27",
+  "name": "Final Revision Premium Batch for SSC-27 (FRPB-27) Science",
+  "image": "/images/img-003.jpeg",
+  "position": 1
+ },
+ {
+  "type": "Course",
+  "slug": "frpb27artscommerce",
+  "name": "FRPB 27 for ARTS & COMMERCE",
+  "image": "/images/img-010.jpeg",
+  "position": 2
+ },
+ {
+  "type": "Combo",
+  "slug": "scienceb2pssc27",
+  "name": "Science All in One Basic to Pro Combo Course SSC 2027",
+  "image": "/images/img-063.jpg",
+  "position": 3
+ },
+ {
+  "type": "Combo",
+  "slug": "scienceb2pclass9",
+  "name": "Science All in One Basic to Pro Combo Course CLASS 9",
+  "image": "/images/img-062.jpg",
+  "position": 4
+ },
+ {
+  "type": "Combo",
+  "slug": "pcmb1hsc28",
+  "name": "PCMB 1st Paper Combo Course HSC-28",
+  "image": "/images/img-060.jpg",
+  "position": 5
+ },
+ {
+  "type": "Combo",
+  "slug": "ebicombohsc28",
+  "name": "EBI Basic To Pro 2.0 for HSC-28",
+  "image": "/images/img-059.jpg",
+  "position": 6
+ },
+ {
+  "type": "Course",
+  "slug": "ph1hsc28",
+  "name": "Physics 1st Paper Basic To Pro HSC-28",
+  "image": "/images/img-011.jpeg",
+  "position": 7
+ }
+]

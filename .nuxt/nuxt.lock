@@ -1,0 +1,11 @@
+{
+  "pid": 2192,
+  "startedAt": 1795026923058,
+  "interactive": false,
+  "command": "dev",
+  "cwd": "D:/Shikhor_frontend",
+  "parentPid": 22616,
+  "port": 3000,
+  "hostname": "::1",
+  "url": "http://[::1]:3000"
+}

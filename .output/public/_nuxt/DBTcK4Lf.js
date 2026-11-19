@@ -1,0 +1,1 @@
+import{b as e,ht as t}from"./CQF437qV.js";var n=t({__name:`[...slug]`,setup(t){throw e({statusCode:404,statusMessage:`Page not found`})}});export{n as default};

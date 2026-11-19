@@ -1,0 +1,321 @@
+{
+ "rmh": [
+  {
+   "id": "682d2692d7be70f5f6a4f2e6",
+   "name": "Redwan Hushen",
+   "expertise": "Physics",
+   "bio": [
+    "Founder & CEO, Redwan's Method",
+    "CSE,AUST"
+   ],
+   "image": "/images/img-091.jpg",
+   "alt": "Redwan Hushen"
+  },
+  {
+   "id": "684c7a47122a8b8071b863ba",
+   "name": "Hasan Anam",
+   "expertise": "Chemistry",
+   "bio": [
+    "Founder, Anam Chemistry Academy"
+   ],
+   "image": "/images/img-092.jpeg",
+   "alt": "Hasan Anam"
+  },
+  {
+   "id": "684c7bd9122a8b8071b863c9",
+   "name": "Fahad Hossain Shovon",
+   "expertise": "Higher Math",
+   "bio": [
+    "Founder, Mathletes",
+    "Mathematics, University of Chittagong"
+   ],
+   "image": "/images/img-093.jpg",
+   "alt": "Fahad Hossain Shovon"
+  },
+  {
+   "id": "684c7cfd122a8b8071b863d8",
+   "name": "Junnurain Khan",
+   "expertise": "Biology",
+   "bio": [
+    "Author, Sohoj Biology"
+   ],
+   "image": "/images/img-094.jpg",
+   "alt": "Junnurain Khan"
+  },
+  {
+   "id": "684c7e6facf2aeb9ec558a66",
+   "name": "Dalouar Hossain Shipon",
+   "expertise": "English",
+   "bio": [
+    "Founder, Shipon English Point",
+    "English, University of Chittagong"
+   ],
+   "image": "/images/img-095.jpg",
+   "alt": "Dalouar Hossain Shipon"
+  },
+  {
+   "id": "684c7f26acf2aeb9ec558a69",
+   "name": "Md Jilani Hossain",
+   "expertise": "Bangla",
+   "bio": [
+    "Founder, Bangla Lovers, Government and Politics (Political Science), Jahangirnagar University"
+   ],
+   "image": "/images/img-096.jpg",
+   "alt": "Md Jilani Hossain"
+  },
+  {
+   "id": "684c82cfacf2aeb9ec558a8d",
+   "name": "Mohimenul Omi",
+   "expertise": "ICT",
+   "bio": [
+    "CSE, AUST"
+   ],
+   "image": "/images/img-097.jpg",
+   "alt": "Mohimenul Omi"
+  },
+  {
+   "id": "68861b65263d85de6a3e1a9e",
+   "name": "Tipu Das",
+   "expertise": "English",
+   "bio": [
+    "English, JnU"
+   ],
+   "image": "/images/img-098.jpg",
+   "alt": "Tipu Das"
+  },
+  {
+   "id": "68b5d67bf606371e5bcf0c13",
+   "name": "Niazmorshed Faysal",
+   "expertise": "PHYSICS",
+   "bio": [
+    "CSE,BUET (Ex-Notre Damian)"
+   ],
+   "image": "/images/img-099.jpg",
+   "alt": "Niazmorshed Faysal"
+  },
+  {
+   "id": "68dfbe8c388080dbc1086b31",
+   "name": "Redwan's Method",
+   "expertise": "All Details",
+   "bio": [
+    "The Company"
+   ],
+   "image": "/images/img-100.jpg",
+   "alt": "Redwan's Method"
+  },
+  {
+   "id": "69fe2eacac06df6553c23950",
+   "name": "S M Parvez Ahmmed",
+   "expertise": "Physics",
+   "bio": [
+    "EEE, BUET (Ex-Notre Damian)"
+   ],
+   "image": "/images/img-101.png",
+   "alt": "S M Parvez Ahmmed"
+  },
+  {
+   "id": "6a0dacccdf9b65c02f7ed077",
+   "name": "Asif Faysal Rifat",
+   "expertise": "Higher Math",
+   "bio": [
+    "RUET'13 Batch 12 years experience at teaching"
+   ],
+   "image": "/images/img-102.jpeg",
+   "alt": "Asif Faysal Rifat"
+  },
+  {
+   "id": "6a2d3c76f92ccead14a019aa",
+   "name": "Kawsar Ahmed",
+   "expertise": "Bangla",
+   "bio": [
+    "JnU, Co-Founder of Troyee"
+   ],
+   "image": "/images/img-103.png",
+   "alt": "Kawsar Ahmed"
+  },
+  {
+   "id": "6ac74737e07187cc7d2c0d3d",
+   "name": "Mehedi Hasan Shanto",
+   "expertise": "Chemistry",
+   "bio": [
+    "BUET"
+   ],
+   "image": "/images/img-104.jpg",
+   "alt": "Mehedi Hasan Shanto"
+  }
+ ],
+ "rm": [
+  {
+   "id": "682d2692d7be70f5f6a4f2e6",
+   "name": "Redwan Hushen",
+   "expertise": "Physics",
+   "bio": [
+    "Founder & CEO, Redwan's Method",
+    "CSE,AUST"
+   ],
+   "image": "/images/img-091.jpg",
+   "alt": "Redwan Hushen"
+  },
+  {
+   "id": "684c7cfd122a8b8071b863d8",
+   "name": "Junnurain Khan",
+   "expertise": "Biology",
+   "bio": [
+    "Author, Sohoj Biology"
+   ],
+   "image": "/images/img-094.jpg",
+   "alt": "Junnurain Khan"
+  },
+  {
+   "id": "684c7f26acf2aeb9ec558a69",
+   "name": "Md Jilani Hossain",
+   "expertise": "Bangla",
+   "bio": [
+    "Founder, Bangla Lovers, Government and Politics (Political Science), Jahangirnagar University"
+   ],
+   "image": "/images/img-096.jpg",
+   "alt": "Md Jilani Hossain"
+  },
+  {
+   "id": "684c812aacf2aeb9ec558a83",
+   "name": "Saif Hasan Lovelu",
+   "expertise": "Math",
+   "bio": [
+    "Founder, Lovelu's Classroom",
+    "CSE, UIU"
+   ],
+   "image": "/images/img-105.jpg",
+   "alt": "Saif Hasan Lovelu"
+  },
+  {
+   "id": "684c827bacf2aeb9ec558a8b",
+   "name": "Durbar Roy Dhrubo",
+   "expertise": "English",
+   "bio": [
+    "CSE, BRAC UNIVERSITY"
+   ],
+   "image": "/images/img-106.jpg",
+   "alt": "Durbar Roy Dhrubo"
+  },
+  {
+   "id": "684c82cfacf2aeb9ec558a8d",
+   "name": "Mohimenul Omi",
+   "expertise": "ICT",
+   "bio": [
+    "CSE, AUST"
+   ],
+   "image": "/images/img-097.jpg",
+   "alt": "Mohimenul Omi"
+  },
+  {
+   "id": "684c8330acf2aeb9ec558a94",
+   "name": "Muntasir Mahmud",
+   "expertise": "General Science",
+   "bio": [
+    "CSE, AUST"
+   ],
+   "image": "/images/img-107.jpg",
+   "alt": "Muntasir Mahmud"
+  },
+  {
+   "id": "684c8399acf2aeb9ec558a96",
+   "name": "Salim Sadman Safallow",
+   "expertise": "Bangla & Biology",
+   "bio": [
+    "MBBS, Holy Family Red Crescent Medical College"
+   ],
+   "image": "/images/img-108.jpeg",
+   "alt": "Salim Sadman Safallow"
+  },
+  {
+   "id": "68861b65263d85de6a3e1a9e",
+   "name": "Tipu Das",
+   "expertise": "English",
+   "bio": [
+    "English, JnU"
+   ],
+   "image": "/images/img-098.jpg",
+   "alt": "Tipu Das"
+  },
+  {
+   "id": "68c3ee5104865c19cdaada5d",
+   "name": "Amir Ali Hamja",
+   "expertise": "English",
+   "bio": [
+    "MIS,University of Dhaka"
+   ],
+   "image": "/images/img-109.jpg",
+   "alt": "Amir Ali Hamja"
+  },
+  {
+   "id": "sajanchakraborty",
+   "name": "Sajan Chakraborty",
+   "expertise": "Math",
+   "bio": [
+    "BSc (Eng), MSc (SUST) Ex- Lecturer, Womens' Model College, Sylhet 15 Years+ Experience"
+   ],
+   "image": "/images/img-110.jpg",
+   "alt": "Sajan Chakraborty"
+  },
+  {
+   "id": "adalkhan",
+   "name": "Adal Khan",
+   "expertise": "Religion",
+   "bio": [
+    "Founder and CEO , Study with Adal"
+   ],
+   "image": "/images/img-111.jpg",
+   "alt": "Adal Khan"
+  },
+  {
+   "id": "68dfbe8c388080dbc1086b31",
+   "name": "Redwan's Method",
+   "expertise": "All Details",
+   "bio": [
+    "The Company"
+   ],
+   "image": "/images/img-100.jpg",
+   "alt": "Redwan's Method"
+  },
+  {
+   "id": "696fd0bf2bbe981b76d5dde8",
+   "name": "Hasan Al Mamun Shourov",
+   "expertise": "BGS",
+   "bio": [
+    "University of Dhaka Women & Gender Studies"
+   ],
+   "image": "/images/img-112.jpg",
+   "alt": "Hasan Al Mamun Shourov"
+  },
+  {
+   "id": "6a2b1f54c05cfdfbede9245f",
+   "name": "Al Fahim",
+   "expertise": "Math & Higher Math",
+   "bio": [
+    "Math & Higher Math Instructor BUET-18 8 Years of Experience"
+   ],
+   "image": "/images/img-113.png",
+   "alt": "Al Fahim"
+  },
+  {
+   "id": "6a9827a30831b37438cfb0aa",
+   "name": "Amran Khan",
+   "expertise": "Commerce",
+   "bio": [
+    "BBA (Accounting) Dhaka University"
+   ],
+   "image": "/images/img-114.jpg",
+   "alt": "Amran Khan"
+  },
+  {
+   "id": "6ac74737e07187cc7d2c0d3d",
+   "name": "Mehedi Hasan Shanto",
+   "expertise": "Chemistry",
+   "bio": [
+    "BUET"
+   ],
+   "image": "/images/img-104.jpg",
+   "alt": "Mehedi Hasan Shanto"
+  }
+ ]
+}

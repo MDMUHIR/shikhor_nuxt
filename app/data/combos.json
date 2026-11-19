@@ -1,0 +1,643 @@
+[
+ {
+  "name": "EBI Basic To Pro 2.0 for HSC-28",
+  "alt": "EBI Basic To Pro 2.0 for HSC-28",
+  "image": "/images/img-059.jpg",
+  "courses": 3,
+  "courseNames": [
+   "Bangla Basic To Pro HSC-28",
+   "English Basic To Pro HSC-28",
+   "ICT Basic To Pro HSC-28"
+  ],
+  "price": "৳2990",
+  "original": "৳6000",
+  "save": "Save ৳3010",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-11-05T23:59:00.000Z",
+  "slug": "ebicombohsc28"
+ },
+ {
+  "name": "PCMB 1st Paper Combo Course HSC-28",
+  "alt": "PCMB 1st Paper Combo Course HSC-28",
+  "image": "/images/img-060.jpg",
+  "courses": 4,
+  "courseNames": [
+   "Physics 1st Paper Basic To Pro HSC-28",
+   "Chemistry 1st Paper Basic To Pro HSC-28",
+   "Higher Math 1st Paper Basic To Pro HSC-28",
+   "Biology 1st Paper Basic To Pro HSC-28"
+  ],
+  "price": "৳9990",
+  "original": "৳20000",
+  "save": "Save ৳10010",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-11-05T23:59:00.000Z",
+  "slug": "pcmb1hsc28"
+ },
+ {
+  "name": "FRPB-26 X MCQ & SQ Thunder Series for SCC-26",
+  "alt": "FRPB-26 X MCQ & SQ Thunder Series for SCC-26",
+  "image": "/images/img-061.jpeg",
+  "courses": 2,
+  "courseNames": [
+   "MCQ & SQ THUNDER SERIES 2.0 SSC-26",
+   "Final Revision Premium Batch for SSC 26 (FRPB-26) Science"
+  ],
+  "price": "৳2990",
+  "original": "৳3690",
+  "save": "Save ৳700",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-03-28T09:47:00.000Z",
+  "slug": "frpbandmcqsqthunder"
+ },
+ {
+  "name": "Science All in One Basic to Pro Combo Course CLASS 9",
+  "alt": "Science All in One Basic to Pro Combo Course CLASS 9",
+  "image": "/images/img-062.jpg",
+  "courses": 9,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO CLASS 9",
+   "CHEMISTRY BASIC TO PRO CLASS 9",
+   "GENERAL MATH BASIC TO PRO COURSE CLASS 9",
+   "HIGHER MATH BASIC TO PRO CLASS 9",
+   "BIOLOGY BASIC TO PRO CLASS 9",
+   "BGS BASIC TO PRO SSC 27 & 28",
+   "English Basic To Pro SSC 27 & 28",
+   "Bangla Basic To Pro SSC 27 & 28",
+   "ICT Basic To Pro SSC 27 & 28"
+  ],
+  "price": "৳11900",
+  "original": "৳16900",
+  "save": "Save ৳5000",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-25T23:59:00.000Z",
+  "slug": "scienceb2pclass9"
+ },
+ {
+  "name": "Science All in One Basic to Pro Combo Course SSC 2027",
+  "alt": "Science All in One Basic to Pro Combo Course SSC 2027",
+  "image": "/images/img-063.jpg",
+  "courses": 9,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO SSC 27",
+   "CHEMISTRY BASIC TO PRO SSC 27",
+   "GENERAL MATH BASIC TO PRO SSC 27",
+   "HIGHER MATH BASIC TO PRO SSC 27",
+   "BIOLOGY BASIC TO PRO SSC 27",
+   "BGS BASIC TO PRO SSC 27 & 28",
+   "English Basic To Pro SSC 27 & 28",
+   "Bangla Basic To Pro SSC 27 & 28",
+   "ICT Basic To Pro SSC 27 & 28"
+  ],
+  "price": "৳11900",
+  "original": "৳16900",
+  "save": "Save ৳5000",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-09-05T23:59:00.000Z",
+  "slug": "scienceb2pssc27"
+ },
+ {
+  "name": "PCMB 2nd Paper Combo Course HSC-28",
+  "alt": "PCMB 2nd Paper Combo Course HSC-28",
+  "image": "/images/img-064.jpg",
+  "courses": 4,
+  "courseNames": [
+   "Physics 2nd Paper Basic To Pro HSC-28",
+   "Chemistry 2nd Paper Basic To Pro HSC-28",
+   "Higher Math 2nd Paper Basic To Pro HSC-28",
+   "Biology 2nd Paper Basic To Pro HSC-28"
+  ],
+  "price": "৳9990",
+  "original": "৳20000",
+  "save": "Save ৳10010",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-11-05T23:59:00.000Z",
+  "slug": "pcmb2ndhsc28"
+ },
+ {
+  "name": "EBI ( ENGLISH,BANGLA,ICT ) BASIC TO PRO SSC 27 & 28",
+  "alt": "EBI ( ENGLISH,BANGLA,ICT ) BASIC TO PRO SSC 27 & 28",
+  "image": "/images/img-065.jpg",
+  "courses": 3,
+  "courseNames": [
+   "English Basic To Pro SSC 27 & 28",
+   "Bangla Basic To Pro SSC 27 & 28",
+   "ICT Basic To Pro SSC 27 & 28"
+  ],
+  "price": "৳3490",
+  "original": "৳5000",
+  "save": "Save ৳1510",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-25T23:59:00.000Z",
+  "slug": "ebib2pssc27"
+ },
+ {
+  "name": "Basic to Pro 3.0 x FRPB 27 Combo",
+  "alt": "Basic to Pro 3.0 x FRPB 27 Combo",
+  "image": "/images/img-066.jpg",
+  "courses": 10,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO SSC 27",
+   "CHEMISTRY BASIC TO PRO SSC 27",
+   "GENERAL MATH BASIC TO PRO SSC 27",
+   "HIGHER MATH BASIC TO PRO SSC 27",
+   "BIOLOGY BASIC TO PRO SSC 27",
+   "English Basic To Pro SSC 27 & 28",
+   "Bangla Basic To Pro SSC 27 & 28",
+   "ICT Basic To Pro SSC 27 & 28",
+   "BGS BASIC TO PRO SSC 27 & 28",
+   "Final Revision Premium Batch for SSC-27 (FRPB-27) Science"
+  ],
+  "price": "৳13900",
+  "original": "৳22100",
+  "save": "Save ৳8200",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-09-05T23:59:00.000Z",
+  "slug": "b2pfrpb27"
+ },
+ {
+  "name": "Physics & Chemistry Basic to Pro Combo course CLASS 9",
+  "alt": "Physics & Chemistry Basic to Pro Combo course CLASS 9",
+  "image": "/images/img-067.jpg",
+  "courses": 2,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO CLASS 9",
+   "CHEMISTRY BASIC TO PRO CLASS 9"
+  ],
+  "price": "৳2900",
+  "original": "৳4000",
+  "save": "Save ৳1100",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-25T23:59:00.000Z",
+  "slug": "pcb2pclass9"
+ },
+ {
+  "name": "Math & H.Math Basic To Pro Combo Course CLASS 9",
+  "alt": "Math & H.Math Basic To Pro Combo Course CLASS 9",
+  "image": "/images/img-068.jpg",
+  "courses": 2,
+  "courseNames": [
+   "GENERAL MATH BASIC TO PRO COURSE CLASS 9",
+   "HIGHER MATH BASIC TO PRO CLASS 9"
+  ],
+  "price": "৳3490",
+  "original": "৳4500",
+  "save": "Save ৳1010",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-25T23:59:00.000Z",
+  "slug": "gmhmb2pclass9"
+ },
+ {
+  "name": "Arts & Commerce Basic to Pro Combo Course CLASS 9",
+  "alt": "Arts & Commerce Basic to Pro Combo Course CLASS 9",
+  "image": "/images/img-069.jpg",
+  "courses": 5,
+  "courseNames": [
+   "GENERAL MATH BASIC TO PRO COURSE CLASS 9",
+   "GENERAL SCIENCE BASIC TO PRO SSC 27 & 28",
+   "English Basic To Pro SSC 27 & 28",
+   "Bangla Basic To Pro SSC 27 & 28",
+   "ICT Basic To Pro SSC 27 & 28"
+  ],
+  "price": "৳6500",
+  "original": "৳8800",
+  "save": "Save ৳2300",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-25T23:59:00.000Z",
+  "slug": "atrscommerceb2pclass9"
+ },
+ {
+  "name": "PCMBH (Physics, Chemistry, Math, Biology & H,Math ) Basic to Pro Combo Course CLASS 9",
+  "alt": "PCMBH (Physics, Chemistry, Math, Biology & H,Math ) Basic to Pro Combo Course CLASS 9",
+  "image": "/images/img-070.jpg",
+  "courses": 5,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO CLASS 9",
+   "CHEMISTRY BASIC TO PRO CLASS 9",
+   "GENERAL MATH BASIC TO PRO COURSE CLASS 9",
+   "HIGHER MATH BASIC TO PRO CLASS 9",
+   "BIOLOGY BASIC TO PRO CLASS 9"
+  ],
+  "price": "৳7490",
+  "original": "৳10300",
+  "save": "Save ৳2810",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-25T23:59:00.000Z",
+  "slug": "pcmbhb2pclass9"
+ },
+ {
+  "name": "Math & H.Math Basic To Pro Combo Course SSC 27",
+  "alt": "Math & H.Math Basic To Pro Combo Course SSC 27",
+  "image": "/images/img-071.jpg",
+  "courses": 2,
+  "courseNames": [
+   "HIGHER MATH BASIC TO PRO SSC 27",
+   "GENERAL MATH BASIC TO PRO SSC 27"
+  ],
+  "price": "৳3490",
+  "original": "৳4500",
+  "save": "Save ৳1010",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-09-05T23:59:00.000Z",
+  "slug": "gmhmb2pssc27"
+ },
+ {
+  "name": "Arts & Commerce Basic to Pro Combo Course SSC 27",
+  "alt": "Arts & Commerce Basic to Pro Combo Course SSC 27",
+  "image": "/images/img-072.jpg",
+  "courses": 5,
+  "courseNames": [
+   "GENERAL SCIENCE BASIC TO PRO SSC 27 & 28",
+   "GENERAL MATH BASIC TO PRO SSC 27",
+   "English Basic To Pro SSC 27 & 28",
+   "Bangla Basic To Pro SSC 27 & 28",
+   "ICT Basic To Pro SSC 27 & 28"
+  ],
+  "price": "৳6500",
+  "original": "৳8800",
+  "save": "Save ৳2300",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-09-05T23:59:00.000Z",
+  "slug": "atrscommerceb2pssc27"
+ },
+ {
+  "name": "PCMBH (Physics, Chemistry, Math, Biology & H,Math ) Basic to Pro Combo Course SSC 27",
+  "alt": "PCMBH (Physics, Chemistry, Math, Biology & H,Math ) Basic to Pro Combo Course SSC 27",
+  "image": "/images/img-073.jpg",
+  "courses": 5,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO SSC 27",
+   "CHEMISTRY BASIC TO PRO SSC 27",
+   "GENERAL MATH BASIC TO PRO SSC 27",
+   "HIGHER MATH BASIC TO PRO SSC 27",
+   "BIOLOGY BASIC TO PRO SSC 27"
+  ],
+  "price": "৳7490",
+  "original": "৳10300",
+  "save": "Save ৳2810",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-09-05T23:59:00.000Z",
+  "slug": "pcmbhb2pssc27"
+ },
+ {
+  "name": "Physics & Chemistry Basic to Pro Combo course SSC 27",
+  "alt": "Physics & Chemistry Basic to Pro Combo course SSC 27",
+  "image": "/images/img-074.jpg",
+  "courses": 2,
+  "courseNames": [
+   "PHYSICS BASIC TO PRO SSC 27",
+   "CHEMISTRY BASIC TO PRO SSC 27"
+  ],
+  "price": "৳2900",
+  "original": "৳4000",
+  "save": "Save ৳1100",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-09-05T23:59:00.000Z",
+  "slug": "pcb2pssc27"
+ },
+ {
+  "name": "HSC Higher Math 1st & 2nd Paper",
+  "alt": "HSC Higher Math 1st & 2nd Paper",
+  "image": "/images/img-075.jpg",
+  "courses": 2,
+  "courseNames": [
+   "Higher Math 1st Basic To Pro 2.0 Course - ব্যাচ অদম্য",
+   "Higher Math 2nd Basic To Pro 2.0 Course - ব্যাচ অদম্য HSC-27"
+  ],
+  "price": "৳4200",
+  "original": "৳4998",
+  "save": "Save ৳798",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-05T00:00:00.000Z",
+  "slug": "hschmath1st2nd"
+ },
+ {
+  "name": "HSC Biology 1st & 2nd Paper",
+  "alt": "HSC Biology 1st & 2nd Paper",
+  "image": "/images/img-076.jpg",
+  "courses": 2,
+  "courseNames": [
+   "HSC Biology 1st Paper Basic to Pro 2.0 Course - ব্যাচ অনির্বাণ",
+   "HSC Biology 2nd Paper Basic to Pro 2.0 Course - ব্যাচ অনির্বাণ HSC-27"
+  ],
+  "price": "৳4200",
+  "original": "৳4998",
+  "save": "Save ৳798",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-05T00:00:00.000Z",
+  "slug": "hscbiology1st2nd"
+ },
+ {
+  "name": "HSC Chemistry 1st & 2nd Paper",
+  "alt": "HSC Chemistry 1st & 2nd Paper",
+  "image": "/images/img-077.jpg",
+  "courses": 2,
+  "courseNames": [
+   "Chemisty 1st Paper Basic to Pro 2.0 Course - ব্যাচ প্রতীজ্ঞা",
+   "Chemistry 2nd Paper Basic to Pro 2.0 Course - ব্যাচ প্রতীজ্ঞা HSC-27"
+  ],
+  "price": "৳4200",
+  "original": "৳4998",
+  "save": "Save ৳798",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-05T00:00:00.000Z",
+  "slug": "hscchemistrys1st2nd"
+ },
+ {
+  "name": "HSC Physics 1st & 2nd Paper",
+  "alt": "HSC Physics 1st & 2nd Paper",
+  "image": "/images/img-078.jpg",
+  "courses": 2,
+  "courseNames": [
+   "Physics 1st Paper Do or Die X Basic to Pro 2.0",
+   "Physics 2nd Paper Do or Die X Basic to Pro 2.0 HSC-27"
+  ],
+  "price": "৳4200",
+  "original": "৳4998",
+  "save": "Save ৳798",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-05T00:00:00.000Z",
+  "slug": "hscphysics1st2nd"
+ },
+ {
+  "name": "HSC PCMB (Physics, Chemistry, H.Math, Biology) 2nd Paper Combo Course",
+  "alt": "HSC PCMB (Physics, Chemistry, H.Math, Biology) 2nd Paper Combo Course",
+  "image": "/images/img-079.jpg",
+  "courses": 4,
+  "courseNames": [
+   "Physics 2nd Paper Do or Die X Basic to Pro 2.0 HSC-27",
+   "Chemistry 2nd Paper Basic to Pro 2.0 Course - ব্যাচ প্রতীজ্ঞা HSC-27",
+   "Higher Math 2nd Basic To Pro 2.0 Course - ব্যাচ অদম্য HSC-27",
+   "HSC Biology 2nd Paper Basic to Pro 2.0 Course - ব্যাচ অনির্বাণ HSC-27"
+  ],
+  "price": "৳8400",
+  "original": "৳9996",
+  "save": "Save ৳1596",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-05T23:59:00.000Z",
+  "slug": "pcmb-combo-2ndpaper"
+ },
+ {
+  "name": "SSC Basic to Pro 2.0 × FRPB-26 Combo Course",
+  "alt": "SSC Basic to Pro 2.0 × FRPB-26 Combo Course",
+  "image": "/images/img-080.jpg",
+  "courses": 8,
+  "courseNames": [
+   "Final Revision Premium Batch for SSC 26 (FRPB-26) Science",
+   "SSC Physics Basic to Pro 2.0",
+   "SSC Chemistry Basic to Pro Course 2.0",
+   "SSC Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Higher Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Biology Basic to Pro 2.0",
+   "SSC English 1st & 2nd Basic to Pro 2.0",
+   "SSC ICT Basic to Pro 2.0 Course"
+  ],
+  "price": "৳8990",
+  "original": "৳10538",
+  "save": "Save ৳1548",
+  "coupon": "BD500",
+  "couponOff": "৳500 off",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "b2p_frpb26combo"
+ },
+ {
+  "name": "SSC All In One Basic to Pro 2.0 Combo Course",
+  "alt": "SSC All In One Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-081.jpg",
+  "courses": 7,
+  "courseNames": [
+   "SSC Physics Basic to Pro 2.0",
+   "SSC Chemistry Basic to Pro Course 2.0",
+   "SSC Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Higher Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Biology Basic to Pro 2.0",
+   "SSC English 1st & 2nd Basic to Pro 2.0",
+   "SSC ICT Basic to Pro 2.0 Course"
+  ],
+  "price": "৳6999",
+  "original": "৳8048",
+  "save": "Save ৳1049",
+  "coupon": "BD400",
+  "couponOff": "৳400 off",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "6889269df66fee99adae8793"
+ },
+ {
+  "name": "SSC Math, English & ICT Basic to Pro 2.0 Combo Course",
+  "alt": "SSC Math, English & ICT Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-082.jpg",
+  "courses": 3,
+  "courseNames": [
+   "SSC Math Basic to Pro 2.0 Course ( Live)",
+   "SSC English 1st & 2nd Basic to Pro 2.0",
+   "SSC ICT Basic to Pro 2.0 Course"
+  ],
+  "price": "৳2799",
+  "original": "৳2999",
+  "save": "Save ৳200",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "6888cb41f66fee99adab6cab"
+ },
+ {
+  "name": "SSC Science Bundle Basic to Pro 2.0 Combo Course",
+  "alt": "SSC Science Bundle Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-083.jpg",
+  "courses": 5,
+  "courseNames": [
+   "SSC Physics Basic to Pro 2.0",
+   "SSC Chemistry Basic to Pro Course 2.0",
+   "SSC Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Higher Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Biology Basic to Pro 2.0"
+  ],
+  "price": "৳5499",
+  "original": "৳6299",
+  "save": "Save ৳800",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "6888c747f66fee99adab4958"
+ },
+ {
+  "name": "HSC Physics & ICT Basic to Pro 2.0 Combo Course",
+  "alt": "HSC Physics & ICT Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-084.jpg",
+  "courses": 2,
+  "courseNames": [
+   "Physics 1st Paper Do or Die X Basic to Pro 2.0",
+   "HSC ICT Basic to Pro 2.0 Course"
+  ],
+  "price": "৳3299",
+  "original": "৳3999",
+  "save": "Save ৳700",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "687b708fc516a29fc1cf21bc"
+ },
+ {
+  "name": "HSC EBI (English, Bangla, ICT) Combo Course",
+  "alt": "HSC EBI (English, Bangla, ICT) Combo Course",
+  "image": "/images/img-085.jpg",
+  "courses": 3,
+  "courseNames": [
+   "HSC ICT Basic to Pro 2.0 Course",
+   "HSC English 1st & 2nd Basic to Pro 2.0 Course",
+   "HSC Bangla 1st & 2nd Basic to Pro 2.0 Course"
+  ],
+  "price": "৳2999",
+  "original": "৳3750",
+  "save": "Save ৳751",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-01-10T23:59:00.000Z",
+  "slug": "687b6e0fc516a29fc1cf17a1"
+ },
+ {
+  "name": "HSC PCMB (Physics, Chemistry, H.Math, Biology) 1st Paper Combo Course",
+  "alt": "HSC PCMB (Physics, Chemistry, H.Math, Biology) 1st Paper Combo Course",
+  "image": "/images/img-086.png",
+  "courses": 4,
+  "courseNames": [
+   "Physics 1st Paper Do or Die X Basic to Pro 2.0",
+   "Chemisty 1st Paper Basic to Pro 2.0 Course - ব্যাচ প্রতীজ্ঞা",
+   "Higher Math 1st Basic To Pro 2.0 Course - ব্যাচ অদম্য",
+   "HSC Biology 1st Paper Basic to Pro 2.0 Course - ব্যাচ অনির্বাণ"
+  ],
+  "price": "৳8400",
+  "original": "৳9996",
+  "save": "Save ৳1596",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": "2026-10-05T23:59:00.000Z",
+  "slug": "pcmb-combo"
+ },
+ {
+  "name": "SSC Physics & Chemistry Basic to Pro 2.0 Combo Course",
+  "alt": "SSC Physics & Chemistry Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-087.jpg",
+  "courses": 2,
+  "courseNames": [
+   "SSC Physics Basic to Pro 2.0",
+   "SSC Chemistry Basic to Pro Course 2.0"
+  ],
+  "price": "৳2399",
+  "original": "৳2549",
+  "save": "Save ৳150",
+  "coupon": "PC150",
+  "couponOff": "৳150 off",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": ""
+ },
+ {
+  "name": "SSC PCB (Physics, Chemistry, Biology) Basic to Pro 2.0 Combo Course",
+  "alt": "SSC PCB (Physics, Chemistry, Biology) Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-088.jpg",
+  "courses": 3,
+  "courseNames": [
+   "SSC Physics Basic to Pro 2.0",
+   "SSC Chemistry Basic to Pro Course 2.0",
+   "SSC Biology Basic to Pro 2.0"
+  ],
+  "price": "৳3299",
+  "original": "৳3799",
+  "save": "Save ৳500",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "687b5c00c516a29fc1ced6b2"
+ },
+ {
+  "name": "SSC Math & H.Math Basic to Pro 2.0 Combo Course",
+  "alt": "SSC Math & H.Math Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-089.jpg",
+  "courses": 2,
+  "courseNames": [
+   "SSC Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Higher Math Basic to Pro 2.0 Course ( Live)"
+  ],
+  "price": "৳2399",
+  "original": "৳2500",
+  "save": "Save ৳101",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "6878f4fa3f6d91b728cbe71e"
+ },
+ {
+  "name": "SSC (Science Bundle + English) Basic to Pro 2.0 Combo Course",
+  "alt": "SSC (Science Bundle + English) Basic to Pro 2.0 Combo Course",
+  "image": "/images/img-090.jpg",
+  "courses": 6,
+  "courseNames": [
+   "SSC Physics Basic to Pro 2.0",
+   "SSC Chemistry Basic to Pro Course 2.0",
+   "SSC Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Higher Math Basic to Pro 2.0 Course ( Live)",
+   "SSC Biology Basic to Pro 2.0",
+   "SSC English 1st & 2nd Basic to Pro 2.0"
+  ],
+  "price": "৳6499",
+  "original": "৳7549",
+  "save": "Save ৳1050",
+  "coupon": "",
+  "couponOff": "",
+  "prebook": false,
+  "prebookEndsAt": null,
+  "slug": "6878f2c73f6d91b728cbdcf6"
+ }
+]

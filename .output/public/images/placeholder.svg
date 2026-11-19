@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#EAF4FB"/>
+  <path d="M0 360L200 220L360 330L540 180L800 360V450H0V360Z" fill="#CFE8F7"/>
+  <circle cx="640" cy="110" r="54" fill="#B7DDF2"/>
+  <path d="M400 210L470 250V320L400 360L330 320V250L400 210Z" fill="#0a7cc9" opacity="0.35"/>
+  <text x="400" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#4B7C9E">Shikhor Academy</text>
+</svg>

@@ -1,0 +1,214 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Baloo Da 2';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/f64f5dfd7248e036-s.7330a21b.woff2') format('woff2');
+  unicode-range: U+951-952, U+964-965, U+980-9FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8,
+    U+1CE1, U+1CEA, U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1,
+    U+11DF0-11DF1;
+}
+@font-face {
+  font-family: 'Baloo Da 2';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/79fdda6efef3fea3-s.5f902940.woff2') format('woff2');
+  unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301,
+    U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Baloo Da 2';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/059d31d45ade7a86-s.c1ea9743.woff2') format('woff2');
+  unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Baloo Da 2';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/d10b92d238bba671-s.p.059c394b.woff2') format('woff2');
+  unicode-range: U+??, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Baloo Da 2 Fallback';
+  src: local(Arial);
+  ascent-override: 114.32%;
+  descent-override: 61.49%;
+  line-gap-override: 0%;
+  size-adjust: 95.78%;
+}
+
+@theme {
+  --color-oc-primary: #0a7cc9;
+  --color-brand: #0a7cc9;
+  --color-brand-dark: #075f9a;
+  --color-brand-light: #e6f3fb;
+  --color-ink: #1f2937;
+  --font-sans: 'Baloo Da 2', 'Baloo Da 2 Fallback', Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  html,
+  body {
+    overflow-x: hidden;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-style: normal;
+    color: #374053;
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+  img {
+    background-color: #f3f4f6;
+  }
+}
+
+/* Shared form controls */
+@layer components {
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-gray-700;
+  }
+  .field-input {
+    @apply w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-800 shadow-sm transition placeholder:text-gray-400 focus:border-oc-primary focus:ring-2 focus:ring-oc-primary/20 focus:outline-none disabled:bg-gray-50 disabled:text-gray-500;
+  }
+  .field-error {
+    @apply mt-1 text-xs font-medium text-rose-600;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-oc-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-oc-primary/40 hover:text-oc-primary disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900;
+  }
+  .card {
+    @apply rounded-2xl border border-gray-100 bg-white shadow-sm;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset;
+  }
+  .prose-content {
+    @apply text-[15px] leading-7 text-gray-700;
+  }
+  .prose-content h1,
+  .prose-content h2,
+  .prose-content h3,
+  .prose-content h4 {
+    @apply mt-6 mb-2 font-bold text-gray-900;
+  }
+  .prose-content h1 {
+    @apply text-2xl;
+  }
+  .prose-content h2 {
+    @apply text-xl;
+  }
+  .prose-content h3 {
+    @apply text-lg;
+  }
+  .prose-content p {
+    @apply mb-4;
+  }
+  .prose-content ul {
+    @apply mb-4 list-disc space-y-1 pl-6;
+  }
+  .prose-content ol {
+    @apply mb-4 list-decimal space-y-1 pl-6;
+  }
+  .prose-content a {
+    @apply text-oc-primary underline;
+  }
+  .prose-content img {
+    @apply my-4 max-w-full rounded-xl;
+  }
+}
+
+/* Reviews marquee */
+.marquee-row {
+  overflow: hidden;
+}
+.marquee-track {
+  width: max-content;
+  display: flex;
+}
+.marquee-left {
+  animation: scroll-left 45s linear infinite;
+}
+.marquee-right {
+  animation: scroll-right 50s linear infinite;
+}
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes scroll-left {
+  0% {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(-50%);
+  }
+}
+@keyframes scroll-right {
+  0% {
+    transform: translate(-50%);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+
+@keyframes hero-progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.hero-progress {
+  animation: hero-progress 5s linear forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in {
+  animation: fade-in 0.25s ease-out both;
+}
