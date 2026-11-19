@@ -1,4 +1,4 @@
-<script setup lang="ts">
+ <script setup lang="ts">
 const route = useRoute()
 const router = useRouter()
 const { user, isAuthenticated, isAdmin, logout } = useAuth()
