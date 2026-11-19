@@ -3,51 +3,51 @@ import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { isMainThread, parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestProtocol, getRequestHost, getRequestURL, readRawBody, getRequestHeader, isError, setResponseHeaders, setResponseStatus, send, setResponseHeader, appendResponseHeader, getResponseHeader, getRequestHeaders, removeResponseHeader, writeEarlyHints, getQuery as getQuery$1, getRequestWebStream, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody, getCookie, setCookie, deleteCookie, setHeader, getRequestIP, toWebRequest } from 'file://D:/Shikhor_frontend/node_modules/h3/dist/index.mjs';
-import { escapeHtml } from 'file://D:/Shikhor_frontend/node_modules/@vue/shared/dist/shared.cjs.js';
-import viteNodeEntry_mjs from 'file:///D:/Shikhor_frontend/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
-import { viteNodeFetch } from 'file:///D:/Shikhor_frontend/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
-import { stringify, uneval } from 'file://D:/Shikhor_frontend/node_modules/devalue/src/index.js';
-import { parseURL, withQuery, getQuery, withoutBase, joinURL, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, joinRelativeURL } from 'file://D:/Shikhor_frontend/node_modules/ufo/dist/index.mjs';
-import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://D:/Shikhor_frontend/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import destr, { destr as destr$1 } from 'file://D:/Shikhor_frontend/node_modules/destr/dist/index.mjs';
-import { createHead as createHead$1, propsToString, renderSSRHead } from 'file://D:/Shikhor_frontend/node_modules/unhead/dist/server.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestProtocol, getRequestHost, getRequestURL, readRawBody, getRequestHeader, isError, setResponseHeaders, setResponseStatus, send, setResponseHeader, appendResponseHeader, getResponseHeader, getRequestHeaders, removeResponseHeader, writeEarlyHints, getQuery as getQuery$1, getRequestWebStream, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody, getCookie, setCookie, deleteCookie, setHeader, getRequestIP, toWebRequest } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/h3/dist/index.mjs';
+import { escapeHtml } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@vue/shared/dist/shared.cjs.js';
+import viteNodeEntry_mjs from 'file:///C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
+import { viteNodeFetch } from 'file:///C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
+import { stringify, uneval } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/devalue/src/index.js';
+import { parseURL, withQuery, getQuery, withoutBase, joinURL, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, joinRelativeURL } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/ufo/dist/index.mjs';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import destr, { destr as destr$1 } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/destr/dist/index.mjs';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unhead/dist/server.mjs';
 import { existsSync, readFileSync, promises } from 'node:fs';
 import process$1 from 'node:process';
-import { klona } from 'file://D:/Shikhor_frontend/node_modules/klona/dist/index.mjs';
-import defu, { defuFn, defu as defu$1 } from 'file://D:/Shikhor_frontend/node_modules/defu/dist/defu.mjs';
-import { snakeCase } from 'file://D:/Shikhor_frontend/node_modules/scule/dist/index.mjs';
-import { createHooks } from 'file://D:/Shikhor_frontend/node_modules/nitropack/node_modules/hookable/dist/index.mjs';
-import { createFetch, Headers as Headers$1 } from 'file://D:/Shikhor_frontend/node_modules/ofetch/dist/node.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file://D:/Shikhor_frontend/node_modules/node-mock-http/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file://D:/Shikhor_frontend/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file://D:/Shikhor_frontend/node_modules/unstorage/drivers/fs.mjs';
-import { digest } from 'file://D:/Shikhor_frontend/node_modules/ohash/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file://D:/Shikhor_frontend/node_modules/radix3/dist/index.mjs';
+import { klona } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/klona/dist/index.mjs';
+import defu, { defuFn, defu as defu$1 } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/defu/dist/defu.mjs';
+import { snakeCase } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/scule/dist/index.mjs';
+import { createHooks } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/nitropack/node_modules/hookable/dist/index.mjs';
+import { createFetch, Headers as Headers$1 } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/ofetch/dist/node.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/node-mock-http/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unstorage/drivers/fs.mjs';
+import { digest } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/ohash/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/radix3/dist/index.mjs';
 import { readFile } from 'node:fs/promises';
-import consola, { consola as consola$1 } from 'file://D:/Shikhor_frontend/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file://D:/Shikhor_frontend/node_modules/youch-core/build/index.js';
-import { Youch } from 'file://D:/Shikhor_frontend/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file://D:/Shikhor_frontend/node_modules/source-map/source-map.js';
-import { defineDiagnostics, createConsoleReporter } from 'file://D:/Shikhor_frontend/node_modules/nostics/dist/index.mjs';
-import { ansiFormatter } from 'file://D:/Shikhor_frontend/node_modules/nostics/dist/formatters/ansi.mjs';
+import consola, { consola as consola$1 } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/consola/dist/index.mjs';
+import { ErrorParser } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/youch-core/build/index.js';
+import { Youch } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/youch/build/index.js';
+import { SourceMapConsumer } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/source-map/source-map.js';
+import { defineDiagnostics, createConsoleReporter } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/nostics/dist/index.mjs';
+import { ansiFormatter } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/nostics/dist/formatters/ansi.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { getContext } from 'file://D:/Shikhor_frontend/node_modules/unctx/dist/index.mjs';
-import { captureRawStackTrace, parseRawStackTrace } from 'file://D:/Shikhor_frontend/node_modules/errx/dist/index.mjs';
-import { isRef, toValue, isVNode } from 'file://D:/Shikhor_frontend/node_modules/vue/index.mjs';
-import _StfgDX6HjQkUJ8T_pEJ66TyWUH9Twazsb5HkQNnED2I from 'file://D:/Shikhor_frontend/node_modules/@nuxt/cli/runtime/dev-close-sockets.mjs';
+import { getContext } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unctx/dist/index.mjs';
+import { captureRawStackTrace, parseRawStackTrace } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/errx/dist/index.mjs';
+import { isRef, toValue, isVNode } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/vue/index.mjs';
+import _Bmzr5rMz3A3Rkdf72VL6ShYc7KG9MwKihEmgHUGMU from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/cli/runtime/dev-close-sockets.mjs';
 import dc from 'node:diagnostics_channel';
 import { formatWithOptions } from 'node:util';
-import _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU from 'file:///D:/Shikhor_frontend/node_modules/@nuxt/vite-builder/dist/ssr-sourcemap.mjs';
-import _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs from 'file:///D:/Shikhor_frontend/node_modules/@nuxt/vite-builder/dist/vite-node-warmup.mjs';
+import _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU from 'file:///C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/vite-builder/dist/ssr-sourcemap.mjs';
+import _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs from 'file:///C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/vite-builder/dist/vite-node-warmup.mjs';
 import { fileURLToPath } from 'node:url';
-import { dirname as dirname$1, resolve as resolve$1 } from 'file://D:/Shikhor_frontend/node_modules/pathe/dist/index.mjs';
-import { resolveTags, walkResolver } from 'file://D:/Shikhor_frontend/node_modules/unhead/dist/utils.mjs';
-import { PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin, SafeInputPlugin } from 'file://D:/Shikhor_frontend/node_modules/unhead/dist/plugins.mjs';
-import { renderToString } from 'file://D:/Shikhor_frontend/node_modules/vue/server-renderer/index.mjs';
-import { DeprecationsPlugin } from 'file://D:/Shikhor_frontend/node_modules/unhead/dist/legacy.mjs';
+import { dirname as dirname$1, resolve as resolve$1 } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/pathe/dist/index.mjs';
+import { resolveTags, walkResolver } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unhead/dist/utils.mjs';
+import { PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin, SafeInputPlugin } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unhead/dist/plugins.mjs';
+import { renderToString } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/vue/server-renderer/index.mjs';
+import { DeprecationsPlugin } from 'file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/unhead/dist/legacy.mjs';
 
-const serverAssets = [{"baseName":"server","dir":"D:/Shikhor_frontend/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"C:/Users/mdmuhir/Desktop/shikhor_nuxt/server/assets"}];
 
 const assets$1 = createStorage();
 
@@ -59,11 +59,11 @@ const storage$1 = createStorage({});
 
 storage$1.mount('/assets', assets$1);
 
-storage$1.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"D:/Shikhor_frontend","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","D:/Shikhor_frontend/vendor","**/node-compile-cache","**/test-results","**/*.sock","D:/Shikhor_frontend/.nuxt/analyze","**/.nuxt","**/-*.*"]}));
-storage$1.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"D:/Shikhor_frontend/server","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","**/node-compile-cache","**/test-results","**/*.sock","**/-*.*"]}));
-storage$1.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"D:/Shikhor_frontend/.nuxt"}));
-storage$1.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"D:/Shikhor_frontend/.nuxt/cache"}));
-storage$1.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"D:/Shikhor_frontend/.data/kv"}));
+storage$1.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/Users/mdmuhir/Desktop/shikhor_nuxt","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","C:/Users/mdmuhir/Desktop/shikhor_nuxt/vendor","**/node-compile-cache","**/test-results","**/*.sock","C:/Users/mdmuhir/Desktop/shikhor_nuxt/.nuxt/analyze","**/.nuxt","**/-*.*"]}));
+storage$1.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/Users/mdmuhir/Desktop/shikhor_nuxt/server","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","**/node-compile-cache","**/test-results","**/*.sock","**/-*.*"]}));
+storage$1.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/Users/mdmuhir/Desktop/shikhor_nuxt/.nuxt"}));
+storage$1.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/Users/mdmuhir/Desktop/shikhor_nuxt/.nuxt/cache"}));
+storage$1.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"C:/Users/mdmuhir/Desktop/shikhor_nuxt/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage$1, base) : storage$1;
@@ -732,12 +732,12 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "appSecret": "08b7758ec97133223658181fd6bd6af8a8778d6d186e21b762d2af9a3d59aecc",
+  "appSecret": "50ac59f09c744d26fac539e67fcc06b30fe47120045c82846810626b031c73ab",
   "public": {
-    "mediaUrl": "http://127.0.0.1:8000",
+    "mediaUrl": "http://192.168.0.104:8000",
     "siteUrl": "http://localhost:3000"
   },
-  "apiUrl": "http://127.0.0.1:8000"
+  "apiUrl": "http://192.168.0.104:8000"
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -1340,7 +1340,7 @@ const renderSSRHeadOptions = {"omitLineBreaks":true};
 
 const NUXT_PRERENDER_NO_SSR_ROUTES = ["/index.html","/200.html","/404.html"];
 const NUXT_NO_SCRIPTS_PATTERNS = [];
-const NUXT_PAGE_PATTERNS = ["/courses","/exams","/instructors","/learn","/"];
+const NUXT_PAGE_PATTERNS = ["/admin/courses/:id","/admin/orders/:id","/admin/products/:slug","/admin/banners","/admin/blog-categories","/admin/blog-tags","/admin/blogs","/admin/categories","/admin/certificates","/admin/coupons","/admin/course-categories","/admin/courses","/admin/delivery-charges","/admin/enrollments","/admin/orders","/admin/products","/admin/reviews","/admin/users","/certificates/verify","/certificates/verify/:number","/blog/:id","/courses/:slug","/learn/:slug","/orders/:id","/quizzes/:id","/quizzes/:id/result/:attemptId","/store/:slug","/admin","/blog","/cart","/certificates","/checkout","/courses","/login","/my-courses","/orders","/profile","/register","/reviews","/store","/wishlist","/*","/"];
 const NUXT_SSR_STREAMING = false;
 const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Shikhor Academy is a comprehensive online learning platform with expert-led courses, practical quizzes, certificates and a curated store. Learn anytime, anywhere."}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"htmlAttrs":{"lang":"en"},"title":"Shikhor Academy"};
 const appRootTag = "div";
@@ -1804,8 +1804,8 @@ const serverDiagnostics = /* #__PURE__ */ defineDiagnostics({
 	}
 });
 
-const rootDir = "D:/Shikhor_frontend";
-const srcDir = "D:/Shikhor_frontend/app";
+const rootDir = "C:/Users/mdmuhir/Desktop/shikhor_nuxt";
+const srcDir = "C:/Users/mdmuhir/Desktop/shikhor_nuxt/app";
 
 // src/runtime/plugins/dev-server-logs.ts
 const devReducers = {
@@ -1905,7 +1905,7 @@ const storage = new AsyncLocalStorage();
 
 let spanChannel;
 
-function _mNO6H40IcylkSCeVBNPV04mtQcNDer8so3qn5_xqv2Y (nitroApp) {
+function _0RPdwIflFWmgY_cxQmnFkUEBf6CyAf2QnLvCoAa2I (nitroApp) {
   try {
     trackRequests(nitroApp);
     reportLogs();
@@ -2205,7 +2205,7 @@ function setErrorChannelForwarding(forward) {
 /** The live error channel, forwarding to the dev server in front when there is one. */
 function useErrorChannel$1() {
 	const store = globalThis;
-	store[CHANNEL_KEY] ||= isForwarding() ? Promise.resolve(createForwardingChannel()) : import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/channel/index.mjs').then(({ createChannel }) => createOwnedChannel(createChannel({ open: true })));
+	store[CHANNEL_KEY] ||= isForwarding() ? Promise.resolve(createForwardingChannel()) : import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/channel/index.mjs').then(({ createChannel }) => createOwnedChannel(createChannel({ open: true })));
 	return store[CHANNEL_KEY];
 }
 /** The `BroadcastChannel` reports travel between threads on, which must not hold the process open. It drops every message where none can be opened. */
@@ -2359,7 +2359,7 @@ function thrownContext(error) {
 * `error.stack`, as frames are mapped by the loaders rather than read off the stack.
 */
 async function createErrorReport$1(error, options) {
-	const [{ createReport, fsLoader }, { nuxtPreset }] = await Promise.all([import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/index.mjs'), import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/presets/index.mjs')]);
+	const [{ createReport, fsLoader }, { nuxtPreset }] = await Promise.all([import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/index.mjs'), import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/presets/index.mjs')]);
 	return withoutEchoingCauses(await createReport(error, {
 		cwd: options.cwd,
 		loaders: [...options.loaders ?? [], fsLoader()],
@@ -2372,7 +2372,7 @@ async function createErrorReport$1(error, options) {
 }
 /** Add the error overlay to an already-rendered page. */
 async function withErrorOverlay(html, report, options) {
-	const [{ injectOverlay }, { nuxtTheme }] = await Promise.all([import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/index.mjs'), import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/presets/index.mjs')]);
+	const [{ injectOverlay }, { nuxtTheme }] = await Promise.all([import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/index.mjs'), import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/presets/index.mjs')]);
 	return injectOverlay(html, report, {
 		cwd: options.cwd,
 		channel: options.channel,
@@ -2384,7 +2384,7 @@ async function withErrorOverlay(html, report, options) {
 }
 /** Render a standalone error page, for when the app itself cannot render one. */
 async function renderErrorPage(report, options) {
-	const [{ renderPage }, { nuxtTheme }] = await Promise.all([import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/index.mjs'), import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/presets/index.mjs')]);
+	const [{ renderPage }, { nuxtTheme }] = await Promise.all([import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/index.mjs'), import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/presets/index.mjs')]);
 	return renderPage(report, {
 		cwd: options.cwd,
 		channel: options.channel,
@@ -2394,7 +2394,7 @@ async function renderErrorPage(report, options) {
 }
 /** Render a report for the terminal. It carries its own icon and colours. */
 async function renderErrorAnsi(report, options) {
-	const { renderAnsi } = await import('file://D:/Shikhor_frontend/node_modules/my-bad/dist/index.mjs');
+	const { renderAnsi } = await import('file://C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/my-bad/dist/index.mjs');
 	return renderAnsi(withoutEchoingCauses(report), { cwd: options.cwd });
 }
 /** Print a report to the terminal, falling back to the raw error when it cannot be rendered. */
@@ -2639,29 +2639,14 @@ function toLogLevel(logObject) {
 const plugins = [
   route_rules_default,
 dev_server_logs_default,
-_StfgDX6HjQkUJ8T_pEJ66TyWUH9Twazsb5HkQNnED2I,
-_mNO6H40IcylkSCeVBNPV04mtQcNDer8so3qn5_xqv2Y,
+_Bmzr5rMz3A3Rkdf72VL6ShYc7KG9MwKihEmgHUGMU,
+_0RPdwIflFWmgY_cxQmnFkUEBf6CyAf2QnLvCoAa2I,
 dev_errors_default,
 _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU,
 _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs
 ];
 
-const assets = {
-  "/index.mjs": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"288a6-3KreYYIq+pmyYmzVR/xJpWNawpA\"",
-    "mtime": "2026-11-18T18:36:44.046Z",
-    "size": 166054,
-    "path": "index.mjs"
-  },
-  "/index.mjs.map": {
-    "type": "application/json",
-    "etag": "\"93f6e-rLYZOYM+SsSd+ZwaLjf8r3rLAbI\"",
-    "mtime": "2026-11-18T18:36:44.046Z",
-    "size": 606062,
-    "path": "index.mjs.map"
-  }
-};
+const assets = {};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -2690,7 +2675,7 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _LbeXgT = eventHandler((event) => {
+const _wKOP_x = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
@@ -3571,29 +3556,29 @@ async function getIslandContext(event) {
 	};
 }
 
-const _lazy_Q18rY2 = () => Promise.resolve().then(function () { return login_post$1; });
-const _lazy_FqQZ0R = () => Promise.resolve().then(function () { return logout_post$1; });
-const _lazy_oTkL9A = () => Promise.resolve().then(function () { return me_get$1; });
-const _lazy_Cg3ddg = () => Promise.resolve().then(function () { return register_post$1; });
-const _lazy_bAX00r = () => Promise.resolve().then(function () { return ____path_$1; });
-const _lazy_zWNROd = () => Promise.resolve().then(function () { return robots_txt$1; });
-const _lazy_vMSat7 = () => Promise.resolve().then(function () { return sitemap_xml$1; });
-const _lazy_tGnIqH = () => Promise.resolve().then(function () { return renderer$1; });
-const _lazy_4DyOJg = () => Promise.resolve().then(function () { return errorChannel; });
+const _lazy_OGcAQN = () => Promise.resolve().then(function () { return login_post$1; });
+const _lazy_qSXzlx = () => Promise.resolve().then(function () { return logout_post$1; });
+const _lazy_MZusFB = () => Promise.resolve().then(function () { return me_get$1; });
+const _lazy_w6SgkA = () => Promise.resolve().then(function () { return register_post$1; });
+const _lazy_ceUirC = () => Promise.resolve().then(function () { return ____path_$1; });
+const _lazy_iRsDm4 = () => Promise.resolve().then(function () { return robots_txt$1; });
+const _lazy_XdLenc = () => Promise.resolve().then(function () { return sitemap_xml$1; });
+const _lazy_miC_2N = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_9bwxeK = () => Promise.resolve().then(function () { return errorChannel; });
 
 const handlers = [
-  { route: '', handler: _LbeXgT, lazy: false, middleware: true, method: undefined },
-  { route: '/api/auth/login', handler: _lazy_Q18rY2, lazy: true, middleware: false, method: "post" },
-  { route: '/api/auth/logout', handler: _lazy_FqQZ0R, lazy: true, middleware: false, method: "post" },
-  { route: '/api/auth/me', handler: _lazy_oTkL9A, lazy: true, middleware: false, method: "get" },
-  { route: '/api/auth/register', handler: _lazy_Cg3ddg, lazy: true, middleware: false, method: "post" },
-  { route: '/api/proxy/**:path', handler: _lazy_bAX00r, lazy: true, middleware: false, method: undefined },
-  { route: '/robots.txt', handler: _lazy_zWNROd, lazy: true, middleware: false, method: undefined },
-  { route: '/sitemap.xml', handler: _lazy_vMSat7, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_tGnIqH, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_dev__/error/**', handler: _lazy_4DyOJg, lazy: true, middleware: false, method: undefined },
+  { route: '', handler: _wKOP_x, lazy: false, middleware: true, method: undefined },
+  { route: '/api/auth/login', handler: _lazy_OGcAQN, lazy: true, middleware: false, method: "post" },
+  { route: '/api/auth/logout', handler: _lazy_qSXzlx, lazy: true, middleware: false, method: "post" },
+  { route: '/api/auth/me', handler: _lazy_MZusFB, lazy: true, middleware: false, method: "get" },
+  { route: '/api/auth/register', handler: _lazy_w6SgkA, lazy: true, middleware: false, method: "post" },
+  { route: '/api/proxy/**:path', handler: _lazy_ceUirC, lazy: true, middleware: false, method: undefined },
+  { route: '/robots.txt', handler: _lazy_iRsDm4, lazy: true, middleware: false, method: undefined },
+  { route: '/sitemap.xml', handler: _lazy_XdLenc, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_miC_2N, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_dev__/error/**', handler: _lazy_9bwxeK, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_tGnIqH, lazy: true, middleware: false, method: undefined }
+  { route: '/**', handler: _lazy_miC_2N, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
