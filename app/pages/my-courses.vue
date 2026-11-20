@@ -5,6 +5,13 @@ definePageMeta({ middleware: 'auth' })
 
 const { apiData } = useApi()
 
+interface DashboardData {
+  stats: { enrolled_courses: number; active_courses: number; completed_courses: number; certificates: number; lessons_completed: number; unread_notifications: number }
+  continue_learning: Array<{ enrollment_id: number; progress_percentage: number; course: { id: number; title: string; slug: string; thumbnail: string | null } | null; resume_lesson: { id: number; title: string } | null }>
+}
+
+const { data: dashboard } = await useAsyncData('my-dashboard', () => apiData<DashboardData>('/my/dashboard').catch(() => null))
+
 const { data: courses, pending, error, refresh } = await useAsyncData('my-courses-page', async () => {
   const list = await apiData<MyCourse[]>('/my/courses')
   return list ?? []
@@ -46,6 +53,32 @@ useSeoMeta({ title: 'My courses — Shikhor Academy', robots: 'noindex' })
         <NuxtLink to="/courses" class="btn-primary"><BaseIcon name="book-open" :size="16" /> Browse courses</NuxtLink>
       </div>
     </div>
+
+    <div v-if="dashboard" class="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+      <div class="card p-4"><p class="text-2xl font-extrabold text-gray-900">{{ dashboard.stats.active_courses }}</p><p class="text-xs text-gray-500">Active courses</p></div>
+      <div class="card p-4"><p class="text-2xl font-extrabold text-gray-900">{{ dashboard.stats.completed_courses }}</p><p class="text-xs text-gray-500">Completed</p></div>
+      <div class="card p-4"><p class="text-2xl font-extrabold text-gray-900">{{ dashboard.stats.lessons_completed }}</p><p class="text-xs text-gray-500">Lessons done</p></div>
+      <NuxtLink to="/certificates" class="card p-4"><p class="text-2xl font-extrabold text-gray-900">{{ dashboard.stats.certificates }}</p><p class="text-xs text-gray-500">Certificates</p></NuxtLink>
+    </div>
+
+    <section v-if="dashboard?.continue_learning?.length" class="mt-5">
+      <h2 class="text-sm font-bold text-gray-900">Continue learning</h2>
+      <div class="mt-2 grid gap-3 md:grid-cols-2">
+        <NuxtLink
+          v-for="item in dashboard.continue_learning"
+          :key="item.enrollment_id"
+          :to="`/learn/${item.course?.slug}${item.resume_lesson ? `?lesson=${item.resume_lesson.id}` : ''}`"
+          class="card flex items-center gap-3 p-3 hover:border-oc-primary"
+        >
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-sm font-semibold text-gray-800">{{ item.course?.title }}</p>
+            <p class="truncate text-[11px] text-gray-500">{{ item.resume_lesson ? `Resume: ${item.resume_lesson.title}` : 'Start learning' }}</p>
+            <div class="mt-2 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-oc-primary" :style="{ width: `${Math.min(100, Number(item.progress_percentage))}%` }" /></div>
+          </div>
+          <BaseIcon name="arrow-right" :size="16" class="text-oc-primary" />
+        </NuxtLink>
+      </div>
+    </section>
 
     <div class="mt-5 flex flex-wrap gap-1.5">
       <button

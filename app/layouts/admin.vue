@@ -6,14 +6,15 @@ const sidebarOpen = ref(false)
 const signingOut = ref(false)
 const initials = computed(() => initial(user?.value?.name))
 
-const nav = [
+const allNav = [
   { label: 'Dashboard', to: '/admin', icon: 'dashboard', exact: true },
   { label: 'Courses', to: '/admin/courses', icon: 'book-open' },
-  { label: 'Course categories', to: '/admin/course-categories', icon: 'layers' },
+  { label: 'Course categories', to: '/admin/course-categories', icon: 'layers', adminOnly: true },
   { label: 'Enrollments', to: '/admin/enrollments', icon: 'users' },
   { label: 'Reviews', to: '/admin/reviews', icon: 'star' },
   { label: 'Certificates', to: '/admin/certificates', icon: 'award' },
   { label: 'Orders', to: '/admin/orders', icon: 'shopping-bag' },
+  { label: 'Payments', to: '/admin/payments', icon: 'credit-card' },
   { label: 'Products', to: '/admin/products', icon: 'store' },
   { label: 'Product categories', to: '/admin/categories', icon: 'tag' },
   { label: 'Coupons', to: '/admin/coupons', icon: 'ticket' },
@@ -24,6 +25,11 @@ const nav = [
   { label: 'Blog categories', to: '/admin/blog-categories', icon: 'layers' },
   { label: 'Users', to: '/admin/users', icon: 'user' },
 ]
+
+// Instructors manage their own courses only; everything else is admin-only.
+const nav = computed(() =>
+  isAdmin.value ? allNav : allNav.filter((item) => ['/admin', '/admin/courses'].includes(item.to)),
+)
 
 function active(to: string, exact = false) {
   return exact ? route.path === to : route.path === to || route.path.startsWith(`${to}/`)

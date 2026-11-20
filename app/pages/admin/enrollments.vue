@@ -11,6 +11,7 @@ const { busy, fieldError, run, resetErrors } = useFormHandler()
 
 const status = ref('')
 const courseId = ref('')
+const search = ref('')
 const page = ref(1)
 
 const { data: courses } = await useAsyncData('admin-enrollment-courses', () =>
@@ -32,14 +33,15 @@ const { data, pending, error, refresh } = await useAsyncData(
         page: page.value,
         status: status.value || undefined,
         course_id: courseId.value || undefined,
+        search: search.value.trim() || undefined,
       },
     }),
-  { watch: [page, status, courseId] },
+  { watch: [page, status, courseId, search] },
 )
 
 const enrollments = computed(() => data.value?.data ?? [])
 
-watch([status, courseId], () => (page.value = 1))
+watch([status, courseId, search], () => (page.value = 1))
 
 const grantModal = ref(false)
 const grantForm = reactive({
@@ -141,11 +143,14 @@ async function reactivate(enrollment: AdminEnrollment) {
     <div class="card mb-4 p-3">
       <div class="grid gap-2 md:grid-cols-12">
         <div class="md:col-span-4">
+          <input v-model="search" type="search" class="field-input mb-2" placeholder="Search student name or email…" aria-label="Search students">
           <select v-model="status" class="field-input" aria-label="Filter by status">
             <option value="">All statuses</option>
             <option value="active">Active</option>
+            <option value="suspended">Suspended</option>
             <option value="expired">Expired</option>
-            <option value="revoked">Revoked</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </div>
         <div class="md:col-span-5">
@@ -155,7 +160,7 @@ async function reactivate(enrollment: AdminEnrollment) {
           </select>
         </div>
         <div class="md:col-span-3">
-          <button type="button" class="btn-secondary w-full" @click="status = ''; courseId = ''; page = 1">
+          <button type="button" class="btn-secondary w-full" @click="status = ''; courseId = ''; search = ''; page = 1">
             <BaseIcon name="refresh" :size="15" /> Clear filters
           </button>
         </div>
@@ -215,11 +220,12 @@ async function reactivate(enrollment: AdminEnrollment) {
                 <td class="px-3 py-3"><StatusBadge :status="enrollment.status" /></td>
                 <td class="px-4 py-3">
                   <div class="flex flex-wrap items-center justify-end gap-1">
-                    <button type="button" class="btn-ghost !px-2 !py-1.5 text-xs" @click="openExtend(enrollment)">
+                    <NuxtLink v-if="enrollment.order_id" :to="`/admin/orders/${enrollment.order_id}`" class="btn-ghost !px-2 !py-1.5 text-xs">Order</NuxtLink>
+                    <button v-if="enrollment.status !== 'cancelled'" type="button" class="btn-ghost !px-2 !py-1.5 text-xs" @click="openExtend(enrollment)">
                       <BaseIcon name="calendar" :size="13" /> Extend
                     </button>
                     <button
-                      v-if="enrollment.status !== 'revoked'"
+                      v-if="enrollment.status !== 'cancelled'"
                       type="button"
                       class="btn-ghost !px-2 !py-1.5 text-xs text-rose-600 hover:bg-rose-50"
                       @click="revoke(enrollment)"

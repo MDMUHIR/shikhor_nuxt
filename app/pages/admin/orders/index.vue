@@ -42,8 +42,8 @@ watch([status, payment, search], () => (page.value = 1))
 const totals = computed(() => {
   const list = allOrders.value
   const revenue = list
-    .filter((order) => !['cancelled', 'refunded', 'returned'].includes(order.status))
-    .reduce((sum, order) => sum + Number(order.pricing?.total ?? 0), 0)
+    .filter((order) => ['paid', 'partially_refunded'].includes(order.payment_status))
+    .reduce((sum, order) => sum + Number(order.pricing?.total ?? 0) - Number(order.pricing?.refunded_amount ?? 0), 0)
   return {
     count: list.length,
     revenue,
@@ -63,8 +63,8 @@ function clearFilters() {
   page.value = 1
 }
 
-const statuses = ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled', 'returned', 'refunded']
-const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
+const statuses = ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'enrolled', 'cancelled', 'returned', 'refunded']
+const paymentStatuses = ['pending', 'paid', 'failed', 'cancelled', 'partially_refunded', 'refunded']
 </script>
 
 <template>
@@ -77,7 +77,7 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
 
     <div class="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <AdminStat label="Orders" :value="formatNumber(totals.count)" icon="shopping-bag" tone="blue" />
-      <AdminStat label="Revenue" :value="formatMoney(totals.revenue)" icon="chart" tone="emerald" hint="Excludes cancelled & refunded" />
+      <AdminStat label="Revenue" :value="formatMoney(totals.revenue)" icon="chart" tone="emerald" hint="Paid orders, net of refunds" />
       <AdminStat label="Awaiting confirmation" :value="formatNumber(totals.pending)" icon="clock" tone="amber" />
       <AdminStat label="Payment outstanding" :value="formatNumber(totals.unpaid)" icon="credit-card" tone="rose" />
     </div>
@@ -150,7 +150,11 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
                 </td>
                 <td class="px-3 py-3 text-gray-600">
                   {{ itemCount(order) }} item{{ itemCount(order) === 1 ? '' : 's' }}
-                  <p v-if="order.course_items?.length" class="text-[11px] text-gray-400">{{ order.course_items.length }} course</p>
+                  <p class="text-[11px] text-gray-400">
+                    <template v-if="order.items?.length">{{ order.items.length }} product{{ order.items.length === 1 ? '' : 's' }}</template>
+                    <template v-if="order.items?.length && order.course_items?.length"> · </template>
+                    <template v-if="order.course_items?.length">{{ order.course_items.length }} course{{ order.course_items.length === 1 ? '' : 's' }}</template>
+                  </p>
                 </td>
                 <td class="px-3 py-3 font-semibold text-gray-900">{{ formatMoney(order.pricing?.total) }}</td>
                 <td class="px-3 py-3"><StatusBadge :status="order.payment_status" /></td>

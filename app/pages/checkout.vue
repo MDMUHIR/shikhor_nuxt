@@ -7,6 +7,9 @@ const { apiData, apiFetch } = useApi()
 const { user } = useAuth()
 const cart = useCart()
 const toast = useToast()
+const runtimeConfig = useRuntimeConfig()
+// One key per checkout visit: a double click or retry returns the same order.
+const idempotencyKey = ref(typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()))
 
 const { data, pending, error, refresh } = await useAsyncData('checkout-page', async () => {
   const [items, courses, charges] = await Promise.all([
@@ -64,11 +67,8 @@ const coupon = ref<Coupon | null>(null)
 const couponError = ref('')
 const checkingCoupon = ref(false)
 
-const discount = computed(() => {
-  if (!coupon.value) return 0
-  if (coupon.value.type === 'percentage') return Math.round(subtotal.value * (Number(coupon.value.discount) / 100) * 100) / 100
-  return Math.min(subtotal.value, Number(coupon.value.discount))
-})
+// Preview only: the API recalculates the real discount when the order is placed.
+const discount = computed(() => Number(coupon.value?.discount_amount ?? 0))
 const total = computed(() => Math.max(subtotal.value - discount.value, 0) + deliveryCharge.value)
 
 const form = reactive({
@@ -81,7 +81,7 @@ const form = reactive({
   district: '',
   city: '',
   country: 'Bangladesh',
-  payment_method: 'cod',
+  payment_method: runtimeConfig.public.onlinePayments ? 'stripe' : 'bkash',
   payment_sender: '',
   notes: '',
   shipping_method: '',
@@ -96,6 +96,9 @@ const submitting = ref(false)
 const formError = ref('')
 
 const paymentMethods = [
+  ...(runtimeConfig.public.onlinePayments
+    ? [{ value: 'stripe', label: 'Card / online payment', hint: 'Pay securely online. An admin then approves your order and enrolls you.' }]
+    : []),
   { value: 'cod', label: 'Cash on delivery', hint: 'For physical products delivered to your address.' },
   { value: 'bkash', label: 'bKash (manual)', hint: 'Send the amount, then an admin confirms your payment.' },
   { value: 'nagad', label: 'Nagad (manual)', hint: 'Send the amount, then an admin confirms your payment.' },
@@ -197,6 +200,7 @@ async function placeOrder() {
   try {
     const response = await apiFetch<{ data: Order }>('/orders/add', {
       method: 'POST',
+      headers: { 'Idempotency-Key': idempotencyKey.value },
       body: {
         customer: {
           name: form.name.trim(),
@@ -218,8 +222,6 @@ async function placeOrder() {
         pricing: {
           currency: 'BDT',
           delivery_charge: deliveryCharge.value,
-          discount: discount.value,
-          discount_type: coupon.value?.type ?? null,
           coupon_code: coupon.value?.code ?? null,
         },
         payment_method: form.payment_method,
@@ -229,6 +231,20 @@ async function placeOrder() {
     const order = response?.data
     await cart.refresh()
     toast.success('Order placed successfully.')
+    if (order?.id && form.payment_method === 'stripe' && Number(order.pricing?.total ?? 0) > 0) {
+      try {
+        const pay = await apiData<{ checkout_url: string | null }>(`/orders/${order.id}/pay`, {
+          method: 'POST',
+          body: { provider: 'stripe' },
+        })
+        if (pay?.checkout_url) {
+          window.location.href = pay.checkout_url
+          return
+        }
+      } catch (payError) {
+        toast.error((payError as Error).message)
+      }
+    }
     if (order?.id) await navigateTo(`/orders/${order.id}?success=1`)
     else await navigateTo('/orders')
   } catch (err) {
@@ -259,7 +275,7 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
     </nav>
 
     <h1 class="text-2xl font-extrabold text-gray-900 md:text-3xl">Checkout</h1>
-    <p class="mt-1 text-sm text-gray-500">Review your order and confirm your details. No online card gateway is connected.</p>
+    <p class="mt-1 text-sm text-gray-500">Review your order and confirm your details. Totals and discounts are confirmed by our server when you place the order.</p>
 
     <div v-if="pending" class="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
       <div class="card h-96 animate-pulse bg-gray-100" />
@@ -336,7 +352,7 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
 
         <section class="card p-5">
           <h2 class="text-base font-bold text-gray-900">Payment method</h2>
-          <p class="mt-1 text-xs text-gray-500">Payments are confirmed manually by an administrator.</p>
+          <p class="mt-1 text-xs text-gray-500">Course access starts after your payment is verified and an admin approves and enrolls you.</p>
           <div class="mt-4 grid gap-2">
             <label
               v-for="method in availablePaymentMethods"

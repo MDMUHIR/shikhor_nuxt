@@ -1,9 +1,9 @@
 {
-  "pid": 11384,
-  "startedAt": 1795199652592,
+  "pid": 19900,
+  "startedAt": 1795212494912,
   "interactive": true,
   "command": "dev",
-  "cwd": "C:/Users/mdmuhir/Desktop/shikhor_nuxt",
+  "cwd": "D:/Shikhor_frontend",
   "port": 3000,
   "hostname": "::1",
   "url": "http://[::1]:3000"

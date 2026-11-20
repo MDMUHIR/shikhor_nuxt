@@ -17,18 +17,44 @@ const list = computed(() => coupons.value ?? [])
 
 const modalOpen = ref(false)
 const editing = ref<Coupon | null>(null)
-const form = reactive({ code: '', type: 'percentage' as 'fixed' | 'percentage', discount: 10 })
+const blank = () => ({
+  code: '',
+  type: 'percentage' as 'fixed' | 'percentage',
+  discount: 10,
+  is_active: true,
+  applies_to: 'all' as 'all' | 'products' | 'courses',
+  starts_at: '',
+  expires_at: '',
+  min_purchase: null as number | null,
+  max_discount: null as number | null,
+  usage_limit: null as number | null,
+  per_user_limit: null as number | null,
+})
+const form = reactive(blank())
+const toLocal = (value?: string | null) => (value ? value.slice(0, 16) : '')
 
 function openCreate() {
   editing.value = null
-  Object.assign(form, { code: '', type: 'percentage', discount: 10 })
+  Object.assign(form, blank())
   resetErrors()
   modalOpen.value = true
 }
 
 function openEdit(coupon: Coupon) {
   editing.value = coupon
-  Object.assign(form, { code: coupon.code, type: coupon.type, discount: coupon.discount })
+  Object.assign(form, {
+    code: coupon.code,
+    type: coupon.type,
+    discount: coupon.discount,
+    is_active: coupon.is_active ?? true,
+    applies_to: coupon.applies_to ?? 'all',
+    starts_at: toLocal(coupon.starts_at),
+    expires_at: toLocal(coupon.expires_at),
+    min_purchase: coupon.min_purchase ?? null,
+    max_discount: coupon.max_discount ?? null,
+    usage_limit: coupon.usage_limit ?? null,
+    per_user_limit: coupon.per_user_limit ?? null,
+  })
   resetErrors()
   modalOpen.value = true
 }
@@ -38,7 +64,12 @@ async function save() {
     () =>
       apiData(`/admin/coupon/${editing.value ? 'update' : 'add'}`, {
         method: 'POST',
-        body: { ...(editing.value ? { id: editing.value.id } : {}), ...form },
+        body: {
+          ...(editing.value ? { id: editing.value.id } : {}),
+          ...form,
+          starts_at: form.starts_at || null,
+          expires_at: form.expires_at || null,
+        },
       }),
     editing.value ? 'Coupon updated.' : 'Coupon created.',
   )
@@ -84,12 +115,15 @@ async function remove(coupon: Coupon) {
 
     <div v-else class="card overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[560px] text-left text-sm">
+        <table class="w-full min-w-[760px] text-left text-sm">
           <thead class="border-b border-gray-100 bg-gray-50/60 text-[11px] uppercase tracking-wide text-gray-400">
             <tr>
               <th class="px-4 py-2.5 font-semibold">Code</th>
               <th class="px-3 py-2.5 font-semibold">Type</th>
               <th class="px-3 py-2.5 font-semibold">Discount</th>
+              <th class="px-3 py-2.5 font-semibold">Applies to</th>
+              <th class="px-3 py-2.5 font-semibold">Used</th>
+              <th class="px-3 py-2.5 font-semibold">Status</th>
               <th class="px-4 py-2.5 text-right font-semibold">Actions</th>
             </tr>
           </thead>
@@ -106,6 +140,9 @@ async function remove(coupon: Coupon) {
               <td class="px-3 py-3 font-semibold text-gray-900">
                 {{ coupon.type === 'percentage' ? `${coupon.discount}%` : formatMoney(coupon.discount) }}
               </td>
+              <td class="px-3 py-3 capitalize text-gray-600">{{ coupon.applies_to ?? 'all' }}</td>
+              <td class="px-3 py-3 text-gray-600">{{ coupon.times_used ?? 0 }}<template v-if="coupon.usage_limit"> / {{ coupon.usage_limit }}</template></td>
+              <td class="px-3 py-3"><StatusBadge :status="coupon.is_active === false ? 'cancelled' : 'active'" /></td>
               <td class="px-4 py-3">
                 <div class="flex items-center justify-end gap-1">
                   <button type="button" class="btn-ghost !px-2 !py-1.5 text-xs" @click="openEdit(coupon)">
@@ -142,6 +179,44 @@ async function remove(coupon: Coupon) {
           <input id="coupon-discount" v-model.number="form.discount" type="number" min="0" :max="form.type === 'percentage' ? 100 : undefined" step="0.01" class="field-input">
           <p v-if="fieldError('discount')" class="field-error">{{ fieldError('discount') }}</p>
         </div>
+        <div>
+          <label class="field-label" for="coupon-applies">Applies to</label>
+          <select id="coupon-applies" v-model="form.applies_to" class="field-input">
+            <option value="all">Everything</option>
+            <option value="courses">Courses only</option>
+            <option value="products">Products only</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="field-label" for="coupon-starts">Starts</label>
+            <input id="coupon-starts" v-model="form.starts_at" type="datetime-local" class="field-input">
+          </div>
+          <div>
+            <label class="field-label" for="coupon-expires">Expires</label>
+            <input id="coupon-expires" v-model="form.expires_at" type="datetime-local" class="field-input">
+            <p v-if="fieldError('expires_at')" class="field-error">{{ fieldError('expires_at') }}</p>
+          </div>
+          <div>
+            <label class="field-label" for="coupon-min">Minimum purchase</label>
+            <input id="coupon-min" v-model.number="form.min_purchase" type="number" min="0" class="field-input">
+          </div>
+          <div>
+            <label class="field-label" for="coupon-max">Max discount</label>
+            <input id="coupon-max" v-model.number="form.max_discount" type="number" min="0" class="field-input">
+          </div>
+          <div>
+            <label class="field-label" for="coupon-limit">Total uses</label>
+            <input id="coupon-limit" v-model.number="form.usage_limit" type="number" min="1" class="field-input" placeholder="Unlimited">
+          </div>
+          <div>
+            <label class="field-label" for="coupon-user-limit">Uses per student</label>
+            <input id="coupon-user-limit" v-model.number="form.per_user_limit" type="number" min="1" class="field-input" placeholder="Unlimited">
+          </div>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-gray-700">
+          <input v-model="form.is_active" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-oc-primary focus:ring-oc-primary"> Active
+        </label>
       </form>
       <template #footer>
         <button type="button" class="btn-secondary" :disabled="busy" @click="modalOpen = false">Cancel</button>

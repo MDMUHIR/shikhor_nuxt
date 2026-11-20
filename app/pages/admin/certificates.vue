@@ -64,7 +64,7 @@ async function restore(certificate: Certificate) {
 
 <template>
   <div>
-    <AdminPageHeader title="Certificates" subtitle="Certificates are issued automatically when students finish every published lesson." icon="award">
+    <AdminPageHeader title="Certificates" subtitle="Certificates are issued automatically when students complete all required lessons and quizzes." icon="award">
       <button type="button" class="btn-secondary" :disabled="pending" @click="refresh()">
         <BaseIcon name="refresh" :size="15" /> Refresh
       </button>

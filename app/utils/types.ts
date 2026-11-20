@@ -2,8 +2,9 @@ export interface User {
   id: number
   name: string
   email: string
-  type: 'admin' | 'customer'
+  type: 'admin' | 'super_admin' | 'instructor' | 'customer'
   avatar?: string | null
+  is_active?: boolean
   created_at?: string | null
 }
 
@@ -85,13 +86,26 @@ export interface Course {
 }
 
 export interface LessonVideo {
-  source: 'external' | 'upload'
+  source: 'external' | 'upload' | 'youtube'
   url?: string
   stream_url?: string
+  video_id?: string
+  embed_url?: string
+}
+
+export interface LessonResource {
+  id: number
+  title: string
+  mime_type?: string | null
+  size?: number | null
+  external_url?: string | null
+  download_url?: string | null
 }
 
 export interface Lesson {
   id: number
+  resources?: LessonResource[]
+  is_required?: boolean
   course_id: number
   section_id: number | null
   title: string
@@ -139,6 +153,7 @@ export interface Review {
   title: string | null
   comment: string | null
   is_approved: boolean
+  status?: 'pending' | 'approved' | 'rejected' | 'hidden'
   user: { id: number; name: string; email?: string } | null
   course?: { id: number; title: string; slug: string } | null
   created_at: string
@@ -253,6 +268,16 @@ export interface Coupon {
   code: string
   type: 'fixed' | 'percentage'
   discount: number
+  applies_to?: 'all' | 'products' | 'courses'
+  discount_amount?: number
+  is_active?: boolean
+  starts_at?: string | null
+  expires_at?: string | null
+  max_discount?: number | null
+  min_purchase?: number | null
+  usage_limit?: number | null
+  per_user_limit?: number | null
+  times_used?: number
 }
 
 export interface DeliveryCharge {
@@ -281,6 +306,7 @@ export interface OrderItem {
 }
 
 export interface OrderCourseItem {
+  enrolled?: boolean
   id: number
   course_id: number
   name: string
@@ -312,6 +338,7 @@ export interface Order {
   shipping_address: { line1: string; line2: string; district: string; city: string; country: string }
   pricing: {
     currency: string
+    refunded_amount?: number
     subtotal: number
     products_subtotal: number
     courses_subtotal: number
@@ -334,7 +361,7 @@ export interface Order {
 
 export interface Enrollment {
   id: number
-  status: 'active' | 'expired' | 'revoked'
+  status: 'active' | 'completed' | 'expired' | 'suspended' | 'cancelled'
   is_active: boolean
   is_lifetime?: boolean
   source: 'order' | 'manual'
@@ -488,7 +515,7 @@ export interface AdminEnrollment {
   course: { id: number; title: string; slug: string } | null
   order_id: number | null
   source: 'order' | 'manual'
-  status: 'active' | 'expired' | 'revoked'
+  status: 'active' | 'completed' | 'expired' | 'suspended' | 'cancelled'
   is_active: boolean
   enrolled_at: string | null
   expires_at: string | null
@@ -516,7 +543,7 @@ export interface AdminLesson {
   slug: string | null
   description: string | null
   type: 'video' | 'text' | 'quiz'
-  video_source: 'external' | 'upload' | null
+  video_source: 'external' | 'upload' | 'youtube' | null
   video_url: string | null
   video_path: string | null
   duration_seconds: number

@@ -15,6 +15,7 @@ definePageMeta({ middleware: 'admin', layout: 'admin' })
 useSeoMeta({ title: 'Admin dashboard — Shikhor Academy', robots: 'noindex' })
 
 const { apiData } = useApi()
+const { isAdmin } = useAuth()
 const { initial } = useInitials()
 
 interface DashboardData {
@@ -28,16 +29,24 @@ interface DashboardData {
   users: User[]
 }
 
+const EMPTY_PAGE = { current_page: 1, data: [], last_page: 1, total: 0 }
+
+function adminOnly<T>(path: string, fallback: T, query?: Record<string, number>): Promise<T> {
+  if (!isAdmin.value) return Promise.resolve(fallback)
+  return apiData<T>(path, { query })
+}
+
 const { data, pending, error, refresh } = await useAsyncData<DashboardData>('admin-dashboard', async () => {
   const [courses, publishedCourses, orders, enrollments, reviews, certificates, products, users] = await Promise.all([
     apiData<Paginator<Course>>('/admin/courses', { query: { per_page: 1 } }),
     apiData<Paginator<Course>>('/admin/courses', { query: { status: 'published', per_page: 1 } }),
-    apiData<AdminOrder[]>('/admin/orders'),
-    apiData<Paginator<AdminEnrollment>>('/admin/enrollments', { query: { per_page: 5 } }),
-    apiData<Paginator<AdminReview>>('/admin/reviews', { query: { per_page: 5 } }),
-    apiData<Paginator<Certificate>>('/admin/certificates', { query: { per_page: 1 } }),
+    // Instructors only have course access; the admin-only lists fall back to empty.
+    adminOnly<AdminOrder[]>('/admin/orders', [] as AdminOrder[]),
+    adminOnly<Paginator<AdminEnrollment>>('/admin/enrollments', EMPTY_PAGE as Paginator<AdminEnrollment>, { per_page: 5 }),
+    adminOnly<Paginator<AdminReview>>('/admin/reviews', EMPTY_PAGE as Paginator<AdminReview>, { per_page: 5 }),
+    adminOnly<Paginator<Certificate>>('/admin/certificates', EMPTY_PAGE as Paginator<Certificate>, { per_page: 1 }),
     apiData<Product[]>('/products'),
-    apiData<User[]>('/admin/users'),
+    adminOnly<User[]>('/admin/users', [] as User[]),
   ])
 
   return { courses, publishedCourses, orders, enrollments, reviews, certificates, products, users }
@@ -45,8 +54,9 @@ const { data, pending, error, refresh } = await useAsyncData<DashboardData>('adm
 
 const revenue = computed(() =>
   (data.value?.orders ?? [])
-    .filter((order) => !['cancelled', 'refunded', 'returned'].includes(order.status))
-    .reduce((total, order) => total + Number(order.pricing?.total ?? 0), 0),
+    // Only money actually collected counts as revenue, net of refunds.
+    .filter((order) => ['paid', 'partially_refunded'].includes(order.payment_status))
+    .reduce((total, order) => total + Number(order.pricing?.total ?? 0) - Number(order.pricing?.refunded_amount ?? 0), 0),
 )
 
 const stats = computed(() => {
@@ -91,6 +101,8 @@ function orderItems(order: AdminOrder) {
         <BaseIcon name="refresh" :size="16" /> Refresh
       </button>
     </AdminPageHeader>
+
+    <AdminAnalytics />
 
     <div v-if="pending" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <div v-for="i in 8" :key="i" class="card h-[86px] animate-pulse bg-gray-50" />

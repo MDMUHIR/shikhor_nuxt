@@ -25,6 +25,8 @@ export default defineEventHandler(async (event) => {
     'admin',
     'user',
     'logout',
+    'notifications',
+    'lesson-resources',
     'login',
     'register',
   ])

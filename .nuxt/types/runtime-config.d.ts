@@ -18,6 +18,8 @@ import { RuntimeConfig as UserRuntimeConfig } from 'nuxt/schema'
    mediaUrl: string,
 
    siteUrl: string,
+
+   onlinePayments: boolean,
   }
 declare module 'nuxt/schema' {
   interface RuntimeConfig extends SharedRuntimeConfig {}

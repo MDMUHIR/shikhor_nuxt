@@ -92,7 +92,9 @@ onBeforeUnmount(() => {
           <select v-model="status" class="field-input" aria-label="Filter by status">
             <option value="">All statuses</option>
             <option value="draft">Draft</option>
+            <option value="under_review">Under review</option>
             <option value="published">Published</option>
+            <option value="unpublished">Unpublished</option>
             <option value="archived">Archived</option>
           </select>
         </div>

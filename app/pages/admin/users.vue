@@ -31,25 +31,25 @@ const counts = computed(() => {
   const list = users.value ?? []
   return {
     total: list.length,
-    admins: list.filter((user) => user.type === 'admin').length,
-    customers: list.filter((user) => user.type !== 'admin').length,
+    admins: list.filter((user) => ['admin', 'super_admin'].includes(user.type)).length,
+    customers: list.filter((user) => user.type === 'customer').length,
   }
 })
 
 const modalOpen = ref(false)
 const editing = ref<User | null>(null)
-const form = reactive({ name: '', email: '', type: 'customer' as 'admin' | 'customer', password: '' })
+const form = reactive({ name: '', email: '', type: 'customer' as User['type'], password: '', is_active: true })
 
 function openCreate() {
   editing.value = null
-  Object.assign(form, { name: '', email: '', type: 'customer', password: '' })
+  Object.assign(form, { name: '', email: '', type: 'customer', password: '', is_active: true })
   resetErrors()
   modalOpen.value = true
 }
 
 function openEdit(user: User) {
   editing.value = user
-  Object.assign(form, { name: user.name, email: user.email, type: user.type, password: '' })
+  Object.assign(form, { name: user.name, email: user.email, type: user.type, password: '', is_active: user.is_active !== false })
   resetErrors()
   modalOpen.value = true
 }
@@ -61,9 +61,10 @@ async function save() {
         name: form.name,
         email: form.email,
         type: form.type,
+        is_active: form.is_active,
         ...(form.password ? { password: form.password } : {}),
       }
-    : { name: form.name, email: form.email, type: form.type, password: form.password }
+    : { name: form.name, email: form.email, type: form.type, password: form.password, is_active: form.is_active }
 
   const result = await run(
     () => apiData(`/admin/users/${editing.value ? 'update' : 'add'}`, { method: 'POST', body }),
@@ -81,7 +82,7 @@ async function remove(user: User) {
   }
   const ok = await ask({
     title: 'Delete user',
-    message: `Delete ${user.name} (${user.email})? Their cart, orders and learning data may become inaccessible.`,
+    message: `Delete ${user.name} (${user.email})? Accounts with orders or enrollments cannot be deleted — deactivate them instead.`,
     confirmLabel: 'Delete user',
   })
   if (!ok) return
@@ -117,6 +118,7 @@ const toast = useToast()
             <option value="">All account types</option>
             <option value="admin">Administrators</option>
             <option value="customer">Students</option>
+            <option value="instructor">Instructors</option>
           </select>
         </div>
         <div class="sm:col-span-2">
@@ -171,10 +173,13 @@ const toast = useToast()
               </td>
               <td class="px-3 py-3">
                 <span class="badge" :class="account.type === 'admin' ? 'bg-violet-50 text-violet-700 ring-violet-200' : 'bg-gray-50 text-gray-600 ring-gray-200'">
-                  {{ account.type === 'admin' ? 'Administrator' : 'Student' }}
+                  {{ account.type === 'admin' || account.type === 'super_admin' ? 'Administrator' : account.type === 'instructor' ? 'Instructor' : 'Student' }}
                 </span>
               </td>
-              <td class="px-3 py-3 text-xs text-gray-500">{{ formatDate(account.created_at) }}</td>
+              <td class="px-3 py-3 text-xs text-gray-500">
+                {{ formatDate(account.created_at) }}
+                <span v-if="account.is_active === false" class="ml-1 rounded-full bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-600">Inactive</span>
+              </td>
               <td class="px-4 py-3">
                 <div class="flex items-center justify-end gap-1">
                   <button type="button" class="btn-secondary !px-2.5 !py-1.5 text-xs" @click="openEdit(account)">
@@ -214,7 +219,9 @@ const toast = useToast()
             <label class="field-label" for="user-type">Account type</label>
             <select id="user-type" v-model="form.type" class="field-input">
               <option value="customer">Student</option>
+              <option value="instructor">Instructor</option>
               <option value="admin">Administrator</option>
+              <option v-if="form.type === 'super_admin'" value="super_admin">Super administrator</option>
             </select>
             <p v-if="fieldError('type')" class="field-error">{{ fieldError('type') }}</p>
           </div>
@@ -232,6 +239,10 @@ const toast = useToast()
             >
             <p v-if="fieldError('password')" class="field-error">{{ fieldError('password') }}</p>
           </div>
+          <label class="flex items-center gap-2 text-sm text-gray-700 sm:col-span-2">
+            <input v-model="form.is_active" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-oc-primary focus:ring-oc-primary" :disabled="editing?.id === currentUser?.id">
+            Active (inactive users cannot sign in)
+          </label>
         </div>
       </form>
       <template #footer>

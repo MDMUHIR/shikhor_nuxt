@@ -3,8 +3,8 @@ import type { ComponentProps } from "../../node_modules/vue-component-type-helpe
 
 declare module 'nuxt/app' {
   interface NuxtLayouts {
-    admin: ComponentProps<typeof import("C:/Users/mdmuhir/Desktop/shikhor_nuxt/app/layouts/admin.vue").default>
-    default: ComponentProps<typeof import("C:/Users/mdmuhir/Desktop/shikhor_nuxt/app/layouts/default.vue").default>
+    admin: ComponentProps<typeof import("D:/Shikhor_frontend/app/layouts/admin.vue").default>
+    default: ComponentProps<typeof import("D:/Shikhor_frontend/app/layouts/default.vue").default>
   }
   export type LayoutKey = keyof NuxtLayouts extends never ? string : keyof NuxtLayouts
   interface PageMeta {

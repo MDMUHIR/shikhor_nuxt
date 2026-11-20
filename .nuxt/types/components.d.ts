@@ -14,6 +14,7 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 interface _GlobalComponents {
+  AdminAnalytics: typeof import("../../app/components/AdminAnalytics.vue")['default']
   AdminConfirmDialog: typeof import("../../app/components/AdminConfirmDialog.vue")['default']
   AdminPageHeader: typeof import("../../app/components/AdminPageHeader.vue")['default']
   AdminStat: typeof import("../../app/components/AdminStat.vue")['default']
@@ -21,15 +22,18 @@ interface _GlobalComponents {
   AppHeader: typeof import("../../app/components/AppHeader.vue")['default']
   AppModal: typeof import("../../app/components/AppModal.vue")['default']
   AppToast: typeof import("../../app/components/AppToast.vue")['default']
+  AttachmentList: typeof import("../../app/components/AttachmentList.vue")['default']
   BaseIcon: typeof import("../../app/components/BaseIcon.vue")['default']
   BlogCard: typeof import("../../app/components/BlogCard.vue")['default']
   ComboCard: typeof import("../../app/components/ComboCard.vue")['default']
+  CourseAttachmentsManager: typeof import("../../app/components/CourseAttachmentsManager.vue")['default']
   CourseCard: typeof import("../../app/components/CourseCard.vue")['default']
   EmptyState: typeof import("../../app/components/EmptyState.vue")['default']
   ErrorState: typeof import("../../app/components/ErrorState.vue")['default']
   HeroCarousel: typeof import("../../app/components/HeroCarousel.vue")['default']
   InstructorCard: typeof import("../../app/components/InstructorCard.vue")['default']
   LearningPath: typeof import("../../app/components/LearningPath.vue")['default']
+  LessonResourcesManager: typeof import("../../app/components/LessonResourcesManager.vue")['default']
   LoadingSkeleton: typeof import("../../app/components/LoadingSkeleton.vue")['default']
   PaginationLinks: typeof import("../../app/components/PaginationLinks.vue")['default']
   ProductCard: typeof import("../../app/components/ProductCard.vue")['default']
@@ -135,6 +139,7 @@ interface _GlobalComponents {
    * @see https://nuxt.com/docs/4.x/api/components/nuxt-island
    */
   NuxtIsland: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island")['default']
+  LazyAdminAnalytics: LazyComponent<typeof import("../../app/components/AdminAnalytics.vue")['default']>
   LazyAdminConfirmDialog: LazyComponent<typeof import("../../app/components/AdminConfirmDialog.vue")['default']>
   LazyAdminPageHeader: LazyComponent<typeof import("../../app/components/AdminPageHeader.vue")['default']>
   LazyAdminStat: LazyComponent<typeof import("../../app/components/AdminStat.vue")['default']>
@@ -142,15 +147,18 @@ interface _GlobalComponents {
   LazyAppHeader: LazyComponent<typeof import("../../app/components/AppHeader.vue")['default']>
   LazyAppModal: LazyComponent<typeof import("../../app/components/AppModal.vue")['default']>
   LazyAppToast: LazyComponent<typeof import("../../app/components/AppToast.vue")['default']>
+  LazyAttachmentList: LazyComponent<typeof import("../../app/components/AttachmentList.vue")['default']>
   LazyBaseIcon: LazyComponent<typeof import("../../app/components/BaseIcon.vue")['default']>
   LazyBlogCard: LazyComponent<typeof import("../../app/components/BlogCard.vue")['default']>
   LazyComboCard: LazyComponent<typeof import("../../app/components/ComboCard.vue")['default']>
+  LazyCourseAttachmentsManager: LazyComponent<typeof import("../../app/components/CourseAttachmentsManager.vue")['default']>
   LazyCourseCard: LazyComponent<typeof import("../../app/components/CourseCard.vue")['default']>
   LazyEmptyState: LazyComponent<typeof import("../../app/components/EmptyState.vue")['default']>
   LazyErrorState: LazyComponent<typeof import("../../app/components/ErrorState.vue")['default']>
   LazyHeroCarousel: LazyComponent<typeof import("../../app/components/HeroCarousel.vue")['default']>
   LazyInstructorCard: LazyComponent<typeof import("../../app/components/InstructorCard.vue")['default']>
   LazyLearningPath: LazyComponent<typeof import("../../app/components/LearningPath.vue")['default']>
+  LazyLessonResourcesManager: LazyComponent<typeof import("../../app/components/LessonResourcesManager.vue")['default']>
   LazyLoadingSkeleton: LazyComponent<typeof import("../../app/components/LoadingSkeleton.vue")['default']>
   LazyPaginationLinks: LazyComponent<typeof import("../../app/components/PaginationLinks.vue")['default']>
   LazyProductCard: LazyComponent<typeof import("../../app/components/ProductCard.vue")['default']>

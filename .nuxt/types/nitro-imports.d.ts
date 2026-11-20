@@ -79,6 +79,7 @@ declare global {
   const isEventHandler: typeof import('../../node_modules/h3/dist/index').isEventHandler
   const isMethod: typeof import('../../node_modules/h3/dist/index').isMethod
   const isPreflightRequest: typeof import('../../node_modules/h3/dist/index').isPreflightRequest
+  const isSecureRequest: typeof import('../../server/utils/laravel').isSecureRequest
   const isStream: typeof import('../../node_modules/h3/dist/index').isStream
   const isWebResponse: typeof import('../../node_modules/h3/dist/index').isWebResponse
   const laravelBase: typeof import('../../server/utils/laravel').laravelBase
@@ -151,7 +152,7 @@ export { getRouteRules } from 'nitropack/runtime/internal/route-rules';
 export { useEvent } from 'nitropack/runtime/internal/context';
 export { defineTask, runTask } from 'nitropack/runtime/internal/task';
 export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils';
-export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
-export { defineAppConfig } from 'C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
-export { useAppConfig } from 'C:/Users/mdmuhir/Desktop/shikhor_nuxt/node_modules/@nuxt/nitro-server/dist/runtime/utils/app-config';
-export { laravelFetch, laravelBase, appError } from 'C:/Users/mdmuhir/Desktop/shikhor_nuxt/server/utils/laravel';
+export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'D:/Shikhor_frontend/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
+export { defineAppConfig } from 'D:/Shikhor_frontend/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { useAppConfig } from 'D:/Shikhor_frontend/node_modules/@nuxt/nitro-server/dist/runtime/utils/app-config';
+export { laravelFetch, laravelBase, isSecureRequest, appError } from 'D:/Shikhor_frontend/server/utils/laravel';

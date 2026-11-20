@@ -6,6 +6,9 @@ definePageMeta({ middleware: 'auth' })
 const route = useRoute()
 const id = Number(route.params.id)
 const { apiData } = useApi()
+const toast = useToast()
+const runtimeConfig = useRuntimeConfig()
+const paying = ref(false)
 
 const { data: order, pending, error, refresh } = await useAsyncData(`order-${id}`, async () => {
   const orders = await apiData<Order[]>('/orders')
@@ -14,6 +17,44 @@ const { data: order, pending, error, refresh } = await useAsyncData(`order-${id}
 
 const justPlaced = computed(() => route.query.success === '1')
 
+// Paid, but an admin still has to approve and enroll the student.
+const awaitingEnrollment = computed(() => {
+  const value = order.value
+  return (
+    !!value &&
+    !['cancelled', 'returned', 'refunded'].includes(value.status) &&
+    (value.course_items ?? []).some((item) => !item.enrolled)
+  )
+})
+
+const canPayOnline = computed(() => {
+  const value = order.value
+  return (
+    !!runtimeConfig.public.onlinePayments &&
+    !!value &&
+    value.payment_status === 'pending' &&
+    Number(value.pricing?.total ?? 0) > 0 &&
+    !['cancelled', 'returned', 'refunded'].includes(value.status)
+  )
+})
+
+async function payNow() {
+  if (!order.value) return
+  paying.value = true
+  try {
+    const result = await apiData<{ checkout_url: string | null }>(`/orders/${order.value.id}/pay`, {
+      method: 'POST',
+      body: { provider: 'stripe' },
+    })
+    if (result?.checkout_url) window.location.href = result.checkout_url
+    else await refresh()
+  } catch (err) {
+    toast.error((err as Error).message)
+  } finally {
+    paying.value = false
+  }
+}
+
 const isCourseOnly = computed(() => {
   const value = order.value
   return !!value && (value.course_items?.length ?? 0) > 0 && !(value.items?.length ?? 0)
@@ -21,7 +62,7 @@ const isCourseOnly = computed(() => {
 
 const pipeline = computed(() =>
   isCourseOnly.value
-    ? ['pending', 'confirmed', 'processing', 'enrolled']
+    ? ['pending', 'confirmed', 'enrolled']
     : ['pending', 'confirmed', 'processing', 'shipped', 'delivered'],
 )
 
@@ -86,7 +127,19 @@ useSeoMeta({
         class="mb-5 flex items-start gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"
       >
         <BaseIcon name="check-circle" :size="18" class="mt-0.5 shrink-0" />
-        <span>Thank you! Your order has been placed. Payment is confirmed manually by an administrator.</span>
+        <span>
+          Thank you! Your order has been placed.
+          <template v-if="order.payment_status === 'paid'">Payment received — an admin will approve and enroll you shortly.</template>
+          <template v-else>Course access starts as soon as your payment is confirmed.</template>
+        </span>
+      </div>
+
+      <div v-if="awaitingEnrollment" class="mb-5 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        <BaseIcon name="alert-circle" :size="18" class="mt-0.5 shrink-0" />
+        <span>
+          <template v-if="order.payment_status === 'paid'">Payment received. Your order is waiting for admin approval — you will get access to the course as soon as you are enrolled.</template>
+          <template v-else>Your course access will be activated by an admin after your payment is verified and the order is approved.</template>
+        </span>
       </div>
 
       <div class="flex flex-wrap items-start justify-between gap-4">
@@ -106,7 +159,7 @@ useSeoMeta({
 
       <section class="card mt-6 p-5">
         <h2 class="text-sm font-bold text-gray-900">Progress</h2>
-        <ol v-if="!isStopped" class="mt-4 grid grid-cols-5 gap-1">
+        <ol v-if="!isStopped" class="mt-4 grid gap-1" :style="{ gridTemplateColumns: `repeat(${pipeline.length}, minmax(0, 1fr))` }">
           <li v-for="(step, index) in pipeline" :key="step" class="flex flex-col items-center text-center">
             <span
               class="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold"
@@ -165,7 +218,8 @@ useSeoMeta({
                 <div class="min-w-0 flex-1">
                   <NuxtLink :to="`/courses/${item.slug}`" class="line-clamp-2 text-sm font-semibold text-gray-800 hover:text-oc-primary">{{ item.name }}</NuxtLink>
                   <p class="mt-0.5 text-xs text-gray-500">{{ item.access_days === 0 ? 'Lifetime access' : `${item.access_days ?? 365} days access` }}</p>
-                  <NuxtLink to="/my-courses" class="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-oc-primary hover:underline">
+                  <span v-if="!item.enrolled" class="mt-1 inline-block rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700">Awaiting enrollment</span>
+                  <NuxtLink v-else to="/my-courses" class="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-oc-primary hover:underline">
                     Go to my courses <BaseIcon name="arrow-right" :size="12" />
                   </NuxtLink>
                 </div>
@@ -197,6 +251,12 @@ useSeoMeta({
                 <dd class="text-xl font-extrabold text-oc-primary">{{ formatMoney(order.pricing?.total) }}</dd>
               </div>
             </dl>
+            <div v-if="order.pricing?.refunded_amount" class="mt-2 flex justify-between gap-3 text-sm text-rose-600">
+              <span>Refunded</span><span class="font-semibold">−{{ formatMoney(order.pricing.refunded_amount) }}</span>
+            </div>
+            <button v-if="canPayOnline" type="button" class="btn-primary mt-4 w-full" :disabled="paying" @click="payNow">
+              {{ paying ? 'Redirecting…' : 'Pay now' }}
+            </button>
             <p class="mt-3 text-xs text-gray-500">
               Method: <span class="font-semibold text-gray-700">{{ order.payment_method || 'Not set' }}</span>
             </p>

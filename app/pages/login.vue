@@ -27,7 +27,7 @@ async function submit() {
   try {
     const user = await login(form.email.trim(), form.password)
     toast.success(`Welcome back, ${user.name.split(' ')[0]}!`)
-    await navigateTo(next.value || (user.type === 'admin' ? '/admin' : '/'))
+    await navigateTo(next.value || (['admin', 'super_admin', 'instructor'].includes(user.type) ? '/admin' : '/'))
   } catch (err) {
     formError.value = (err as Error).message || 'Could not sign you in.'
   } finally {

@@ -1,7 +1,7 @@
  <script setup lang="ts">
 const route = useRoute()
 const router = useRouter()
-const { user, isAuthenticated, isAdmin, logout } = useAuth()
+const { user, isAuthenticated, isAdmin, isStaff, logout } = useAuth()
 const { totalCount, refresh: refreshCart } = useCart()
 const { count: wishlistCount, refresh: refreshWishlist } = useWishlist()
 const { initial } = useInitials()
@@ -158,6 +158,12 @@ function handleFocus() {
               <NuxtLink to="/orders" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">
                 <BaseIcon name="shopping-bag" :size="16" /> Orders
               </NuxtLink>
+              <NuxtLink to="/payments" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">
+                <BaseIcon name="credit-card" :size="16" /> Payments
+              </NuxtLink>
+              <NuxtLink to="/notifications" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">
+                <BaseIcon name="check-circle" :size="16" /> Notifications
+              </NuxtLink>
               <NuxtLink to="/certificates" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">
                 <BaseIcon name="award" :size="16" /> Certificates
               </NuxtLink>
@@ -168,12 +174,12 @@ function handleFocus() {
                 <BaseIcon name="user" :size="16" /> Profile
               </NuxtLink>
               <NuxtLink
-                v-if="isAdmin"
+                v-if="isStaff"
                 to="/admin"
                 class="flex items-center gap-2.5 px-4 py-2 text-sm font-semibold text-oc-primary hover:bg-brand-light"
                 role="menuitem"
               >
-                <BaseIcon name="dashboard" :size="16" /> Admin dashboard
+                <BaseIcon name="dashboard" :size="16" /> {{ isAdmin ? 'Admin dashboard' : 'Instructor dashboard' }}
               </NuxtLink>
               <button
                 type="button"
@@ -237,7 +243,8 @@ function handleFocus() {
           <NuxtLink to="/orders" class="block rounded-lg px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Orders</NuxtLink>
           <NuxtLink to="/certificates" class="block rounded-lg px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Certificates</NuxtLink>
           <NuxtLink to="/profile" class="block rounded-lg px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Profile</NuxtLink>
-          <NuxtLink v-if="isAdmin" to="/admin" class="block rounded-lg px-3 py-2.5 text-sm font-semibold text-oc-primary">Admin dashboard</NuxtLink>
+          <NuxtLink v-if="isStaff" to="/admin" class="block rounded-lg px-3 py-2.5 text-sm font-semibold text-oc-primary">{{ isAdmin ? 'Admin dashboard' : 'Instructor dashboard' }}</NuxtLink>
+          <NuxtLink to="/notifications" class="block rounded-lg px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Notifications</NuxtLink>
           <button type="button" class="block w-full rounded-lg px-3 py-2.5 text-left text-sm text-rose-600" @click="handleLogout">Log out</button>
         </template>
         <NuxtLink v-else to="/login" class="mt-1 block rounded-lg px-3 py-2.5 text-sm font-semibold text-oc-primary">Login</NuxtLink>

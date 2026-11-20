@@ -4,7 +4,7 @@ interface LaravelUser {
   id: number
   name: string
   email: string
-  type: 'admin' | 'customer'
+  type: string
   avatar?: string | null
   created_at?: string
   google_id?: string | null

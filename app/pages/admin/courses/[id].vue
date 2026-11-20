@@ -12,6 +12,7 @@ definePageMeta({ middleware: 'admin', layout: 'admin' })
 
 const route = useRoute()
 const { apiData, apiUpload } = useApi()
+const { isAdmin } = useAuth()
 const { ask } = useConfirm()
 const { busy, fieldError, run, resetErrors } = useFormHandler()
 
@@ -221,7 +222,9 @@ const lessonForm = reactive({
   type: 'video' as 'video' | 'text' | 'quiz',
   duration_seconds: 0,
   content: '',
-  video_source: 'external' as 'external' | 'upload',
+  video_source: 'external' as 'external' | 'upload' | 'youtube',
+  completion_threshold: null as number | null,
+  is_required: true,
   video_url: '',
   is_preview: false,
   is_published: true,
@@ -241,6 +244,8 @@ function openLesson(section?: CourseSection, lesson?: AdminLesson) {
     duration_seconds: lesson?.duration_seconds ?? 0,
     content: lesson?.content ?? '',
     video_source: lesson?.video_source ?? 'external',
+    completion_threshold: (lesson as AdminLesson & { completion_threshold?: number | null })?.completion_threshold ?? null,
+    is_required: (lesson as AdminLesson & { is_required?: boolean })?.is_required ?? true,
     video_url: lesson?.video_url ?? '',
     is_preview: lesson?.is_preview ?? false,
     is_published: lesson?.is_published ?? true,
@@ -269,6 +274,8 @@ async function saveLesson() {
   payload.append('is_preview', lessonForm.is_preview ? '1' : '0')
   payload.append('is_published', lessonForm.is_published ? '1' : '0')
   payload.append('sort_order', String(lessonForm.sort_order || 0))
+  payload.append('is_required', lessonForm.is_required ? '1' : '0')
+  if (lessonForm.completion_threshold) payload.append('completion_threshold', String(lessonForm.completion_threshold))
   if (lessonForm.type === 'video') {
     payload.append('video_source', lessonForm.video_source)
     payload.append('video_url', lessonForm.video_url)
@@ -661,7 +668,9 @@ function questionTypeLabel(type: string) {
               <label class="field-label" for="course-status">Status</label>
               <select id="course-status" v-model="details.status" class="field-input">
                 <option value="draft">Draft</option>
-                <option value="published">Published</option>
+                <option value="under_review">Submit for review</option>
+                <option value="published">{{ isAdmin ? 'Published' : 'Request publishing (admin approval)' }}</option>
+                <option value="unpublished">Unpublished</option>
                 <option value="archived">Archived</option>
               </select>
             </div>
@@ -681,6 +690,8 @@ function questionTypeLabel(type: string) {
             </div>
           </div>
         </section>
+
+        <CourseAttachmentsManager v-if="courseId" :course-id="courseId" />
 
         <section class="card p-5">
           <h2 class="mb-4 text-sm font-bold text-gray-900">Learning outcomes</h2>
@@ -928,13 +939,14 @@ function questionTypeLabel(type: string) {
             <div>
               <label class="field-label" for="lesson-source">Source</label>
               <select id="lesson-source" v-model="lessonForm.video_source" class="field-input">
-                <option value="external">External URL (YouTube, Vimeo, MP4, HLS)</option>
+                <option value="youtube">YouTube</option>
+                <option value="external">Other https URL (Vimeo, MP4, HLS)</option>
                 <option value="upload">Upload a video file</option>
               </select>
             </div>
-            <div v-if="lessonForm.video_source === 'external'">
+            <div v-if="lessonForm.video_source === 'external' || lessonForm.video_source === 'youtube'">
               <label class="field-label" for="lesson-video-url">Video URL</label>
-              <input id="lesson-video-url" v-model="lessonForm.video_url" type="url" class="field-input" placeholder="https://…">
+              <input id="lesson-video-url" v-model="lessonForm.video_url" type="url" class="field-input" :placeholder="lessonForm.video_source === 'youtube' ? 'https://www.youtube.com/watch?v=…' : 'https://…'">
               <p v-if="fieldError('video_url')" class="field-error">{{ fieldError('video_url') }}</p>
             </div>
             <div v-else>
@@ -948,6 +960,20 @@ function questionTypeLabel(type: string) {
             Remove the currently stored video
           </label>
         </div>
+
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div v-if="lessonForm.type === 'video'">
+            <label class="field-label" for="lesson-threshold">Watch % needed to complete</label>
+            <input id="lesson-threshold" v-model.number="lessonForm.completion_threshold" type="number" min="1" max="100" class="field-input" placeholder="Default 95">
+            <p v-if="fieldError('completion_threshold')" class="field-error">{{ fieldError('completion_threshold') }}</p>
+          </div>
+          <label class="flex items-center gap-2 self-end pb-2 text-sm text-gray-700">
+            <input v-model="lessonForm.is_required" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-oc-primary focus:ring-oc-primary">
+            Required for course completion
+          </label>
+        </div>
+
+        <LessonResourcesManager v-if="lessonForm.id" :lesson-id="lessonForm.id" />
 
         <div v-if="lessonForm.type !== 'video'">
           <label class="field-label" for="lesson-content">Content</label>

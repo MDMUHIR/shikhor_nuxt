@@ -14,6 +14,8 @@ export default defineNuxtConfig({
     public: {
       mediaUrl: process.env.NUXT_PUBLIC_MEDIA_URL || process.env.API_URL || 'http://127.0.0.1:8000',
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      // Show the card/online payment option once Stripe is configured on the API.
+      onlinePayments: process.env.NUXT_PUBLIC_ONLINE_PAYMENTS === 'true',
     },
   },
   app: {

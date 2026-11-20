@@ -8,7 +8,7 @@ interface LoginBody {
 interface LoginData {
   name: string
   email: string
-  type: 'admin' | 'customer'
+  type: string
   accessToken: string
   token_type?: string
 }

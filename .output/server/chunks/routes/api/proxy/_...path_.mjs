@@ -37,6 +37,8 @@ const ____path_ = defineEventHandler(async (event) => {
     "admin",
     "user",
     "logout",
+    "notifications",
+    "lesson-resources",
     "login",
     "register"
   ]);

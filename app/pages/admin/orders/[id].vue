@@ -51,7 +51,8 @@ async function save() {
         body: {
           id: order.value!.id,
           status: form.status,
-          payment_status: form.payment_status,
+          // Only send a real change; refunds go through the Payments page.
+          ...(form.payment_status !== order.value!.payment_status ? { payment_status: form.payment_status } : {}),
           delivery_charge: form.delivery_charge,
           shipping_method: form.shipping_method,
           notes: form.notes,
@@ -65,8 +66,43 @@ async function save() {
   await refresh()
 }
 
-const statuses = ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled', 'returned', 'refunded']
-const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
+const needsEnrollment = computed(
+  () =>
+    !!order.value?.course_items?.some((item) => !item.enrolled) &&
+    !['cancelled', 'refunded', 'returned'].includes(order.value?.status ?? ''),
+)
+
+async function enrollStudent() {
+  if (!order.value) return
+  const unpaid = order.value.payment_status !== 'paid' && Number(order.value.pricing?.total ?? 0) > 0
+  if (unpaid && !window.confirm('This order is not marked as paid. Enroll the student anyway?')) return
+  const result = await run(
+    () =>
+      apiData(`/admin/orders/${order.value!.id}/enroll`, {
+        method: 'POST',
+        body: { allow_unpaid: unpaid },
+      }),
+    'Student enrolled — they can now open the course.',
+  )
+  if (result !== undefined) await refresh()
+}
+
+const hasProducts = computed(() => (order.value?.items?.length ?? 0) > 0)
+const courseOnly = computed(() => !hasProducts.value && (order.value?.course_items?.length ?? 0) > 0)
+
+// Shipping steps exist only for store products; course orders end in "Enrolled".
+const statuses = computed(() => {
+  const base = courseOnly.value
+    ? ['pending', 'confirmed', 'enrolled', 'cancelled']
+    : ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled', 'returned']
+  const current = order.value?.status
+  return current && !base.includes(current) ? [current, ...base] : base
+})
+const paymentStatuses = computed(() =>
+  ['pending', 'paid', 'failed', 'cancelled'].includes(order.value?.payment_status ?? '')
+    ? ['pending', 'paid', 'failed', 'cancelled']
+    : [order.value?.payment_status ?? 'pending', 'pending', 'paid', 'failed', 'cancelled'],
+)
 </script>
 
 <template>
@@ -80,6 +116,9 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
         <BaseIcon name="arrow-left" :size="16" /> All orders
       </NuxtLink>
       <template v-if="order">
+        <button v-if="needsEnrollment" type="button" class="btn-primary" :disabled="busy" @click="enrollStudent">
+          <BaseIcon name="check-circle" :size="16" /> Approve &amp; enroll student
+        </button>
         <StatusBadge :status="order.payment_status" />
         <StatusBadge :status="order.status" />
       </template>
@@ -125,6 +164,7 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
                 <p class="truncate text-sm font-semibold text-gray-800">{{ item.name }}</p>
                 <p class="text-[11px] text-gray-400">
                   Course
+                  <span :class="item.enrolled ? 'font-semibold text-emerald-600' : 'font-semibold text-amber-600'"> · {{ item.enrolled ? 'Enrolled' : 'Not enrolled yet' }}</span>
                   <span v-if="item.access_days !== null"> · {{ item.access_days === 0 ? 'Lifetime access' : `${item.access_days} days access` }}</span>
                 </p>
               </div>
@@ -209,7 +249,7 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
           </dl>
         </section>
 
-        <section class="card p-5">
+        <section v-if="hasProducts" class="card p-5">
           <h2 class="mb-3 text-sm font-bold text-gray-900">Shipping address</h2>
           <address class="text-sm not-italic leading-relaxed text-gray-600">
             {{ order.shipping_address?.line1 || '—' }}<br>
@@ -239,8 +279,9 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
                 <option v-for="item in paymentStatuses" :key="item" :value="item">{{ statusLabel(item) }}</option>
               </select>
               <p v-if="fieldError('payment_status')" class="field-error">{{ fieldError('payment_status') }}</p>
+              <p v-if="order.payment_status === 'paid'" class="mt-1 text-[11px] text-gray-400">Refunds are issued from the Payments page.</p>
             </div>
-            <div class="grid grid-cols-2 gap-3">
+            <div v-if="hasProducts" class="grid grid-cols-2 gap-3">
               <div>
                 <label class="field-label" for="order-delivery">Delivery charge</label>
                 <input id="order-delivery" v-model.number="form.delivery_charge" type="number" min="0" step="0.01" class="field-input">
@@ -264,7 +305,7 @@ const paymentStatuses = ['pending', 'unpaid', 'paid', 'failed', 'refunded']
               Save order
             </button>
             <p class="text-[11px] text-gray-400">
-              Marking a course order cancelled or refunded revokes course access. Paid/confirmed orders grant access.
+              Course orders: set the status to Enrolled (or use Approve & enroll) to give the student access. Cancelling revokes it.
             </p>
           </form>
         </section>

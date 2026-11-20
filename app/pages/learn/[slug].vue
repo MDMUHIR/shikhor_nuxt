@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Certificate, LearnCourse, Lesson, Progress } from '~/utils/types'
+import type { AttachmentItem } from '~/components/AttachmentList.vue'
 
 definePageMeta({ middleware: 'auth' })
 
@@ -10,11 +11,12 @@ const { apiData, apiFetch } = useApi()
 const toast = useToast()
 
 const { data, pending, error, refresh } = await useAsyncData(`learn-${slug}`, async () => {
-  const [course, certificates] = await Promise.all([
+  const [course, certificates, attachments] = await Promise.all([
     apiData<LearnCourse>(`/my/courses/${slug}/learn`),
     apiData<Certificate[]>('/my/certificates').catch(() => [] as Certificate[]),
+    apiData<AttachmentItem[]>(`/courses/${slug}/attachments`).catch(() => [] as AttachmentItem[]),
   ])
-  return { course, certificates: certificates ?? [] }
+  return { course, certificates: certificates ?? [], attachments: attachments ?? [] }
 })
 
 const course = computed(() => data.value?.course ?? null)
@@ -31,6 +33,7 @@ watch(
 )
 
 const certificates = computed(() => data.value?.certificates ?? [])
+const attachments = computed(() => data.value?.attachments ?? [])
 const certificate = computed(() => {
   if (!course.value) return null
   return certificates.value.find((item) => item.course?.id === course.value?.id) ?? null
@@ -56,13 +59,14 @@ const videoKind = computed<'file' | 'embed' | 'none'>(() => {
   const video = activeLesson.value?.video
   if (!video) return 'none'
   if (video.source === 'upload' && video.stream_url) return 'file'
+  if (video.source === 'youtube' && video.embed_url) return 'embed'
   if (video.url && embedUrl(video.url)) return 'embed'
   if (video.url) return 'file'
   return 'none'
 })
 
 const videoSrc = computed(() => activeLesson.value?.video?.stream_url || activeLesson.value?.video?.url || '')
-const embeddedSrc = computed(() => embedUrl(activeLesson.value?.video?.url) || '')
+const embeddedSrc = computed(() => activeLesson.value?.video?.embed_url || embedUrl(activeLesson.value?.video?.url) || '')
 
 function embedUrl(url?: string | null) {
   if (!url) return ''
@@ -148,6 +152,8 @@ async function setComplete(complete: boolean) {
     if (response?.data) progress.value = response.data
     lesson.is_completed = complete
     toast.success(complete ? 'Lesson marked as completed.' : 'Lesson marked as incomplete.')
+    // The API issues the certificate automatically once every requirement is met.
+    if (complete && response?.data?.is_complete) await refresh()
   } catch (err) {
     toast.error((err as Error).message)
   } finally {
@@ -197,6 +203,22 @@ async function downloadCertificate() {
     toast.error((err as Error).message || 'Could not download the certificate.')
   } finally {
     downloading.value = false
+  }
+}
+
+async function downloadResource(resource: { id: number; title: string }) {
+  try {
+    const blob = await $fetch<Blob>(`/api/proxy/lesson-resources/${resource.id}/download`, { responseType: 'blob' })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = resource.title
+    document.body.appendChild(anchor)
+    anchor.click()
+    anchor.remove()
+    URL.revokeObjectURL(url)
+  } catch (err) {
+    toast.error((err as Error).message || 'Could not download this file.')
   }
 }
 
@@ -374,8 +396,48 @@ useSeoMeta({
               </div>
             </div>
 
+            <section v-if="attachments.length" class="card mt-4 p-5">
+              <h3 class="mb-3 text-sm font-bold text-gray-900">Course materials</h3>
+              <AttachmentList :items="attachments" />
+            </section>
+
+            <section class="card mt-4 flex flex-wrap items-center justify-between gap-3 p-5">
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Enjoying this course?</h3>
+                <p class="text-xs text-gray-500">Share a rating and review to help other students.</p>
+              </div>
+              <NuxtLink :to="`/courses/${course.slug}#reviews`" class="btn-secondary">
+                <BaseIcon name="star" :size="15" /> Rate this course
+              </NuxtLink>
+            </section>
+
+            <section v-if="activeLesson.resources?.length" class="card mt-4 p-5">
+              <h3 class="text-sm font-bold text-gray-900">Lesson resources</h3>
+              <ul class="mt-3 space-y-2">
+                <li v-for="resource in activeLesson.resources" :key="resource.id">
+                  <a
+                    v-if="resource.external_url"
+                    :href="resource.external_url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2 text-sm font-medium text-oc-primary hover:underline"
+                  >
+                    <BaseIcon name="external-link" :size="14" /> {{ resource.title }}
+                  </a>
+                  <button
+                    v-else
+                    type="button"
+                    class="flex items-center gap-2 text-sm font-medium text-oc-primary hover:underline"
+                    @click="downloadResource(resource)"
+                  >
+                    <BaseIcon name="download" :size="14" /> {{ resource.title }}
+                  </button>
+                </li>
+              </ul>
+            </section>
+
             <!-- Certificate CTA -->
-            <section v-if="isComplete" class="mt-4 rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-5">
+            <section v-if="isComplete || certificate" class="mt-4 rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-5">
               <div class="flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-start gap-3">
                   <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-600">

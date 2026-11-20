@@ -10,7 +10,7 @@ const { ask } = useConfirm()
 const { run } = useFormHandler()
 const { initial } = useInitials()
 
-const filter = ref<'all' | 'approved' | 'pending'>('all')
+const filter = ref<'all' | 'pending' | 'approved' | 'rejected'>('all')
 const rating = ref('')
 const courseId = ref('')
 const page = ref(1)
@@ -28,7 +28,7 @@ const { data, pending, error, refresh } = await useAsyncData(
       query: {
         per_page: 15,
         page: page.value,
-        is_approved: filter.value === 'all' ? undefined : filter.value === 'approved' ? 1 : 0,
+        status: filter.value === 'all' ? undefined : filter.value,
         rating: rating.value || undefined,
         course_id: courseId.value || undefined,
       },
@@ -42,8 +42,9 @@ watch([filter, rating, courseId], () => (page.value = 1))
 
 const filters = [
   { value: 'all' as const, label: 'All reviews' },
+  { value: 'pending' as const, label: 'Pending' },
   { value: 'approved' as const, label: 'Approved' },
-  { value: 'pending' as const, label: 'Rejected' },
+  { value: 'rejected' as const, label: 'Rejected' },
 ]
 
 async function approve(review: AdminReview) {
@@ -140,7 +141,7 @@ async function remove(review: AdminReview) {
             </div>
           </div>
           <div class="flex items-center gap-2">
-            <StatusBadge :status="review.is_approved ? 'approved' : 'rejected'" />
+            <StatusBadge :status="review.status ?? (review.is_approved ? 'approved' : 'rejected')" />
             <span class="badge bg-amber-50 text-amber-700 ring-amber-200">
               <BaseIcon name="star" :size="12" filled /> {{ review.rating }}
             </span>
@@ -154,7 +155,7 @@ async function remove(review: AdminReview) {
 
         <div class="mt-3 flex flex-wrap items-center justify-end gap-1 border-t border-gray-100 pt-2">
           <button
-            v-if="!review.is_approved"
+            v-if="(review.status ?? (review.is_approved ? 'approved' : 'rejected')) !== 'approved'"
             type="button"
             class="btn-ghost !px-2.5 !py-1.5 text-xs text-emerald-600 hover:bg-emerald-50"
             @click="approve(review)"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Course, Paginator, RatingSummary, Review } from '~/utils/types'
+import type { AttachmentItem } from '~/components/AttachmentList.vue'
 
 const route = useRoute()
 const slug = String(route.params.slug)
@@ -14,8 +15,12 @@ const { data: course, pending, error, refresh } = await useAsyncData(`course-${s
 
 const { data: enrollment, refresh: refreshEnrollment } = await useAsyncData(`course-enrollment-${slug}`, async () => {
   if (!isAuthenticated.value) return null
-  return apiData<{ enrollment: unknown; progress?: { percentage: number; is_complete: boolean } }>(`/my/courses/${slug}`).catch(() => null)
+  return apiData<{ id: number; is_active: boolean; status: string; progress?: { percentage: number; is_complete: boolean } }>(`/my/courses/${slug}`).catch(() => null)
 })
+
+const { data: attachments } = await useAsyncData(`course-attachments-${slug}`, () =>
+  apiData<AttachmentItem[]>(`/courses/${slug}/attachments`).catch(() => [] as AttachmentItem[]),
+)
 
 const ratingFilter = ref(Number(route.query.rating) || 0)
 const reviewPage = ref(Number(route.query.review_page) || 1)
@@ -47,7 +52,8 @@ watchEffect(() => {
   }
 })
 
-const isEnrolled = computed(() => !!enrollment.value?.enrollment)
+// Active enrolment (paid or granted); expired/cancelled students cannot review.
+const isEnrolled = computed(() => !!enrollment.value?.is_active)
 const openSections = ref<Set<number>>(new Set())
 const adding = ref(false)
 const summary = computed<RatingSummary>(
@@ -126,7 +132,7 @@ async function submitReview() {
   }
   savingReview.value = true
   try {
-    await apiFetch(`/courses/${slug}/reviews`, {
+    const saved = await apiFetch<{ data: { status?: string } }>(`/courses/${slug}/reviews`, {
       method: 'POST',
       body: {
         rating: reviewForm.rating,
@@ -134,7 +140,7 @@ async function submitReview() {
         comment: reviewForm.comment || null,
       },
     })
-    toast.success('Thanks — your review is live.')
+    toast.success(saved?.data?.status === 'pending' ? 'Thanks — your review will appear once approved.' : 'Thanks — your review is live.')
     await Promise.all([refreshReviews(), refreshMyReview(), refresh()])
   } catch (err) {
     reviewError.value = (err as Error).message
@@ -270,7 +276,13 @@ useSeoMeta({
             </ul>
           </section>
 
-          <section class="card overflow-hidden">
+          <nav class="sticky top-16 z-20 -mx-1 flex gap-1 overflow-x-auto rounded-xl border border-gray-100 bg-white/95 p-1 text-sm font-semibold shadow-sm backdrop-blur" aria-label="Course sections">
+            <a href="#curriculum" class="whitespace-nowrap rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-oc-primary">Curriculum</a>
+            <a v-if="attachments?.length" href="#materials" class="whitespace-nowrap rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-oc-primary">Materials</a>
+            <a href="#reviews" class="whitespace-nowrap rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-oc-primary">Reviews</a>
+          </nav>
+
+          <section id="curriculum" class="card scroll-mt-28 overflow-hidden">
             <div class="flex items-center justify-between border-b border-gray-100 px-5 py-4">
               <h2 class="text-lg font-bold text-gray-900">Curriculum</h2>
               <span class="text-xs text-gray-500">{{ course.sections?.length || 0 }} sections · {{ totalLessons }} lessons</span>
@@ -319,7 +331,15 @@ useSeoMeta({
             </ul>
           </section>
 
-          <section class="card p-5">
+          <section v-if="attachments?.length" id="materials" class="card scroll-mt-28 p-5">
+            <h2 class="text-lg font-bold text-gray-900">Course materials</h2>
+            <p class="mb-4 mt-1 text-sm text-gray-500">
+              {{ isEnrolled ? 'Download the PDFs, slides and files that come with this course.' : 'Slides, PDFs and files included with this course. Enroll to download.' }}
+            </p>
+            <AttachmentList :items="attachments" />
+          </section>
+
+          <section id="reviews" class="card scroll-mt-28 p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <h2 class="text-lg font-bold text-gray-900">Student reviews</h2>
               <div class="flex flex-wrap gap-1.5">
@@ -398,7 +418,8 @@ useSeoMeta({
             </div>
 
             <div v-if="isEnrolled" class="mt-6 rounded-xl border border-gray-100 bg-gray-50 p-4">
-              <h3 class="text-sm font-bold text-gray-800">{{ myReview ? 'Update your review' : 'Write a review' }}</h3>
+              <h3 class="text-sm font-bold text-gray-800">{{ myReview ? 'Update your review' : 'Rate this course' }}</h3>
+              <p v-if="myReview?.status === 'pending'" class="mt-1 rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-700">Your review is awaiting approval and will appear publicly soon.</p>
               <form class="mt-3 space-y-3" @submit.prevent="submitReview">
                 <div class="flex items-center gap-1">
                   <button
@@ -432,6 +453,7 @@ useSeoMeta({
               </form>
             </div>
             <p v-else-if="isAuthenticated" class="mt-5 text-xs text-gray-500">Only enrolled students can review this course.</p>
+            <p v-else class="mt-5 text-xs text-gray-500"><NuxtLink :to="`/login?next=${encodeURIComponent(route.fullPath)}`" class="font-semibold text-oc-primary hover:underline">Log in</NuxtLink> to rate this course after enrolling.</p>
           </section>
         </div>
 

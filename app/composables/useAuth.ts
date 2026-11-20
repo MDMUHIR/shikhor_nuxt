@@ -13,7 +13,9 @@ export function useAuth() {
   const requestFetch = useRequestFetch()
 
   const isAuthenticated = computed(() => !!user.value)
-  const isAdmin = computed(() => user.value?.type === 'admin')
+  const isAdmin = computed(() => ['admin', 'super_admin'].includes(user.value?.type ?? ''))
+  const isInstructor = computed(() => user.value?.type === 'instructor')
+  const isStaff = computed(() => isAdmin.value || isInstructor.value)
 
   async function fetchMe(force = false): Promise<User | null> {
     if (loaded.value && !force) return user.value
@@ -84,5 +86,5 @@ export function useAuth() {
     }
   }
 
-  return { user, loaded, pending, isAuthenticated, isAdmin, fetchMe, login, register, logout }
+  return { user, loaded, pending, isAuthenticated, isAdmin, isInstructor, isStaff, fetchMe, login, register, logout }
 }

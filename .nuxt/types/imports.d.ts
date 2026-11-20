@@ -236,7 +236,7 @@ declare global {
   export type { Toast } from '../../app/composables/useToast'
   import('../../app/composables/useToast')
   // @ts-ignore
-  export type { User, Paginator, ApiEnvelope, CourseCategory, RatingSummary, Course, LessonVideo, Lesson, CourseSection, QuizSummary, Review, Category, ProductImage, VariantAttribute, ProductVariant, Product, CartItem, CourseCartItem, CourseCartResponse, WishlistItem, Coupon, DeliveryCharge, OrderItem, OrderCourseItem, OrderStatusHistory, Order, Enrollment, Progress, MyCourse, LearnCourse, QuizAttempt, QuizQuestion, QuizDetail, QuizReviewItem, Certificate, CertificateVerification, Banner, Blog, BlogPagination, BlogListResponse, BlogTag, BlogCategory, AdminEnrollment, AdminReview, AdminQuiz, AdminQuizQuestion, AdminLesson, AdminCourseSection, AdminCourse, AdminOrder } from '../../app/utils/types'
+  export type { User, Paginator, ApiEnvelope, CourseCategory, RatingSummary, Course, LessonVideo, LessonResource, Lesson, CourseSection, QuizSummary, Review, Category, ProductImage, VariantAttribute, ProductVariant, Product, CartItem, CourseCartItem, CourseCartResponse, WishlistItem, Coupon, DeliveryCharge, OrderItem, OrderCourseItem, OrderStatusHistory, Order, Enrollment, Progress, MyCourse, LearnCourse, QuizAttempt, QuizQuestion, QuizDetail, QuizReviewItem, Certificate, CertificateVerification, Banner, Blog, BlogPagination, BlogListResponse, BlogTag, BlogCategory, AdminEnrollment, AdminReview, AdminQuiz, AdminQuizQuestion, AdminLesson, AdminCourseSection, AdminCourse, AdminOrder } from '../../app/utils/types'
   import('../../app/utils/types')
 }
 // for vue template auto import
