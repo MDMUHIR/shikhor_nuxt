@@ -1,5 +1,5 @@
 import { c as defineEventHandler, r as readBody, e as createError, f as setCookie } from '../../../_/nitro.mjs';
-import { l as laravelFetch } from '../../../_/laravel.mjs';
+import { l as laravelFetch, i as isSecureRequest } from '../../../_/laravel.mjs';
 import 'unhead/server';
 import 'vue';
 import 'unhead/legacy';
@@ -18,7 +18,7 @@ const MAX_AGE = 60 * 60 * 24 * 30;
 function setAuthCookie(event, token) {
   setCookie(event, COOKIE, token, {
     httpOnly: true,
-    secure: true,
+    secure: isSecureRequest(event),
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE

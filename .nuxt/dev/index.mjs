@@ -2646,7 +2646,22 @@ _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU,
 _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"2a07e-ppOlVvd0mKMCgSaa94EFe1srCuw\"",
+    "mtime": "2026-11-20T20:06:47.865Z",
+    "size": 172158,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"9788e-Yxeb1YkaOMN86xFFU0yY2L6TWnY\"",
+    "mtime": "2026-11-20T20:06:47.865Z",
+    "size": 620686,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -3983,13 +3998,16 @@ async function laravelFetch(event, path, options = {}) {
     contentType
   };
 }
+function isSecureRequest(event) {
+  return getRequestProtocol(event, { xForwardedProto: true }) === "https";
+}
 
 const COOKIE$1 = "shikhor_token";
 const MAX_AGE$1 = 60 * 60 * 24 * 30;
 function setAuthCookie(event, token) {
   setCookie(event, COOKIE$1, token, {
     httpOnly: true,
-    secure: false,
+    secure: isSecureRequest(event),
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE$1
@@ -4124,7 +4142,7 @@ const register_post = defineEventHandler(async (event) => {
     }
     setCookie(event, COOKIE, token, {
       httpOnly: true,
-      secure: false,
+      secure: isSecureRequest(event),
       sameSite: "lax",
       path: "/",
       maxAge: MAX_AGE
@@ -4139,7 +4157,7 @@ const register_post = defineEventHandler(async (event) => {
   }
   setCookie(event, COOKIE, token, {
     httpOnly: true,
-    secure: false,
+    secure: isSecureRequest(event),
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE

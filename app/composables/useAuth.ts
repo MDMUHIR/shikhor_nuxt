@@ -8,6 +8,9 @@ export function useAuth() {
   const user = useState<User | null>('shikhor-user', () => null)
   const loaded = useState<boolean>('shikhor-user-loaded', () => false)
   const pending = useState<boolean>('shikhor-user-pending', () => false)
+  // Forwards the incoming request cookies during SSR so /api/auth/me can read
+  // the httpOnly session cookie instead of returning an empty user.
+  const requestFetch = useRequestFetch()
 
   const isAuthenticated = computed(() => !!user.value)
   const isAdmin = computed(() => user.value?.type === 'admin')
@@ -21,7 +24,7 @@ export function useAuth() {
     }
     pending.value = true
     try {
-      const response = await $fetch<AuthResponse>('/api/auth/me')
+      const response = await requestFetch<AuthResponse>('/api/auth/me')
       user.value = response?.user ?? null
     } catch {
       user.value = null

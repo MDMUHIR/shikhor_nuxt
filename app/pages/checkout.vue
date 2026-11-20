@@ -82,6 +82,7 @@ const form = reactive({
   city: '',
   country: 'Bangladesh',
   payment_method: 'cod',
+  payment_sender: '',
   notes: '',
   shipping_method: '',
 })
@@ -97,8 +98,36 @@ const formError = ref('')
 const paymentMethods = [
   { value: 'cod', label: 'Cash on delivery', hint: 'For physical products delivered to your address.' },
   { value: 'bkash', label: 'bKash (manual)', hint: 'Send the amount, then an admin confirms your payment.' },
+  { value: 'nagad', label: 'Nagad (manual)', hint: 'Send the amount, then an admin confirms your payment.' },
   { value: 'bank', label: 'Bank transfer', hint: 'Transfer manually; an admin confirms your payment.' },
 ]
+
+const isManualPayment = computed(() => ['bkash', 'nagad', 'bank'].includes(form.payment_method))
+const senderLabel = computed(() => (form.payment_method === 'bank' ? 'Transaction reference' : 'Sending number'))
+const senderPlaceholder = computed(() =>
+  form.payment_method === 'bank' ? 'e.g. TRX123456' : 'The number you sent the payment from',
+)
+
+const availablePaymentMethods = computed(() =>
+  hasProducts.value ? paymentMethods : paymentMethods.filter((method) => method.value !== 'cod'),
+)
+
+watch(
+  availablePaymentMethods,
+  (methods) => {
+    if (!methods.some((method) => method.value === form.payment_method)) {
+      form.payment_method = methods[0]?.value ?? ''
+    }
+  },
+  { immediate: true },
+)
+
+watch(
+  () => form.payment_method,
+  () => {
+    delete errors.payment_sender
+  },
+)
 
 async function applyCoupon() {
   couponError.value = ''
@@ -134,6 +163,11 @@ function validate() {
   if (!form.email.trim()) errors.email = 'An email address is required.'
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) errors.email = 'Enter a valid email address.'
   if (!form.phone.trim()) errors.phone = 'A phone number is required for delivery updates.'
+  if (isManualPayment.value && !form.payment_sender.trim()) {
+    errors.payment_sender = form.payment_method === 'bank'
+      ? 'A transaction reference is required.'
+      : 'The sending number is required for payment confirmation.'
+  }
 
   if (hasProducts.value) {
     if (!form.line1.trim()) errors.line1 = 'Street address is required.'
@@ -141,6 +175,16 @@ function validate() {
     if (!form.city.trim()) errors.city = 'City or area is required.'
   }
   return Object.keys(errors).length === 0
+}
+
+function buildNotes() {
+  const parts: string[] = []
+  if (isManualPayment.value && form.payment_sender.trim()) {
+    const label = form.payment_method === 'bank' ? 'Transaction reference' : 'Sending number'
+    parts.push(`${label}: ${form.payment_sender.trim()} (${form.payment_method})`)
+  }
+  if (form.notes.trim()) parts.push(form.notes.trim())
+  return parts.join('\n') || null
 }
 
 async function placeOrder() {
@@ -179,7 +223,7 @@ async function placeOrder() {
           coupon_code: coupon.value?.code ?? null,
         },
         payment_method: form.payment_method,
-        notes: form.notes.trim() || null,
+        notes: buildNotes(),
       },
     })
     const order = response?.data
@@ -295,7 +339,7 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
           <p class="mt-1 text-xs text-gray-500">Payments are confirmed manually by an administrator.</p>
           <div class="mt-4 grid gap-2">
             <label
-              v-for="method in paymentMethods"
+              v-for="method in availablePaymentMethods"
               :key="method.value"
               class="flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition"
               :class="form.payment_method === method.value ? 'border-oc-primary bg-brand-light' : 'border-gray-200 hover:border-gray-300'"
@@ -306,6 +350,12 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
                 <span class="block text-xs text-gray-500">{{ method.hint }}</span>
               </span>
             </label>
+          </div>
+          <div v-if="isManualPayment" class="mt-4">
+            <label class="field-label" for="checkout-payment-sender">{{ senderLabel }}</label>
+            <input id="checkout-payment-sender" v-model="form.payment_sender" class="field-input" :placeholder="senderPlaceholder">
+            <p class="mt-1 text-[11px] text-gray-400">Used by our team to verify your payment manually.</p>
+            <p v-if="errors.payment_sender" class="field-error">{{ errors.payment_sender }}</p>
           </div>
           <div class="mt-4">
             <label class="field-label" for="checkout-notes">Order notes (optional)</label>

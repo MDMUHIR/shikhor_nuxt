@@ -86,7 +86,7 @@ function handleFocus() {
 <template>
   <header class="fixed inset-x-0 top-0 z-50 print:hidden">
     <div class="border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-      <div class="mx-auto flex h-18 w-full max-w-[1280px] items-center gap-3 px-4 md:px-6">
+      <div class="mx-auto flex h-18 w-full  md:container items-center gap-3 px-4 md:px-6">
         <NuxtLink to="/" class="flex h-12 w-24 shrink-0 items-center" aria-label="Shikhor Academy home">
           <img src="/logo.png" alt="Shikhor Academy" class="h-full w-full object-contain" >
         </NuxtLink>

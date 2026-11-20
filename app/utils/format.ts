@@ -61,6 +61,7 @@ export function statusLabel(status?: string | null): string {
     processing: 'Processing',
     shipped: 'Shipped',
     delivered: 'Delivered',
+    enrolled: 'Enrolled',
     cancelled: 'Cancelled',
     returned: 'Returned',
     refunded: 'Refunded',
@@ -84,6 +85,7 @@ export function statusClasses(status?: string | null): string {
   const map: Record<string, string> = {
     completed: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
     delivered: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+    enrolled: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
     paid: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
     active: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
     issued: 'bg-emerald-50 text-emerald-700 ring-emerald-200',

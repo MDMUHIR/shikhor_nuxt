@@ -1,4 +1,4 @@
-import { laravelFetch } from '../../utils/laravel'
+import { isSecureRequest, laravelFetch } from '../../utils/laravel'
 
 interface RegisterBody {
   name?: string
@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
     }
     setCookie(event, COOKIE, token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isSecureRequest(event),
       sameSite: 'lax',
       path: '/',
       maxAge: MAX_AGE,
@@ -88,7 +88,7 @@ export default defineEventHandler(async (event) => {
 
   setCookie(event, COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isSecureRequest(event),
     sameSite: 'lax',
     path: '/',
     maxAge: MAX_AGE,

@@ -1,3 +1,4 @@
+import { getRequestProtocol } from 'h3'
 import type { H3Event } from 'h3'
 
 export interface LaravelResult<T = unknown> {
@@ -64,6 +65,15 @@ export async function laravelFetch<T = unknown>(
 
 export function laravelBase(event?: H3Event): string {
   return baseUrl(event)
+}
+
+/**
+ * Only mark the auth cookie Secure when the browser is actually on HTTPS.
+ * Setting Secure on plain HTTP (LAN IP / production preview) makes browsers
+ * drop the cookie, which logs the user out on the next refresh.
+ */
+export function isSecureRequest(event: H3Event): boolean {
+  return getRequestProtocol(event, { xForwardedProto: true }) === 'https'
 }
 
 export interface LaravelEnvelope<T = unknown> {

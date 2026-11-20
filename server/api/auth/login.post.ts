@@ -1,4 +1,4 @@
-import { laravelFetch } from '../../utils/laravel'
+import { isSecureRequest, laravelFetch } from '../../utils/laravel'
 
 interface LoginBody {
   email?: string
@@ -27,7 +27,7 @@ const MAX_AGE = 60 * 60 * 24 * 30
 function setAuthCookie(event: Parameters<typeof setCookie>[0], token: string) {
   setCookie(event, COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isSecureRequest(event),
     sameSite: 'lax',
     path: '/',
     maxAge: MAX_AGE,

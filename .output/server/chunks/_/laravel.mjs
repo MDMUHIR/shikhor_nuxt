@@ -1,4 +1,4 @@
-import { g as getCookie, u as useRuntimeConfig } from './nitro.mjs';
+import { g as getCookie, i as getRequestProtocol, u as useRuntimeConfig } from './nitro.mjs';
 
 function baseUrl(event) {
   const config = useRuntimeConfig(event);
@@ -37,6 +37,9 @@ async function laravelFetch(event, path, options = {}) {
     contentType
   };
 }
+function isSecureRequest(event) {
+  return getRequestProtocol(event, { xForwardedProto: true }) === "https";
+}
 
-export { laravelFetch as l };
+export { isSecureRequest as i, laravelFetch as l };
 //# sourceMappingURL=laravel.mjs.map

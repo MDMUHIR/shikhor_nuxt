@@ -1,4 +1,4 @@
-import { c as defineEventHandler, u as useRuntimeConfig, n as setHeader } from '../_/nitro.mjs';
+import { c as defineEventHandler, u as useRuntimeConfig, o as setHeader } from '../_/nitro.mjs';
 import 'unhead/server';
 import 'vue';
 import 'unhead/legacy';

@@ -14,15 +14,35 @@ const { data: order, pending, error, refresh } = await useAsyncData(`order-${id}
 
 const justPlaced = computed(() => route.query.success === '1')
 
-const pipeline = ['pending', 'confirmed', 'processing', 'shipped', 'delivered']
+const isCourseOnly = computed(() => {
+  const value = order.value
+  return !!value && (value.course_items?.length ?? 0) > 0 && !(value.items?.length ?? 0)
+})
+
+const pipeline = computed(() =>
+  isCourseOnly.value
+    ? ['pending', 'confirmed', 'processing', 'enrolled']
+    : ['pending', 'confirmed', 'processing', 'shipped', 'delivered'],
+)
+
+const displayStatus = computed(() => {
+  const status = order.value?.status
+  if (status && isCourseOnly.value && ['shipped', 'delivered', 'completed'].includes(status)) return 'enrolled'
+  return status
+})
 
 const currentStep = computed(() => {
   if (!order.value) return -1
   if (['cancelled', 'returned', 'refunded'].includes(order.value.status)) return -1
-  return pipeline.indexOf(order.value.status)
+  return pipeline.value.indexOf(displayStatus.value ?? '')
 })
 
 const isStopped = computed(() => !!order.value && ['cancelled', 'returned', 'refunded'].includes(order.value.status))
+
+function historyLabel(status: string, label?: string | null) {
+  if (isCourseOnly.value && ['shipped', 'delivered', 'completed'].includes(status)) return 'Enrolled'
+  return label || statusLabel(status)
+}
 
 function itemAttributes(attributes?: Array<{ attribute: string; value: string }> | null) {
   return (attributes || []).map((attribute) => `${attribute.attribute}: ${attribute.value}`).join(' · ')
@@ -77,7 +97,7 @@ useSeoMeta({
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <StatusBadge :status="order.payment_status" />
-          <StatusBadge :status="order.status" />
+          <StatusBadge :status="displayStatus" />
           <button type="button" class="btn-ghost" :disabled="pending" aria-label="Refresh order" @click="refresh">
             <BaseIcon name="refresh" :size="16" /> Refresh
           </button>
@@ -108,7 +128,7 @@ useSeoMeta({
           <div v-for="(entry, index) in order.status_history" :key="index" class="flex gap-3">
             <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-oc-primary" />
             <div>
-              <p class="text-sm font-semibold text-gray-800">{{ entry.label || statusLabel(entry.status) }}</p>
+              <p class="text-sm font-semibold text-gray-800">{{ historyLabel(entry.status, entry.label) }}</p>
               <p v-if="entry.note" class="text-xs text-gray-500">{{ entry.note }}</p>
               <p class="text-[11px] text-gray-400">{{ formatDate(entry.created_at, true) }}</p>
             </div>

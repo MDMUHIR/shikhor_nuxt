@@ -36,6 +36,15 @@ function itemCount(order: Order) {
   return order.summary?.total_items ?? (order.items?.length ?? 0) + (order.course_items?.length ?? 0)
 }
 
+function isCourseOnly(order: Order) {
+  return (order.course_items?.length ?? 0) > 0 && !(order.items?.length ?? 0)
+}
+
+function displayStatus(order: Order) {
+  if (isCourseOnly(order) && ['shipped', 'delivered', 'completed'].includes(order.status)) return 'enrolled'
+  return order.status
+}
+
 useSeoMeta({ title: 'My orders — Shikhor Academy', robots: 'noindex' })
 </script>
 
@@ -122,7 +131,7 @@ useSeoMeta({ title: 'My orders — Shikhor Academy', robots: 'noindex' })
           </div>
           <div class="flex items-center gap-2">
             <StatusBadge :status="order.payment_status" />
-            <StatusBadge :status="order.status" />
+            <StatusBadge :status="displayStatus(order)" />
           </div>
         </div>
 
