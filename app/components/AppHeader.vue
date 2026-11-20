@@ -16,6 +16,7 @@ const signingOut = ref(false)
 const links = [
   { label: 'Home', href: '/' },
   { label: 'Courses', href: '/courses' },
+  { label: 'Exams', href: '/exams' },
   { label: 'Store', href: '/store' },
   { label: 'Blog', href: '/blog' },
   { label: 'Reviews', href: '/reviews' },

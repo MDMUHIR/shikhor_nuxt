@@ -33,6 +33,7 @@ declare global {
   const effect: typeof import('vue').effect
   const effectScope: typeof import('vue').effectScope
   const excerpt: typeof import('../../app/utils/format').excerpt
+  const formatClock: typeof import('../../app/utils/exam').formatClock
   const formatDate: typeof import('../../app/utils/format').formatDate
   const formatDuration: typeof import('../../app/utils/format').formatDuration
   const formatMoney: typeof import('../../app/utils/format').formatMoney
@@ -60,6 +61,7 @@ declare global {
   const markRaw: typeof import('vue').markRaw
   const mediaUrl: typeof import('../../app/utils/media').mediaUrl
   const navigateTo: typeof import('../../node_modules/nuxt/dist/app/composables/router').navigateTo
+  const negativeMarkingLabel: typeof import('../../app/utils/exam').negativeMarkingLabel
   const nextTick: typeof import('vue').nextTick
   const onActivated: typeof import('vue').onActivated
   const onBeforeMount: typeof import('vue').onBeforeMount
@@ -236,6 +238,9 @@ declare global {
   export type { Toast } from '../../app/composables/useToast'
   import('../../app/composables/useToast')
   // @ts-ignore
+  export type { ExamInfo, ExamListItem, ExamAttemptSummary, ExamTakeQuestion, ExamReviewItem } from '../../app/utils/exam'
+  import('../../app/utils/exam')
+  // @ts-ignore
   export type { User, Paginator, ApiEnvelope, CourseCategory, RatingSummary, Course, LessonVideo, LessonResource, Lesson, CourseSection, QuizSummary, Review, Category, ProductImage, VariantAttribute, ProductVariant, Product, CartItem, CourseCartItem, CourseCartResponse, WishlistItem, Coupon, DeliveryCharge, OrderItem, OrderCourseItem, OrderStatusHistory, Order, Enrollment, Progress, MyCourse, LearnCourse, QuizAttempt, QuizQuestion, QuizDetail, QuizReviewItem, Certificate, CertificateVerification, Banner, Blog, BlogPagination, BlogListResponse, BlogTag, BlogCategory, AdminEnrollment, AdminReview, AdminQuiz, AdminQuizQuestion, AdminLesson, AdminCourseSection, AdminCourse, AdminOrder } from '../../app/utils/types'
   import('../../app/utils/types')
 }
@@ -275,6 +280,7 @@ declare module 'vue' {
     readonly effect: UnwrapRef<typeof import('vue')['effect']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly excerpt: UnwrapRef<typeof import('../../app/utils/format')['excerpt']>
+    readonly formatClock: UnwrapRef<typeof import('../../app/utils/exam')['formatClock']>
     readonly formatDate: UnwrapRef<typeof import('../../app/utils/format')['formatDate']>
     readonly formatDuration: UnwrapRef<typeof import('../../app/utils/format')['formatDuration']>
     readonly formatMoney: UnwrapRef<typeof import('../../app/utils/format')['formatMoney']>
@@ -302,6 +308,7 @@ declare module 'vue' {
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly mediaUrl: UnwrapRef<typeof import('../../app/utils/media')['mediaUrl']>
     readonly navigateTo: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['navigateTo']>
+    readonly negativeMarkingLabel: UnwrapRef<typeof import('../../app/utils/exam')['negativeMarkingLabel']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>

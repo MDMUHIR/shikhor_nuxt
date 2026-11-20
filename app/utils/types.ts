@@ -5,6 +5,8 @@ export interface User {
   type: 'admin' | 'super_admin' | 'instructor' | 'customer'
   avatar?: string | null
   is_active?: boolean
+  headline?: string | null
+  bio?: string | null
   created_at?: string | null
 }
 
@@ -54,6 +56,8 @@ export interface RatingSummary {
 }
 
 export interface Course {
+  instructor?: { id: number; name: string; headline?: string | null; bio: string | null; avatar: string | null } | null
+  instructor_id?: number | null
   id: number
   category_id: number | null
   title: string

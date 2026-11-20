@@ -32,11 +32,12 @@ const levelLabel = computed(() => {
 </script>
 
 <template>
-  <NuxtLink
-    :to="`/courses/${course.slug}`"
-    class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+  <!-- The whole card opens the course; the instructor link sits above that overlay (no nested <a>). -->
+  <article
+    class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
   >
-    <div class="relative aspect-video overflow-hidden bg-gray-100">
+    <NuxtLink :to="`/courses/${course.slug}`" class="absolute inset-0 z-[1]" :aria-label="course.title" />
+    <div class="pointer-events-none relative aspect-video overflow-hidden bg-gray-100">
       <img
         :src="image"
         :alt="course.title"
@@ -59,7 +60,7 @@ const levelLabel = computed(() => {
       </span>
     </div>
 
-    <div class="flex flex-1 flex-col p-5">
+    <div class="pointer-events-none flex flex-1 flex-col p-5">
       <div class="mb-2 flex items-center justify-between gap-2 text-xs text-gray-500">
         <span class="inline-flex items-center gap-1">
           <BaseIcon name="layers" :size="13" /> {{ course.total_lessons }} lessons
@@ -71,6 +72,16 @@ const levelLabel = computed(() => {
         {{ course.title }}
       </h3>
       <p v-if="course.subtitle && !compact" class="mt-1.5 line-clamp-2 text-sm text-gray-500">{{ course.subtitle }}</p>
+
+      <NuxtLink
+        v-if="course.instructor"
+        :to="`/instructors/${course.instructor.id}`"
+        class="pointer-events-auto relative z-[2] mt-2 inline-flex w-fit max-w-full items-center gap-2 text-xs font-semibold text-gray-600 hover:text-oc-primary"
+      >
+        <img v-if="course.instructor.avatar" :src="mediaUrl(course.instructor.avatar)" :alt="course.instructor.name" class="h-6 w-6 shrink-0 rounded-full object-cover" @error="imageFallback">
+        <span v-else class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-light text-[10px] font-bold text-oc-primary">{{ course.instructor.name.charAt(0).toUpperCase() }}</span>
+        <span class="truncate">{{ course.instructor.name }}</span>
+      </NuxtLink>
 
       <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-500">
         <span class="inline-flex items-center gap-1"><BaseIcon name="clock" :size="12" /> {{ accessLabel }}</span>
@@ -85,5 +96,5 @@ const levelLabel = computed(() => {
         <span class="text-xs font-semibold text-gray-500">{{ levelLabel }}</span>
       </div>
     </div>
-  </NuxtLink>
+  </article>
 </template>

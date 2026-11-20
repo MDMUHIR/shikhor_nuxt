@@ -1,0 +1,695 @@
+import { A as AdminPageHeader_default } from './AdminPageHeader-rLJAWqO6.mjs';
+import { c as useSeoMeta, b as useApi, u as useAuth, N as NuxtLink, B as BaseIcon_default, s as ssrRenderList$2 } from '../virtual/entry.mjs';
+import { E as ErrorState_default } from './ErrorState-ssgGFunz.mjs';
+import { A as AdminStat_default } from './AdminStat-DEGFcaUv.mjs';
+import { u as useAsyncData } from './asyncData-Bcy_CjYi.mjs';
+import { b as formatMoney, c as formatNumber, a as formatDate } from './format-DP0uQCCC.mjs';
+import { E as EmptyState_default } from './EmptyState-Dbt0XLNN.mjs';
+import { S as StatusBadge_default } from './StatusBadge-D6yA547L.mjs';
+import { R as RatingStars_default } from './RatingStars-DvyQ9IRB.mjs';
+import { u as useInitials } from './useInitials-C477l6Rh.mjs';
+import { defineComponent, withAsyncContext, computed, unref, withCtx, createVNode, createTextVNode, toDisplayString, ref, mergeProps, useSSRContext } from 'vue';
+import { ssrRenderAttrs, ssrRenderComponent, ssrIncludeBooleanAttr, ssrInterpolate, ssrRenderAttr, ssrLooseContain, ssrLooseEqual, ssrRenderStyle } from 'vue/server-renderer';
+import 'nostics';
+import 'nostics/formatters/ansi';
+import '../_/nitro.mjs';
+import 'unhead/server';
+import 'unhead/legacy';
+import 'unhead/plugins';
+import 'node:http';
+import 'node:https';
+import 'node:events';
+import 'node:buffer';
+import 'node:fs';
+import 'node:path';
+import 'node:crypto';
+import 'node:url';
+import '../routes/renderer.mjs';
+import 'vue-bundle-renderer/runtime';
+import 'devalue';
+import 'vue-router';
+import 'unhead/utils';
+
+// app/components/AdminAnalytics.vue?vue&type=script&setup=true&lang.ts
+var AdminAnalytics_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "AdminAnalytics",
+	__ssrInlineRender: true,
+	async setup(__props) {
+		let __temp, __restore;
+		const { apiData } = useApi();
+		const days = ref(30);
+		const { data, pending, error, refresh } = ([__temp, __restore] = withAsyncContext(() => useAsyncData("admin-analytics", () => apiData("/admin/analytics", { query: { days: days.value } }), { watch: [days] })), __temp = await __temp, __restore(), __temp);
+		const bars = computed(() => {
+			const rows = data.value?.revenue.daily ?? [];
+			const max = Math.max(1, ...rows.map((row) => Number(row.revenue)));
+			return rows.map((row) => ({
+				date: row.date,
+				value: Number(row.revenue),
+				height: Math.max(4, Number(row.revenue) / max * 100)
+			}));
+		});
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_ErrorState = ErrorState_default;
+			const _component_AdminStat = AdminStat_default;
+			_push(`<section${ssrRenderAttrs(mergeProps({ class: "card mb-6 p-5" }, _attrs))}><div class="flex flex-wrap items-center justify-between gap-3"><h2 class="text-sm font-bold text-gray-900">Sales &amp; learning analytics</h2><select class="field-input !w-auto" aria-label="Range"><option${ssrRenderAttr("value", 7)}${ssrIncludeBooleanAttr(Array.isArray(unref(days)) ? ssrLooseContain(unref(days), 7) : ssrLooseEqual(unref(days), 7)) ? " selected" : ""}>Last 7 days</option><option${ssrRenderAttr("value", 30)}${ssrIncludeBooleanAttr(Array.isArray(unref(days)) ? ssrLooseContain(unref(days), 30) : ssrLooseEqual(unref(days), 30)) ? " selected" : ""}>Last 30 days</option><option${ssrRenderAttr("value", 90)}${ssrIncludeBooleanAttr(Array.isArray(unref(days)) ? ssrLooseContain(unref(days), 90) : ssrLooseEqual(unref(days), 90)) ? " selected" : ""}>Last 90 days</option></select></div>`);
+			if (unref(pending)) _push(`<div class="mt-4 h-40 animate-pulse rounded-xl bg-gray-50"></div>`);
+			else if (unref(error)) _push(ssrRenderComponent(_component_ErrorState, {
+				title: "Could not load analytics",
+				message: unref(error).message,
+				onRetry: unref(refresh)
+			}, null, _parent));
+			else if (unref(data)) {
+				_push(`<!--[--><div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">`);
+				_push(ssrRenderComponent(_component_AdminStat, {
+					label: "Revenue (range)",
+					value: ("formatMoney" in _ctx ? _ctx.formatMoney : unref(formatMoney))(unref(data).revenue.range),
+					icon: "credit-card",
+					tone: "emerald"
+				}, null, _parent));
+				_push(ssrRenderComponent(_component_AdminStat, {
+					label: "New enrollments",
+					value: String(unref(data).enrollments.range),
+					icon: "users",
+					tone: "blue"
+				}, null, _parent));
+				_push(ssrRenderComponent(_component_AdminStat, {
+					label: "Completion rate",
+					value: `${unref(data).enrollments.completion_rate}%`,
+					icon: "award",
+					tone: "violet"
+				}, null, _parent));
+				_push(ssrRenderComponent(_component_AdminStat, {
+					label: "Pending reviews",
+					value: String(unref(data).reviews.pending),
+					icon: "star",
+					tone: "amber"
+				}, null, _parent));
+				_push(`</div><div class="mt-5 grid gap-5 lg:grid-cols-2"><div><p class="text-xs font-bold uppercase tracking-wide text-gray-400">Daily revenue</p>`);
+				if (unref(bars).length) {
+					_push(`<div class="mt-3 flex h-32 items-end gap-1"><!--[-->`);
+					ssrRenderList$2(unref(bars), (bar) => {
+						_push(`<div class="min-w-[6px] flex-1 rounded-t bg-oc-primary/80" style="${ssrRenderStyle({ height: `${bar.height}%` })}"${ssrRenderAttr("title", `${bar.date}: ${("formatMoney" in _ctx ? _ctx.formatMoney : unref(formatMoney))(bar.value)}`)}></div>`);
+					});
+					_push(`<!--]--></div>`);
+				} else _push(`<p class="mt-3 text-sm text-gray-500">No paid orders in this range.</p>`);
+				_push(`</div><div><p class="text-xs font-bold uppercase tracking-wide text-gray-400">Top courses</p>`);
+				if (unref(data).top_courses.length) {
+					_push(`<ul class="mt-3 space-y-2"><!--[-->`);
+					ssrRenderList$2(unref(data).top_courses, (course) => {
+						_push(`<li class="flex justify-between gap-3 text-sm"><span class="truncate text-gray-700">${ssrInterpolate(course.name)} <span class="text-gray-400">· ${ssrInterpolate(course.sales)} sales</span></span><span class="font-semibold text-gray-900">${ssrInterpolate(("formatMoney" in _ctx ? _ctx.formatMoney : unref(formatMoney))(course.revenue))}</span></li>`);
+					});
+					_push(`<!--]--></ul>`);
+				} else _push(`<p class="mt-3 text-sm text-gray-500">No sales yet.</p>`);
+				_push(`</div></div><!--]-->`);
+			} else _push(`<!---->`);
+			_push(`</section>`);
+		};
+	}
+});
+// app/components/AdminAnalytics.vue
+var _sfc_setup$2 = AdminAnalytics_vue_vue_type_script_setup_true_lang_default.setup;
+AdminAnalytics_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/AdminAnalytics.vue");
+	return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
+};
+var AdminAnalytics_default = Object.assign(AdminAnalytics_vue_vue_type_script_setup_true_lang_default, { __name: "AdminAnalytics" });
+// app/components/InstructorDashboard.vue?vue&type=script&setup=true&lang.ts
+var InstructorDashboard_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "InstructorDashboard",
+	__ssrInlineRender: true,
+	async setup(__props) {
+		let __temp, __restore;
+		const { apiData } = useApi();
+		const { user } = useAuth();
+		const [{ data: courses, pending, error, refresh }, { data: exams }] = ([__temp, __restore] = withAsyncContext(() => Promise.all([useAsyncData("instructor-courses", () => apiData("/admin/courses", { query: { per_page: 50 } })), useAsyncData("instructor-exams", () => apiData("/admin/exams").catch(() => []))])), __temp = await __temp, __restore(), __temp);
+		const list = computed(() => courses.value?.data ?? []);
+		const awaiting = computed(() => list.value.filter((course) => course.status === "under_review"));
+		const totalStudents = computed(() => list.value.reduce((sum, course) => sum + Number(course.total_students ?? 0), 0));
+		const guide = {
+			draft: "Only you can see this course.",
+			under_review: "Waiting for an administrator to publish it.",
+			published: "Live for students.",
+			unpublished: "Hidden from the catalog.",
+			archived: "Archived."
+		};
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_NuxtLink = NuxtLink;
+			const _component_BaseIcon = BaseIcon_default;
+			const _component_AdminAnalytics = AdminAnalytics_default;
+			const _component_ErrorState = ErrorState_default;
+			const _component_EmptyState = EmptyState_default;
+			const _component_StatusBadge = StatusBadge_default;
+			_push(`<div${ssrRenderAttrs(_attrs)}><div class="card mb-5 flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-brand-light to-white p-5"><div><p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Instructor</p><h2 class="mt-1 text-xl font-extrabold text-gray-900">Welcome back, ${ssrInterpolate(unref(user)?.name)}</h2><p class="mt-1 text-sm text-gray-500">Manage your courses, lessons, quizzes, files and exams. An administrator publishes courses and handles enrollments.</p></div><div class="flex flex-wrap gap-2">`);
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/admin/courses/new",
+				class: "btn-primary"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(ssrRenderComponent(_component_BaseIcon, {
+							name: "plus",
+							size: 16
+						}, null, _parent, _scopeId));
+						_push(` New course`);
+					} else return [createVNode(_component_BaseIcon, {
+						name: "plus",
+						size: 16
+					}), createTextVNode(" New course")];
+				}),
+				_: 1
+			}, _parent));
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/admin/exams",
+				class: "btn-secondary"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(ssrRenderComponent(_component_BaseIcon, {
+							name: "list",
+							size: 16
+						}, null, _parent, _scopeId));
+						_push(` Exams`);
+					} else return [createVNode(_component_BaseIcon, {
+						name: "list",
+						size: 16
+					}), createTextVNode(" Exams")];
+				}),
+				_: 1
+			}, _parent));
+			_push(`</div></div>`);
+			if (unref(awaiting).length) {
+				_push(`<p class="mb-5 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">`);
+				_push(ssrRenderComponent(_component_BaseIcon, {
+					name: "alert-circle",
+					size: 18,
+					class: "mt-0.5 shrink-0"
+				}, null, _parent));
+				_push(` ${ssrInterpolate(unref(awaiting).length)} course${ssrInterpolate(unref(awaiting).length === 1 ? " is" : "s are")} waiting for administrator approval before students can see ${ssrInterpolate(unref(awaiting).length === 1 ? "it" : "them")}. </p>`);
+			} else _push(`<!---->`);
+			_push(ssrRenderComponent(_component_AdminAnalytics, null, null, _parent));
+			_push(`<section class="card overflow-hidden"><div class="flex items-center justify-between border-b border-gray-100 px-5 py-3.5"><div><h2 class="text-sm font-bold text-gray-900">My courses</h2><p class="text-xs text-gray-500">${ssrInterpolate(unref(list).length)} course${ssrInterpolate(unref(list).length === 1 ? "" : "s")} · ${ssrInterpolate(unref(totalStudents))} student${ssrInterpolate(unref(totalStudents) === 1 ? "" : "s")}</p></div>`);
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/admin/courses",
+				class: "text-xs font-semibold text-oc-primary hover:underline"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) _push(`Manage all`);
+					else return [createTextVNode("Manage all")];
+				}),
+				_: 1
+			}, _parent));
+			_push(`</div>`);
+			if (unref(pending)) {
+				_push(`<div class="space-y-2 p-4"><!--[-->`);
+				ssrRenderList$2(3, (i) => {
+					_push(`<div class="h-12 animate-pulse rounded-lg bg-gray-50"></div>`);
+				});
+				_push(`<!--]--></div>`);
+			} else if (unref(error)) _push(ssrRenderComponent(_component_ErrorState, {
+				class: "m-4",
+				title: "Could not load your courses",
+				message: unref(error).message,
+				onRetry: unref(refresh)
+			}, null, _parent));
+			else if (!unref(list).length) _push(ssrRenderComponent(_component_EmptyState, {
+				class: "m-4",
+				icon: "book-open",
+				title: "No courses yet",
+				message: "Create your first course, add lessons and submit it for review.",
+				"action-label": "Create a course",
+				"action-to": "/admin/courses/new"
+			}, null, _parent));
+			else {
+				_push(`<ul class="divide-y divide-gray-50"><!--[-->`);
+				ssrRenderList$2(unref(list), (course) => {
+					_push(`<li class="flex flex-wrap items-center gap-3 px-5 py-3"><div class="min-w-0 flex-1">`);
+					_push(ssrRenderComponent(_component_NuxtLink, {
+						to: `/admin/courses/${course.id}`,
+						class: "block truncate text-sm font-semibold text-gray-900 hover:text-oc-primary"
+					}, {
+						default: withCtx((_, _push, _parent, _scopeId) => {
+							if (_push) _push(`${ssrInterpolate(course.title)}`);
+							else return [createTextVNode(toDisplayString(course.title), 1)];
+						}),
+						_: 2
+					}, _parent));
+					_push(`<p class="text-[11px] text-gray-400">${ssrInterpolate(guide[course.status])}</p></div><span class="text-xs text-gray-500">${ssrInterpolate(course.total_lessons)} lessons · ${ssrInterpolate(course.total_students)} students`);
+					if (course.rating?.count) _push(`<!--[--> · ★ ${ssrInterpolate(course.rating.average)}<!--]-->`);
+					else _push(`<!---->`);
+					_push(`</span>`);
+					_push(ssrRenderComponent(_component_StatusBadge, { status: course.status }, null, _parent));
+					_push(ssrRenderComponent(_component_NuxtLink, {
+						to: `/admin/courses/${course.id}`,
+						class: "btn-secondary !px-2.5 !py-1.5 text-xs"
+					}, {
+						default: withCtx((_, _push, _parent, _scopeId) => {
+							if (_push) {
+								_push(ssrRenderComponent(_component_BaseIcon, {
+									name: "edit",
+									size: 14
+								}, null, _parent, _scopeId));
+								_push(` Edit`);
+							} else return [createVNode(_component_BaseIcon, {
+								name: "edit",
+								size: 14
+							}), createTextVNode(" Edit")];
+						}),
+						_: 2
+					}, _parent));
+					_push(`</li>`);
+				});
+				_push(`<!--]--></ul>`);
+			}
+			_push(`</section>`);
+			if (unref(exams)?.length) {
+				_push(`<section class="card mt-5 overflow-hidden"><div class="flex items-center justify-between border-b border-gray-100 px-5 py-3.5"><h2 class="text-sm font-bold text-gray-900">My exams</h2>`);
+				_push(ssrRenderComponent(_component_NuxtLink, {
+					to: "/admin/exams",
+					class: "text-xs font-semibold text-oc-primary hover:underline"
+				}, {
+					default: withCtx((_, _push, _parent, _scopeId) => {
+						if (_push) _push(`Manage exams`);
+						else return [createTextVNode("Manage exams")];
+					}),
+					_: 1
+				}, _parent));
+				_push(`</div><ul class="divide-y divide-gray-50"><!--[-->`);
+				ssrRenderList$2(unref(exams).slice(0, 5), (exam) => {
+					_push(`<li class="flex flex-wrap items-center gap-3 px-5 py-3">`);
+					_push(ssrRenderComponent(_component_NuxtLink, {
+						to: `/admin/exams/${exam.id}`,
+						class: "min-w-0 flex-1 truncate text-sm font-semibold text-gray-900 hover:text-oc-primary"
+					}, {
+						default: withCtx((_, _push, _parent, _scopeId) => {
+							if (_push) _push(`${ssrInterpolate(exam.title)}`);
+							else return [createTextVNode(toDisplayString(exam.title), 1)];
+						}),
+						_: 2
+					}, _parent));
+					_push(`<span class="text-xs text-gray-500">${ssrInterpolate(exam.questions_count)} questions · ${ssrInterpolate(exam.attempts_count)} attempts</span>`);
+					_push(ssrRenderComponent(_component_StatusBadge, { status: exam.is_published ? "published" : "draft" }, null, _parent));
+					_push(`</li>`);
+				});
+				_push(`<!--]--></ul></section>`);
+			} else _push(`<!---->`);
+			_push(`</div>`);
+		};
+	}
+});
+// app/components/InstructorDashboard.vue
+var _sfc_setup$1 = InstructorDashboard_vue_vue_type_script_setup_true_lang_default.setup;
+InstructorDashboard_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/InstructorDashboard.vue");
+	return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
+};
+var InstructorDashboard_default = Object.assign(InstructorDashboard_vue_vue_type_script_setup_true_lang_default, { __name: "InstructorDashboard" });
+// app/pages/admin/index.vue?vue&type=script&setup=true&lang.ts
+var index_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "index",
+	__ssrInlineRender: true,
+	async setup(__props) {
+		let __temp, __restore;
+		useSeoMeta({
+			title: "Admin dashboard — Shikhor Academy",
+			robots: "noindex"
+		});
+		const { apiData } = useApi();
+		const { isAdmin } = useAuth();
+		const { initial } = useInitials();
+		const EMPTY_PAGE = {
+			current_page: 1,
+			data: [],
+			last_page: 1,
+			total: 0
+		};
+		function adminOnly(path, fallback, query) {
+			if (!isAdmin.value) return Promise.resolve(fallback);
+			return apiData(path, { query });
+		}
+		const { data, pending, error, refresh } = ([__temp, __restore] = withAsyncContext(async () => useAsyncData("admin-dashboard", async () => {
+			const [courses, publishedCourses, orders, enrollments, reviews, certificates, products, users] = await Promise.all([
+				apiData("/admin/courses", { query: { per_page: 1 } }),
+				apiData("/admin/courses", { query: {
+					status: "published",
+					per_page: 1
+				} }),
+				adminOnly("/admin/orders", []),
+				adminOnly("/admin/enrollments", EMPTY_PAGE, { per_page: 5 }),
+				adminOnly("/admin/reviews", EMPTY_PAGE, { per_page: 5 }),
+				adminOnly("/admin/certificates", EMPTY_PAGE, { per_page: 1 }),
+				apiData("/products"),
+				adminOnly("/admin/users", [])
+			]);
+			return {
+				courses,
+				publishedCourses,
+				orders,
+				enrollments,
+				reviews,
+				certificates,
+				products,
+				users
+			};
+		})), __temp = await __temp, __restore(), __temp);
+		const revenue = computed(() => (data.value?.orders ?? []).filter((order) => ["paid", "partially_refunded"].includes(order.payment_status)).reduce((total, order) => total + Number(order.pricing?.total ?? 0) - Number(order.pricing?.refunded_amount ?? 0), 0));
+		const stats = computed(() => {
+			const orders = data.value?.orders ?? [];
+			return {
+				revenue: revenue.value,
+				orders: orders.length,
+				pendingOrders: orders.filter((order) => order.status === "pending").length,
+				courses: data.value?.courses.total ?? 0,
+				publishedCourses: data.value?.publishedCourses.total ?? 0,
+				enrollments: data.value?.enrollments.total ?? 0,
+				reviews: data.value?.reviews.total ?? 0,
+				certificates: data.value?.certificates.total ?? 0,
+				products: data.value?.products.length ?? 0,
+				customers: (data.value?.users ?? []).filter((user) => user.type !== "admin").length
+			};
+		});
+		const recentOrders = computed(() => (data.value?.orders ?? []).slice(0, 6));
+		const recentEnrollments = computed(() => data.value?.enrollments.data ?? []);
+		const recentReviews = computed(() => data.value?.reviews.data ?? []);
+		const quickLinks = [
+			{
+				label: "Add a course",
+				to: "/admin/courses/new",
+				icon: "plus",
+				hint: "Build curriculum and quizzes"
+			},
+			{
+				label: "Review orders",
+				to: "/admin/orders",
+				icon: "shopping-bag",
+				hint: "Update payment and delivery"
+			},
+			{
+				label: "Publish a blog",
+				to: "/admin/blogs",
+				icon: "blog",
+				hint: "Write and tag articles"
+			},
+			{
+				label: "Manage users",
+				to: "/admin/users",
+				icon: "users",
+				hint: "Admins and students"
+			}
+		];
+		function orderItems(order) {
+			return order.summary?.total_items ?? (order.items?.length ?? 0) + (order.course_items?.length ?? 0);
+		}
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_AdminPageHeader = AdminPageHeader_default;
+			const _component_NuxtLink = NuxtLink;
+			const _component_BaseIcon = BaseIcon_default;
+			const _component_InstructorDashboard = InstructorDashboard_default;
+			const _component_AdminAnalytics = AdminAnalytics_default;
+			const _component_ErrorState = ErrorState_default;
+			const _component_AdminStat = AdminStat_default;
+			const _component_EmptyState = EmptyState_default;
+			const _component_StatusBadge = StatusBadge_default;
+			const _component_RatingStars = RatingStars_default;
+			_push(`<div${ssrRenderAttrs(_attrs)}>`);
+			_push(ssrRenderComponent(_component_AdminPageHeader, {
+				title: unref(isAdmin) ? "Dashboard" : "Instructor dashboard",
+				subtitle: unref(isAdmin) ? "A live snapshot of students, courses, store sales and learning activity." : "Your courses, students and exams.",
+				icon: "dashboard"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(ssrRenderComponent(_component_NuxtLink, {
+							to: "/admin/courses/new",
+							class: "btn-primary"
+						}, {
+							default: withCtx((_, _push, _parent, _scopeId) => {
+								if (_push) {
+									_push(ssrRenderComponent(_component_BaseIcon, {
+										name: "plus",
+										size: 16
+									}, null, _parent, _scopeId));
+									_push(` New course `);
+								} else return [createVNode(_component_BaseIcon, {
+									name: "plus",
+									size: 16
+								}), createTextVNode(" New course ")];
+							}),
+							_: 1
+						}, _parent, _scopeId));
+						_push(`<button type="button" class="btn-secondary"${ssrIncludeBooleanAttr(unref(pending)) ? " disabled" : ""}${_scopeId}>`);
+						_push(ssrRenderComponent(_component_BaseIcon, {
+							name: "refresh",
+							size: 16
+						}, null, _parent, _scopeId));
+						_push(` Refresh </button>`);
+					} else return [createVNode(_component_NuxtLink, {
+						to: "/admin/courses/new",
+						class: "btn-primary"
+					}, {
+						default: withCtx(() => [createVNode(_component_BaseIcon, {
+							name: "plus",
+							size: 16
+						}), createTextVNode(" New course ")]),
+						_: 1
+					}), createVNode("button", {
+						type: "button",
+						class: "btn-secondary",
+						disabled: unref(pending),
+						onClick: ($event) => unref(refresh)()
+					}, [createVNode(_component_BaseIcon, {
+						name: "refresh",
+						size: 16
+					}), createTextVNode(" Refresh ")], 8, ["disabled", "onClick"])];
+				}),
+				_: 1
+			}, _parent));
+			if (!unref(isAdmin)) _push(ssrRenderComponent(_component_InstructorDashboard, null, null, _parent));
+			else {
+				_push(`<!--[-->`);
+				_push(ssrRenderComponent(_component_AdminAnalytics, null, null, _parent));
+				if (unref(pending)) {
+					_push(`<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><!--[-->`);
+					ssrRenderList$2(8, (i) => {
+						_push(`<div class="card h-[86px] animate-pulse bg-gray-50"></div>`);
+					});
+					_push(`<!--]--></div>`);
+				} else if (unref(error)) _push(ssrRenderComponent(_component_ErrorState, {
+					title: "Could not load the dashboard",
+					message: unref(error).message,
+					onRetry: unref(refresh)
+				}, null, _parent));
+				else {
+					_push(`<!--[--><div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">`);
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Revenue (all orders)",
+						value: ("formatMoney" in _ctx ? _ctx.formatMoney : unref(formatMoney))(unref(stats).revenue),
+						icon: "chart",
+						tone: "emerald",
+						hint: "Excludes cancelled & refunded"
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Orders",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).orders),
+						icon: "shopping-bag",
+						tone: "blue",
+						hint: `${unref(stats).pendingOrders} awaiting confirmation`
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Students",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).customers),
+						icon: "users",
+						tone: "violet",
+						hint: "Customer accounts"
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Enrollments",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).enrollments),
+						icon: "book-open",
+						tone: "amber",
+						hint: "Course access records"
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Courses",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).courses),
+						icon: "book",
+						tone: "blue",
+						hint: `${unref(stats).publishedCourses} published`
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Products",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).products),
+						icon: "store",
+						tone: "gray",
+						hint: "Store catalog"
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Certificates",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).certificates),
+						icon: "award",
+						tone: "emerald",
+						hint: "Issued to students"
+					}, null, _parent));
+					_push(ssrRenderComponent(_component_AdminStat, {
+						label: "Reviews",
+						value: ("formatNumber" in _ctx ? _ctx.formatNumber : unref(formatNumber))(unref(stats).reviews),
+						icon: "star",
+						tone: "amber",
+						hint: "Moderate student feedback"
+					}, null, _parent));
+					_push(`</div><div class="mt-5 grid gap-4 xl:grid-cols-3"><section class="card xl:col-span-2"><div class="flex items-center justify-between border-b border-gray-100 px-5 py-3.5"><div><h2 class="text-sm font-bold text-gray-900">Recent orders</h2><p class="text-xs text-gray-500">Latest placements across courses and products.</p></div>`);
+					_push(ssrRenderComponent(_component_NuxtLink, {
+						to: "/admin/orders",
+						class: "text-xs font-semibold text-oc-primary hover:underline"
+					}, {
+						default: withCtx((_, _push, _parent, _scopeId) => {
+							if (_push) _push(`View all`);
+							else return [createTextVNode("View all")];
+						}),
+						_: 1
+					}, _parent));
+					_push(`</div>`);
+					if (!unref(recentOrders).length) _push(ssrRenderComponent(_component_EmptyState, {
+						class: "m-4",
+						icon: "shopping-bag",
+						title: "No orders yet",
+						message: "Orders placed by students will appear here."
+					}, null, _parent));
+					else {
+						_push(`<div class="overflow-x-auto"><table class="w-full min-w-[620px] text-left text-sm"><thead class="border-b border-gray-100 text-[11px] uppercase tracking-wide text-gray-400"><tr><th class="px-5 py-2.5 font-semibold">Order</th><th class="px-3 py-2.5 font-semibold">Customer</th><th class="px-3 py-2.5 font-semibold">Items</th><th class="px-3 py-2.5 font-semibold">Total</th><th class="px-3 py-2.5 font-semibold">Status</th><th class="px-5 py-2.5"></th></tr></thead><tbody class="divide-y divide-gray-50"><!--[-->`);
+						ssrRenderList$2(unref(recentOrders), (order) => {
+							_push(`<tr class="hover:bg-gray-50/60"><td class="px-5 py-3"><p class="font-semibold text-gray-900">${ssrInterpolate(order.order_number)}</p><p class="text-[11px] text-gray-400">${ssrInterpolate(("formatDate" in _ctx ? _ctx.formatDate : unref(formatDate))(order.created_at, true))}</p></td><td class="px-3 py-3"><p class="text-gray-700">${ssrInterpolate(order.customer?.name || order.user?.name || "—")}</p><p class="truncate text-[11px] text-gray-400">${ssrInterpolate(order.customer?.email || order.user?.email)}</p></td><td class="px-3 py-3 text-gray-600">${ssrInterpolate(orderItems(order))}</td><td class="px-3 py-3 font-semibold text-gray-900">${ssrInterpolate(("formatMoney" in _ctx ? _ctx.formatMoney : unref(formatMoney))(order.pricing?.total))}</td><td class="px-3 py-3">`);
+							_push(ssrRenderComponent(_component_StatusBadge, { status: order.status }, null, _parent));
+							_push(`</td><td class="px-5 py-3 text-right">`);
+							_push(ssrRenderComponent(_component_NuxtLink, {
+								to: `/admin/orders/${order.id}`,
+								class: "text-xs font-semibold text-oc-primary hover:underline"
+							}, {
+								default: withCtx((_, _push, _parent, _scopeId) => {
+									if (_push) _push(`Open`);
+									else return [createTextVNode("Open")];
+								}),
+								_: 2
+							}, _parent));
+							_push(`</td></tr>`);
+						});
+						_push(`<!--]--></tbody></table></div>`);
+					}
+					_push(`</section><div class="space-y-4"><section class="card"><div class="border-b border-gray-100 px-5 py-3.5"><h2 class="text-sm font-bold text-gray-900">Quick actions</h2></div><div class="grid gap-1 p-2"><!--[-->`);
+					ssrRenderList$2(quickLinks, (link) => {
+						_push(ssrRenderComponent(_component_NuxtLink, {
+							key: link.to,
+							to: link.to,
+							class: "flex items-center gap-3 rounded-xl px-3 py-2.5 transition hover:bg-gray-50"
+						}, {
+							default: withCtx((_, _push, _parent, _scopeId) => {
+								if (_push) {
+									_push(`<span class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-light text-oc-primary"${_scopeId}>`);
+									_push(ssrRenderComponent(_component_BaseIcon, {
+										name: link.icon,
+										size: 17
+									}, null, _parent, _scopeId));
+									_push(`</span><span class="min-w-0"${_scopeId}><span class="block text-sm font-semibold text-gray-800"${_scopeId}>${ssrInterpolate(link.label)}</span><span class="block truncate text-[11px] text-gray-400"${_scopeId}>${ssrInterpolate(link.hint)}</span></span>`);
+									_push(ssrRenderComponent(_component_BaseIcon, {
+										name: "chevron-right",
+										size: 15,
+										class: "ml-auto text-gray-300"
+									}, null, _parent, _scopeId));
+								} else return [
+									createVNode("span", { class: "flex h-9 w-9 items-center justify-center rounded-lg bg-brand-light text-oc-primary" }, [createVNode(_component_BaseIcon, {
+										name: link.icon,
+										size: 17
+									}, null, 8, ["name"])]),
+									createVNode("span", { class: "min-w-0" }, [createVNode("span", { class: "block text-sm font-semibold text-gray-800" }, toDisplayString(link.label), 1), createVNode("span", { class: "block truncate text-[11px] text-gray-400" }, toDisplayString(link.hint), 1)]),
+									createVNode(_component_BaseIcon, {
+										name: "chevron-right",
+										size: 15,
+										class: "ml-auto text-gray-300"
+									})
+								];
+							}),
+							_: 2
+						}, _parent));
+					});
+					_push(`<!--]--></div></section><section class="card"><div class="flex items-center justify-between border-b border-gray-100 px-5 py-3.5"><h2 class="text-sm font-bold text-gray-900">New enrollments</h2>`);
+					_push(ssrRenderComponent(_component_NuxtLink, {
+						to: "/admin/enrollments",
+						class: "text-xs font-semibold text-oc-primary hover:underline"
+					}, {
+						default: withCtx((_, _push, _parent, _scopeId) => {
+							if (_push) _push(`All`);
+							else return [createTextVNode("All")];
+						}),
+						_: 1
+					}, _parent));
+					_push(`</div>`);
+					if (!unref(recentEnrollments).length) _push(ssrRenderComponent(_component_EmptyState, {
+						class: "m-4",
+						icon: "users",
+						title: "No enrollments yet",
+						message: "Enrollments from course orders and manual grants appear here."
+					}, null, _parent));
+					else {
+						_push(`<ul class="divide-y divide-gray-50"><!--[-->`);
+						ssrRenderList$2(unref(recentEnrollments), (enrollment) => {
+							_push(`<li class="flex items-center gap-3 px-5 py-3"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-light text-[11px] font-bold text-oc-primary">${ssrInterpolate(unref(initial)(enrollment.user?.name))}</span><div class="min-w-0 flex-1"><p class="truncate text-sm font-semibold text-gray-800">${ssrInterpolate(enrollment.user?.name || "Student")}</p><p class="truncate text-[11px] text-gray-400">${ssrInterpolate(enrollment.course?.title || "Course")}</p></div>`);
+							_push(ssrRenderComponent(_component_StatusBadge, { status: enrollment.status }, null, _parent));
+							_push(`</li>`);
+						});
+						_push(`<!--]--></ul>`);
+					}
+					_push(`</section></div></div><section class="card mt-4"><div class="flex items-center justify-between border-b border-gray-100 px-5 py-3.5"><div><h2 class="text-sm font-bold text-gray-900">Latest reviews</h2><p class="text-xs text-gray-500">Approve, reject or remove student feedback.</p></div>`);
+					_push(ssrRenderComponent(_component_NuxtLink, {
+						to: "/admin/reviews",
+						class: "text-xs font-semibold text-oc-primary hover:underline"
+					}, {
+						default: withCtx((_, _push, _parent, _scopeId) => {
+							if (_push) _push(`Moderate`);
+							else return [createTextVNode("Moderate")];
+						}),
+						_: 1
+					}, _parent));
+					_push(`</div>`);
+					if (!unref(recentReviews).length) _push(ssrRenderComponent(_component_EmptyState, {
+						class: "m-4",
+						icon: "star",
+						title: "No reviews yet",
+						message: "Student reviews will show up here for moderation."
+					}, null, _parent));
+					else {
+						_push(`<div class="grid gap-3 p-4 md:grid-cols-2"><!--[-->`);
+						ssrRenderList$2(unref(recentReviews), (review) => {
+							_push(`<article class="rounded-xl border border-gray-100 p-3"><div class="flex items-start justify-between gap-2"><div><p class="text-sm font-semibold text-gray-800">${ssrInterpolate(review.course?.title || "Course")}</p><p class="text-[11px] text-gray-400">${ssrInterpolate(review.user?.name || "Student")} · ${ssrInterpolate(("formatDate" in _ctx ? _ctx.formatDate : unref(formatDate))(review.created_at))}</p></div>`);
+							_push(ssrRenderComponent(_component_StatusBadge, { status: review.is_approved ? "approved" : "pending" }, null, _parent));
+							_push(`</div>`);
+							_push(ssrRenderComponent(_component_RatingStars, {
+								rating: review.rating,
+								size: 13,
+								class: "mt-1.5"
+							}, null, _parent));
+							if (review.comment) _push(`<p class="mt-1.5 line-clamp-2 text-xs text-gray-600">${ssrInterpolate(review.comment)}</p>`);
+							else _push(`<!---->`);
+							_push(`</article>`);
+						});
+						_push(`<!--]--></div>`);
+					}
+					_push(`</section><!--]-->`);
+				}
+				_push(`<!--]-->`);
+			}
+			_push(`</div>`);
+		};
+	}
+});
+// app/pages/admin/index.vue
+var _sfc_setup = index_vue_vue_type_script_setup_true_lang_default.setup;
+index_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/admin/index.vue");
+	return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+var admin_default = index_vue_vue_type_script_setup_true_lang_default;
+
+export { admin_default as default };
+//# sourceMappingURL=admin-vL5jEj1E.mjs.map

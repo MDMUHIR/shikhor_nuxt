@@ -93,7 +93,7 @@ function orderItems(order: AdminOrder) {
 
 <template>
   <div>
-    <AdminPageHeader title="Dashboard" subtitle="A live snapshot of students, courses, store sales and learning activity." icon="dashboard">
+    <AdminPageHeader :title="isAdmin ? 'Dashboard' : 'Instructor dashboard'" :subtitle="isAdmin ? 'A live snapshot of students, courses, store sales and learning activity.' : 'Your courses, students and exams.'" icon="dashboard">
       <NuxtLink to="/admin/courses/new" class="btn-primary">
         <BaseIcon name="plus" :size="16" /> New course
       </NuxtLink>
@@ -102,6 +102,9 @@ function orderItems(order: AdminOrder) {
       </button>
     </AdminPageHeader>
 
+    <InstructorDashboard v-if="!isAdmin" />
+
+    <template v-else>
     <AdminAnalytics />
 
     <div v-if="pending" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -258,6 +261,7 @@ function orderItems(order: AdminOrder) {
           </article>
         </div>
       </section>
+    </template>
     </template>
   </div>
 </template>

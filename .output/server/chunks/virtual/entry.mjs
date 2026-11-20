@@ -994,32 +994,36 @@ var namedMiddleware = {
 	auth: () => import('../build/auth-CjZDnk80.mjs')
 };
 // app/pages/admin/courses/[id].vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$19 = { layout: "admin" };
+var __nuxt_page_meta$21 = { layout: "admin" };
+// app/pages/admin/exams/[id].vue?macro=true&vue&type=script&setup=true&lang.ts
+var __nuxt_page_meta$20 = { layout: "admin" };
 // app/pages/admin/orders/[id].vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$18 = { layout: "admin" };
+var __nuxt_page_meta$19 = { layout: "admin" };
 // app/pages/admin/products/[slug].vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$17 = { layout: "admin" };
+var __nuxt_page_meta$18 = { layout: "admin" };
 // app/pages/admin/banners.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$16 = { layout: "admin" };
+var __nuxt_page_meta$17 = { layout: "admin" };
 // app/pages/admin/blog-categories.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$15 = { layout: "admin" };
+var __nuxt_page_meta$16 = { layout: "admin" };
 // app/pages/admin/blog-tags.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$14 = { layout: "admin" };
+var __nuxt_page_meta$15 = { layout: "admin" };
 // app/pages/admin/blogs/index.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$13 = { layout: "admin" };
+var __nuxt_page_meta$14 = { layout: "admin" };
 // app/pages/admin/categories.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$12 = { layout: "admin" };
+var __nuxt_page_meta$13 = { layout: "admin" };
 // app/pages/admin/certificates.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$11 = { layout: "admin" };
+var __nuxt_page_meta$12 = { layout: "admin" };
 // app/pages/admin/coupons.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$10 = { layout: "admin" };
+var __nuxt_page_meta$11 = { layout: "admin" };
 // app/pages/admin/course-categories.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$9 = { layout: "admin" };
+var __nuxt_page_meta$10 = { layout: "admin" };
 // app/pages/admin/courses/index.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$8 = { layout: "admin" };
+var __nuxt_page_meta$9 = { layout: "admin" };
 // app/pages/admin/delivery-charges.vue?macro=true&vue&type=script&setup=true&lang.ts
-var __nuxt_page_meta$7 = { layout: "admin" };
+var __nuxt_page_meta$8 = { layout: "admin" };
 // app/pages/admin/enrollments.vue?macro=true&vue&type=script&setup=true&lang.ts
+var __nuxt_page_meta$7 = { layout: "admin" };
+// app/pages/admin/exams/index.vue?macro=true&vue&type=script&setup=true&lang.ts
 var __nuxt_page_meta$6 = { layout: "admin" };
 // app/pages/admin/orders/index.vue?macro=true&vue&type=script&setup=true&lang.ts
 var __nuxt_page_meta$5 = { layout: "admin" };
@@ -1039,127 +1043,151 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 		name: "admin-courses-id",
 		path: "/admin/courses/:id()",
 		meta: {
-			...__nuxt_page_meta$19 || {},
+			...__nuxt_page_meta$21 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/_id_-Cxuu9DYk.mjs')
+		component: () => import('../build/_id_-DL6p66B7.mjs')
+	},
+	{
+		name: "admin-exams-id",
+		path: "/admin/exams/:id()",
+		meta: {
+			...__nuxt_page_meta$20 || {},
+			"middleware": "admin"
+		},
+		component: () => import('../build/_id_-BoMHf3J3.mjs')
 	},
 	{
 		name: "admin-orders-id",
 		path: "/admin/orders/:id()",
 		meta: {
-			...__nuxt_page_meta$18 || {},
+			...__nuxt_page_meta$19 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/_id_-C3niS5MA.mjs')
+		component: () => import('../build/_id_-BxWeAdq_.mjs')
 	},
 	{
 		name: "admin-products-slug",
 		path: "/admin/products/:slug()",
 		meta: {
-			...__nuxt_page_meta$17 || {},
+			...__nuxt_page_meta$18 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/_slug_-CqayztbH.mjs')
+		component: () => import('../build/_slug_-CLozr_R9.mjs')
+	},
+	{
+		name: "exams-attempt-attemptId",
+		path: "/exams/attempt/:attemptId()",
+		meta: { "middleware": "auth" },
+		component: () => import('../build/_attemptId_-Dm8548ey.mjs')
 	},
 	{
 		name: "admin-banners",
 		path: "/admin/banners",
 		meta: {
-			...__nuxt_page_meta$16 || {},
+			...__nuxt_page_meta$17 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/banners-BccbKTOX.mjs')
+		component: () => import('../build/banners-DDnwH6oM.mjs')
 	},
 	{
 		name: "admin-blog-categories",
 		path: "/admin/blog-categories",
 		meta: {
-			...__nuxt_page_meta$15 || {},
+			...__nuxt_page_meta$16 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/blog-categories-1fFDI0b9.mjs')
+		component: () => import('../build/blog-categories-Ci06p_qM.mjs')
 	},
 	{
 		name: "admin-blog-tags",
 		path: "/admin/blog-tags",
 		meta: {
-			...__nuxt_page_meta$14 || {},
+			...__nuxt_page_meta$15 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/blog-tags-CJwkJ7a4.mjs')
+		component: () => import('../build/blog-tags-Dyxd8VNK.mjs')
 	},
 	{
 		name: "admin-blogs",
 		path: "/admin/blogs",
 		meta: {
-			...__nuxt_page_meta$13 || {},
+			...__nuxt_page_meta$14 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/blogs-D_t3-kbj.mjs')
+		component: () => import('../build/blogs-CU9Jo_8l.mjs')
 	},
 	{
 		name: "admin-categories",
 		path: "/admin/categories",
 		meta: {
-			...__nuxt_page_meta$12 || {},
+			...__nuxt_page_meta$13 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/categories-CptHKuik.mjs')
+		component: () => import('../build/categories-x4mpT2FZ.mjs')
 	},
 	{
 		name: "admin-certificates",
 		path: "/admin/certificates",
 		meta: {
-			...__nuxt_page_meta$11 || {},
+			...__nuxt_page_meta$12 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/certificates-2P8yDlqb.mjs')
+		component: () => import('../build/certificates-wqhvfzar.mjs')
 	},
 	{
 		name: "admin-coupons",
 		path: "/admin/coupons",
 		meta: {
-			...__nuxt_page_meta$10 || {},
+			...__nuxt_page_meta$11 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/coupons-BD0v_bvx.mjs')
+		component: () => import('../build/coupons-CoSeg7ks.mjs')
 	},
 	{
 		name: "admin-course-categories",
 		path: "/admin/course-categories",
 		meta: {
-			...__nuxt_page_meta$9 || {},
+			...__nuxt_page_meta$10 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/course-categories-8xneUy4H.mjs')
+		component: () => import('../build/course-categories-CL71l20x.mjs')
 	},
 	{
 		name: "admin-courses",
 		path: "/admin/courses",
 		meta: {
-			...__nuxt_page_meta$8 || {},
+			...__nuxt_page_meta$9 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/courses-B3p0bGGN.mjs')
+		component: () => import('../build/courses-C0ynKlqG.mjs')
 	},
 	{
 		name: "admin-delivery-charges",
 		path: "/admin/delivery-charges",
 		meta: {
-			...__nuxt_page_meta$7 || {},
+			...__nuxt_page_meta$8 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/delivery-charges-8VC-CZWM.mjs')
+		component: () => import('../build/delivery-charges-BhXPDSYf.mjs')
 	},
 	{
 		name: "admin-enrollments",
 		path: "/admin/enrollments",
 		meta: {
+			...__nuxt_page_meta$7 || {},
+			"middleware": "admin"
+		},
+		component: () => import('../build/enrollments-CUnGEfhB.mjs')
+	},
+	{
+		name: "admin-exams",
+		path: "/admin/exams",
+		meta: {
 			...__nuxt_page_meta$6 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/enrollments-CuT6bugd.mjs')
+		component: () => import('../build/exams-DifB3aTC.mjs')
 	},
 	{
 		name: "admin-orders",
@@ -1168,7 +1196,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$5 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/orders-CzX7RNCr.mjs')
+		component: () => import('../build/orders-fIq8t38w.mjs')
 	},
 	{
 		name: "admin-payments",
@@ -1177,7 +1205,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$4 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/payments-BB_m7a-8.mjs')
+		component: () => import('../build/payments-NgD805Nj.mjs')
 	},
 	{
 		name: "admin-products",
@@ -1186,7 +1214,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$3 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/products-CRgDWpR8.mjs')
+		component: () => import('../build/products-2ttDubgz.mjs')
 	},
 	{
 		name: "admin-reviews",
@@ -1195,7 +1223,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$2 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/reviews-Ce8A1u1p.mjs')
+		component: () => import('../build/reviews-CX68fycx.mjs')
 	},
 	{
 		name: "admin-users",
@@ -1204,7 +1232,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$1 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/users-aq_KMPM5.mjs')
+		component: () => import('../build/users-Dfwzwebl.mjs')
 	},
 	{
 		name: "certificates-verify",
@@ -1213,47 +1241,58 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 		children: [{
 			name: "certificates-verify-number",
 			path: ":number()",
-			component: () => import('../build/_number_-C_nSmvO_.mjs')
+			component: () => import('../build/_number_-BQHtVPwE.mjs')
 		}]
 	},
 	{
 		name: "blog-id",
 		path: "/blog/:id()",
-		component: () => import('../build/_id_-BJHXLXeM.mjs')
+		component: () => import('../build/_id_-Ck4nWkd5.mjs')
 	},
 	{
 		name: "courses-slug",
 		path: "/courses/:slug()",
-		component: () => import('../build/_slug_-CZdUEx_B.mjs')
+		component: () => import('../build/_slug_-CReWENIc.mjs')
+	},
+	{
+		name: "exams-id",
+		path: "/exams/:id()",
+		meta: { "middleware": "auth" },
+		component: () => import('../build/_id_-g-BRBDL2.mjs')
+	},
+	{
+		name: "instructors-id",
+		path: "/instructors/:id()",
+		component: () => import('../build/_id_-DVKhbqNz.mjs')
 	},
 	{
 		name: "learn-slug",
 		path: "/learn/:slug()",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/_slug_-CiclSwTB.mjs')
+		component: () => import('../build/_slug_-CVUx4Gq1.mjs')
 	},
 	{
 		name: "orders-id",
 		path: "/orders/:id()",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/_id_-DYSpvJ5v.mjs')
+		component: () => import('../build/_id_-BqSLxrMw.mjs')
 	},
 	{
 		name: "quizzes-id",
 		path: "/quizzes/:id()",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/_id_-qufSGq4i.mjs'),
+		component: () => import('../build/_id_-Be4JeY4_.mjs'),
 		children: [{
 			name: "quizzes-id-result-attemptId",
 			path: "result/:attemptId()",
 			meta: { "middleware": "auth" },
-			component: () => import('../build/_attemptId_-C1gaaryG.mjs')
+			component: () => import('../build/_attemptId_-DyxAbi2P.mjs')
 		}]
 	},
 	{
 		name: "store-slug",
 		path: "/store/:slug()",
-		component: () => import('../build/_slug_-DUjoe4dH.mjs')
+		component: () => import('../build/_slug_-DBskO8Ih.mjs')
 	},
 	{
 		name: "admin",
@@ -1262,35 +1301,46 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/admin-BLC8_Mf2.mjs')
+		component: () => import('../build/admin-vL5jEj1E.mjs')
 	},
 	{
 		name: "blog",
 		path: "/blog",
-		component: () => import('../build/blog-SA9_PNBE.mjs')
+		component: () => import('../build/blog-BoRzoBXK.mjs')
 	},
 	{
 		name: "cart",
 		path: "/cart",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/cart-CjxGbA2m.mjs')
+		component: () => import('../build/cart-0TJ57wTp.mjs')
 	},
 	{
 		name: "certificates",
 		path: "/certificates",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/certificates-DlOUig6u.mjs')
+		component: () => import('../build/certificates-Bz1AFkmK.mjs')
 	},
 	{
 		name: "checkout",
 		path: "/checkout",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/checkout-C9AEyJDt.mjs')
+		component: () => import('../build/checkout-CHq6sxh_.mjs')
 	},
 	{
 		name: "courses",
 		path: "/courses",
-		component: () => import('../build/courses-D7_Xu_1D.mjs')
+		component: () => import('../build/courses-DQdIfNTk.mjs')
+	},
+	{
+		name: "exams",
+		path: "/exams",
+		meta: { "middleware": "auth" },
+		component: () => import('../build/exams-B9rVyjxF.mjs')
+	},
+	{
+		name: "instructors",
+		path: "/instructors",
+		component: () => import('../build/instructors-CAM6oCR5.mjs')
 	},
 	{
 		name: "login",
@@ -1301,25 +1351,25 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 		name: "my-courses",
 		path: "/my-courses",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/my-courses-BOvJRFDB.mjs')
+		component: () => import('../build/my-courses-BEvodsLW.mjs')
 	},
 	{
 		name: "notifications",
 		path: "/notifications",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/notifications-DQ_W1Wrh.mjs')
+		component: () => import('../build/notifications-BQZczu1H.mjs')
 	},
 	{
 		name: "orders",
 		path: "/orders",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/orders-DZjYDnlg.mjs')
+		component: () => import('../build/orders-djpIaFMo.mjs')
 	},
 	{
 		name: "payments",
 		path: "/payments",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/payments-BEu9RqVj.mjs')
+		component: () => import('../build/payments-HrNs83fO.mjs')
 	},
 	{
 		name: "profile",
@@ -1335,18 +1385,18 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "reviews",
 		path: "/reviews",
-		component: () => import('../build/reviews-2miIy9NA.mjs')
+		component: () => import('../build/reviews-Dxfox6pt.mjs')
 	},
 	{
 		name: "store",
 		path: "/store",
-		component: () => import('../build/store-D3NvO830.mjs')
+		component: () => import('../build/store-BD91Db9f.mjs')
 	},
 	{
 		name: "wishlist",
 		path: "/wishlist",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/wishlist-B3q2Ht5_.mjs')
+		component: () => import('../build/wishlist-WA0l0B_y.mjs')
 	},
 	{
 		name: "slug",
@@ -1356,7 +1406,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "index",
 		path: "/",
-		component: () => import('../build/pages-oekFbB-c.mjs')
+		component: () => import('../build/pages-DS1OdhxQ.mjs')
 	}
 ];
 // node_modules/nuxt/dist/pages/runtime/plugins/router.js
@@ -1971,8 +2021,8 @@ function resolveLayoutName(route, name) {
 }
 // virtual:nuxt:node_modules%2F.cache%2Fnuxt%2F.nuxt%2Flayouts.mjs
 var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Flayouts_default = {
-	admin: defineAsyncComponent(() => import('../build/admin-Cj_2uIky.mjs').then((m) => m.default || m)),
-	default: defineAsyncComponent(() => import('../build/default-Dn1_5vlv.mjs').then((m) => m.default || m))
+	admin: defineAsyncComponent(() => import('../build/admin-BrxXsd0l.mjs').then((m) => m.default || m)),
+	default: defineAsyncComponent(() => import('../build/default-JEu41gcO.mjs').then((m) => m.default || m))
 };
 // node_modules/nuxt/dist/app/components/nuxt-layout.js
 var LayoutLoader = defineComponent({

@@ -38,6 +38,9 @@ const ____path_ = defineEventHandler(async (event) => {
     "user",
     "logout",
     "notifications",
+    "instructors",
+    "exams",
+    "exam-attempts",
     "lesson-resources",
     "login",
     "register"

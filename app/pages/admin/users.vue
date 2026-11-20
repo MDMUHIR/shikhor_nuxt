@@ -5,7 +5,7 @@ definePageMeta({ middleware: 'admin', layout: 'admin' })
 
 useSeoMeta({ title: 'Users — Admin', robots: 'noindex' })
 
-const { apiData } = useApi()
+const { apiData, apiUpload } = useApi()
 const { ask } = useConfirm()
 const { busy, fieldError, run, resetErrors } = useFormHandler()
 const { initial } = useInitials()
@@ -38,18 +38,22 @@ const counts = computed(() => {
 
 const modalOpen = ref(false)
 const editing = ref<User | null>(null)
-const form = reactive({ name: '', email: '', type: 'customer' as User['type'], password: '', is_active: true })
+const form = reactive({ name: '', email: '', type: 'customer' as User['type'], password: '', is_active: true, headline: '', bio: '' })
+const photo = ref<File | null>(null)
+const photoInput = ref<HTMLInputElement | null>(null)
 
 function openCreate() {
   editing.value = null
-  Object.assign(form, { name: '', email: '', type: 'customer', password: '', is_active: true })
+  photo.value = null
+  Object.assign(form, { name: '', email: '', type: 'customer', password: '', is_active: true, headline: '', bio: '' })
   resetErrors()
   modalOpen.value = true
 }
 
 function openEdit(user: User) {
   editing.value = user
-  Object.assign(form, { name: user.name, email: user.email, type: user.type, password: '', is_active: user.is_active !== false })
+  photo.value = null
+  Object.assign(form, { name: user.name, email: user.email, type: user.type, password: '', is_active: user.is_active !== false, headline: user.headline ?? '', bio: user.bio ?? '' })
   resetErrors()
   modalOpen.value = true
 }
@@ -62,14 +66,21 @@ async function save() {
         email: form.email,
         type: form.type,
         is_active: form.is_active,
+        headline: form.headline,
+        bio: form.bio,
         ...(form.password ? { password: form.password } : {}),
       }
-    : { name: form.name, email: form.email, type: form.type, password: form.password, is_active: form.is_active }
+    : { name: form.name, email: form.email, type: form.type, password: form.password, is_active: form.is_active, headline: form.headline, bio: form.bio }
 
-  const result = await run(
-    () => apiData(`/admin/users/${editing.value ? 'update' : 'add'}`, { method: 'POST', body }),
-    editing.value ? 'User updated.' : 'User created.',
-  )
+  const result = await run(async () => {
+    const saved = await apiData<{ id: number }>(`/admin/users/${editing.value ? 'update' : 'add'}`, { method: 'POST', body })
+    if (photo.value) {
+      const upload = new FormData()
+      upload.append('avatar', photo.value)
+      await apiUpload(`/admin/users/${saved.id}/avatar`, upload)
+    }
+    return saved
+  }, editing.value ? 'User updated.' : 'User created.')
   if (result === undefined) return
   modalOpen.value = false
   await refresh()
@@ -239,6 +250,21 @@ const toast = useToast()
             >
             <p v-if="fieldError('password')" class="field-error">{{ fieldError('password') }}</p>
           </div>
+          <template v-if="form.type === 'instructor'">
+            <div class="sm:col-span-2">
+              <label class="field-label" for="user-headline">Headline (shown on the instructors page)</label>
+              <input id="user-headline" v-model="form.headline" class="field-input" maxlength="255" placeholder="e.g. IELTS expert · 10 years teaching">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="field-label" for="user-bio">Bio</label>
+              <textarea id="user-bio" v-model="form.bio" rows="3" maxlength="1000" class="field-input" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="field-label" for="user-photo">Photo (JPG/PNG/WebP, max 2 MB)</label>
+              <input id="user-photo" ref="photoInput" type="file" accept="image/jpeg,image/png,image/webp" class="block w-full text-xs text-gray-500 file:mr-3 file:rounded-lg file:border-0 file:bg-brand-light file:px-3 file:py-2 file:text-xs file:font-semibold file:text-oc-primary" @change="photo = ($event.target as HTMLInputElement).files?.[0] ?? null">
+              <p v-if="fieldError('avatar')" class="field-error">{{ fieldError('avatar') }}</p>
+            </div>
+          </template>
           <label class="flex items-center gap-2 text-sm text-gray-700 sm:col-span-2">
             <input v-model="form.is_active" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-oc-primary focus:ring-oc-primary" :disabled="editing?.id === currentUser?.id">
             Active (inactive users cannot sign in)

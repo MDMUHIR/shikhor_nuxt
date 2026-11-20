@@ -2647,7 +2647,22 @@ _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU,
 _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"29d77-FBGflDjsLwRuSgp0O+IRl192ACY\"",
+    "mtime": "2026-11-20T22:52:20.490Z",
+    "size": 171383,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"9787a-GjkCCThT0McNzYcsqxl4vLhEnuo\"",
+    "mtime": "2026-11-20T22:52:20.490Z",
+    "size": 620666,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -4189,6 +4204,9 @@ const ____path_ = defineEventHandler(async (event) => {
     "user",
     "logout",
     "notifications",
+    "instructors",
+    "exams",
+    "exam-attempts",
     "lesson-resources",
     "login",
     "register"

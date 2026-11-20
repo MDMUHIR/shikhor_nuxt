@@ -32,6 +32,7 @@ interface _GlobalComponents {
   ErrorState: typeof import("../../app/components/ErrorState.vue")['default']
   HeroCarousel: typeof import("../../app/components/HeroCarousel.vue")['default']
   InstructorCard: typeof import("../../app/components/InstructorCard.vue")['default']
+  InstructorDashboard: typeof import("../../app/components/InstructorDashboard.vue")['default']
   LearningPath: typeof import("../../app/components/LearningPath.vue")['default']
   LessonResourcesManager: typeof import("../../app/components/LessonResourcesManager.vue")['default']
   LoadingSkeleton: typeof import("../../app/components/LoadingSkeleton.vue")['default']
@@ -157,6 +158,7 @@ interface _GlobalComponents {
   LazyErrorState: LazyComponent<typeof import("../../app/components/ErrorState.vue")['default']>
   LazyHeroCarousel: LazyComponent<typeof import("../../app/components/HeroCarousel.vue")['default']>
   LazyInstructorCard: LazyComponent<typeof import("../../app/components/InstructorCard.vue")['default']>
+  LazyInstructorDashboard: LazyComponent<typeof import("../../app/components/InstructorDashboard.vue")['default']>
   LazyLearningPath: LazyComponent<typeof import("../../app/components/LearningPath.vue")['default']>
   LazyLessonResourcesManager: LazyComponent<typeof import("../../app/components/LessonResourcesManager.vue")['default']>
   LazyLoadingSkeleton: LazyComponent<typeof import("../../app/components/LoadingSkeleton.vue")['default']>

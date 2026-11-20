@@ -42,6 +42,7 @@ export { useFormHandler } from '../app/composables/useFormHandler';
 export { useInitials } from '../app/composables/useInitials';
 export { useToast, Toast } from '../app/composables/useToast';
 export { useWishlist } from '../app/composables/useWishlist';
+export { negativeMarkingLabel, formatClock, ExamInfo, ExamListItem, ExamAttemptSummary, ExamTakeQuestion, ExamReviewItem } from '../app/utils/exam';
 export { formatMoney, formatNumber, formatDate, formatDuration, initials, discountPercent, statusLabel, statusClasses, excerpt, sanitizeHtml, ymd } from '../app/utils/format';
 export { mediaUrl, imageFallback, productImage } from '../app/utils/media';
 export { User, Paginator, ApiEnvelope, CourseCategory, RatingSummary, Course, LessonVideo, LessonResource, Lesson, CourseSection, QuizSummary, Review, Category, ProductImage, VariantAttribute, ProductVariant, Product, CartItem, CourseCartItem, CourseCartResponse, WishlistItem, Coupon, DeliveryCharge, OrderItem, OrderCourseItem, OrderStatusHistory, Order, Enrollment, Progress, MyCourse, LearnCourse, QuizAttempt, QuizQuestion, QuizDetail, QuizReviewItem, Certificate, CertificateVerification, Banner, Blog, BlogPagination, BlogListResponse, BlogTag, BlogCategory, AdminEnrollment, AdminReview, AdminQuiz, AdminQuizQuestion, AdminLesson, AdminCourseSection, AdminCourse, AdminOrder } from '../app/utils/types';

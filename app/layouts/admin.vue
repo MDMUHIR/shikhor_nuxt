@@ -10,7 +10,8 @@ const allNav = [
   { label: 'Dashboard', to: '/admin', icon: 'dashboard', exact: true },
   { label: 'Courses', to: '/admin/courses', icon: 'book-open' },
   { label: 'Course categories', to: '/admin/course-categories', icon: 'layers', adminOnly: true },
-  { label: 'Enrollments', to: '/admin/enrollments', icon: 'users' },
+  { label: 'Exams', to: '/admin/exams', icon: 'list' },
+  { label: 'Enrollments', to: '/admin/enrollments', icon: 'users', adminOnly: true },
   { label: 'Reviews', to: '/admin/reviews', icon: 'star' },
   { label: 'Certificates', to: '/admin/certificates', icon: 'award' },
   { label: 'Orders', to: '/admin/orders', icon: 'shopping-bag' },
@@ -28,7 +29,7 @@ const allNav = [
 
 // Instructors manage their own courses only; everything else is admin-only.
 const nav = computed(() =>
-  isAdmin.value ? allNav : allNav.filter((item) => ['/admin', '/admin/courses'].includes(item.to)),
+  isAdmin.value ? allNav : allNav.filter((item) => ['/admin', '/admin/courses', '/admin/exams'].includes(item.to)),
 )
 
 function active(to: string, exact = false) {

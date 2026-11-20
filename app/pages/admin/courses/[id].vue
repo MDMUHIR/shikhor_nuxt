@@ -29,6 +29,13 @@ const { data: categories } = await useAsyncData('admin-course-category-options',
   apiData<CourseCategory[]>('/admin/course-categories').catch(() => [] as CourseCategory[]),
 )
 
+// Admins choose who teaches the course (instructors always own what they create).
+const { data: instructors } = await useAsyncData('admin-course-instructor-options', async () => {
+  if (!isAdmin.value) return [] as Array<{ id: number; name: string; type: string }>
+  const users = await apiData<Array<{ id: number; name: string; type: string; is_active?: boolean }>>('/admin/users').catch(() => [])
+  return users.filter((u) => u.type === 'instructor' && u.is_active !== false)
+})
+
 const tab = ref<'details' | 'curriculum' | 'quizzes'>('details')
 const tabs = [
   { value: 'details' as const, label: 'Details', icon: 'edit' },
@@ -49,6 +56,7 @@ const details = reactive({
   subtitle: '',
   description: '',
   course_category_id: '' as string | number,
+  instructor_id: '' as string | number,
   level: 'all',
   language: 'en',
   price: 0,
@@ -72,6 +80,7 @@ watch(
       subtitle: value.subtitle || '',
       description: value.description || '',
       course_category_id: value.category_id ?? '',
+      instructor_id: value.instructor_id ?? '',
       level: value.level || 'all',
       language: value.language || 'en',
       price: value.price ?? 0,
@@ -110,6 +119,7 @@ async function saveDetails() {
   payload.append('subtitle', details.subtitle)
   payload.append('description', details.description)
   payload.append('course_category_id', String(details.course_category_id || ''))
+  if (isAdmin.value) payload.append('instructor_id', String(details.instructor_id || ''))
   payload.append('level', details.level)
   payload.append('language', details.language)
   payload.append('price', String(details.price || 0))
@@ -613,6 +623,14 @@ function questionTypeLabel(type: string) {
                 <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
               </select>
             </div>
+            <div v-if="isAdmin">
+              <label class="field-label" for="course-instructor">Instructor</label>
+              <select id="course-instructor" v-model="details.instructor_id" class="field-input">
+                <option value="">No instructor</option>
+                <option v-for="person in instructors" :key="person.id" :value="person.id">{{ person.name }}</option>
+              </select>
+              <p v-if="!instructors?.length" class="mt-1 text-[11px] text-gray-400">Create an Instructor account in Users first.</p>
+            </div>
             <div>
               <label class="field-label" for="course-level">Level</label>
               <select id="course-level" v-model="details.level" class="field-input">
@@ -674,7 +692,7 @@ function questionTypeLabel(type: string) {
                 <option value="archived">Archived</option>
               </select>
             </div>
-            <label class="mt-7 flex items-center gap-2 text-sm font-semibold text-gray-700">
+            <label v-if="isAdmin" class="mt-7 flex items-center gap-2 text-sm font-semibold text-gray-700">
               <input v-model="details.is_featured" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-oc-primary focus:ring-oc-primary">
               Feature on the homepage
             </label>

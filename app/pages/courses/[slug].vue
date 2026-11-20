@@ -242,12 +242,29 @@ useSeoMeta({
               <span v-if="course.is_featured" class="badge bg-amber-50 text-amber-700 ring-amber-200">Featured</span>
             </div>
             <h1 class="mt-3 text-2xl font-extrabold leading-tight text-gray-900 md:text-3xl">{{ course.title }}</h1>
+            <NuxtLink v-if="course.instructor" :to="`/instructors/${course.instructor.id}`" class="mt-3 inline-flex items-center gap-2 text-sm text-gray-600 hover:text-oc-primary">
+              <img v-if="course.instructor.avatar" :src="mediaUrl(course.instructor.avatar)" :alt="course.instructor.name" class="h-8 w-8 rounded-full object-cover" @error="imageFallback">
+              <span v-else class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-light text-xs font-bold text-oc-primary">{{ initials(course.instructor.name) }}</span>
+              Taught by <b class="font-semibold text-gray-900">{{ course.instructor.name }}</b>
+            </NuxtLink>
             <p v-if="course.subtitle" class="mt-2 text-base text-gray-600">{{ course.subtitle }}</p>
             <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-600">
               <RatingStars :rating="course.rating?.average" :count="course.rating?.count" :size="16" />
               <span class="inline-flex items-center gap-1.5"><BaseIcon name="users" :size="15" /> {{ formatNumber(course.total_students) }} students</span>
               <span class="inline-flex items-center gap-1.5"><BaseIcon name="book-open" :size="15" /> {{ totalLessons }} lessons</span>
               <span class="inline-flex items-center gap-1.5"><BaseIcon name="clock" :size="15" /> {{ accessLabel }}</span>
+            </div>
+          </section>
+
+          <section v-if="course.instructor" class="card flex items-start gap-4 p-5">
+            <img v-if="course.instructor.avatar" :src="mediaUrl(course.instructor.avatar)" :alt="course.instructor.name" class="h-16 w-16 shrink-0 rounded-full object-cover" @error="imageFallback">
+            <span v-else class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-light text-xl font-bold text-oc-primary">{{ initials(course.instructor.name) }}</span>
+            <div class="min-w-0">
+              <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Your instructor</p>
+              <h2 class="mt-0.5 text-lg font-bold text-gray-900"><NuxtLink :to="`/instructors/${course.instructor.id}`" class="hover:text-oc-primary">{{ course.instructor.name }}</NuxtLink></h2>
+              <p v-if="course.instructor.headline" class="text-sm font-semibold text-gray-500">{{ course.instructor.headline }}</p>
+              <p v-if="course.instructor.bio" class="mt-1 line-clamp-4 text-sm leading-6 text-gray-600">{{ course.instructor.bio }}</p>
+              <NuxtLink :to="`/instructors/${course.instructor.id}`" class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-oc-primary hover:underline">View profile &amp; all courses <BaseIcon name="arrow-right" :size="12" /></NuxtLink>
             </div>
           </section>
 

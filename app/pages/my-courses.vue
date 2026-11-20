@@ -142,6 +142,9 @@ useSeoMeta({ title: 'My courses — Shikhor Academy', robots: 'noindex' })
           <NuxtLink :to="`/courses/${item.course.slug}`" class="mt-1 line-clamp-2 text-sm font-bold text-gray-900 hover:text-oc-primary">
             {{ item.course.title }}
           </NuxtLink>
+          <NuxtLink v-if="item.course.instructor" :to="`/instructors/${item.course.instructor.id}`" class="mt-0.5 block truncate text-xs text-gray-500 hover:text-oc-primary">
+            by {{ item.course.instructor.name }}
+          </NuxtLink>
 
           <div class="mt-3">
             <div class="flex items-center justify-between text-xs text-gray-500">
