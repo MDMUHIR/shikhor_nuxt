@@ -54,11 +54,8 @@ const allSelected = computed(
   () => totalCount.value > 0 && selectedCount.value === totalCount.value,
 )
 
-const discount = computed(() => {
-  if (!coupon.value) return 0
-  if (coupon.value.type === 'percentage') return Math.round(subtotal.value * (Number(coupon.value.discount) / 100) * 100) / 100
-  return Math.min(subtotal.value, Number(coupon.value.discount))
-})
+// Preview from the server; the final discount is recalculated when the order is placed.
+const discount = computed(() => Number(coupon.value?.discount_amount ?? 0))
 const estimatedTotal = computed(() => Math.max(subtotal.value - discount.value, 0))
 
 watch(subtotal, () => {
@@ -72,21 +69,47 @@ async function reload() {
   await Promise.all([refresh(), cart.refresh()])
 }
 
-async function updateQuantity(item: CartItem, quantity: number) {
-  const max = Number(item.variant?.stock ?? item.product?.stock ?? 99)
-  const next = Math.max(1, Math.min(Number.isFinite(max) && max > 0 ? max : 99, quantity))
-  if (next === item.quantity) return
+function maxQuantity(item: CartItem): number {
+  const stock = item.variant ? item.variant.stock : item.product?.stock
+  if (stock === null || stock === undefined) return 99 // stock not tracked
+  return Math.max(0, Number(stock))
+}
+
+async function updateQuantity(item: CartItem, requested: number) {
+  const max = maxQuantity(item)
+  const whole = Math.floor(Number(requested))
+  const wanted = Number.isFinite(whole) ? Math.max(1, whole) : item.quantity
+  const next = max > 0 ? Math.min(max, wanted) : wanted
+  if (max > 0 && wanted > max) toast.info(`Only ${max} in stock.`)
+  if (next === item.quantity) {
+    typed[item.id] = item.quantity
+    return
+  }
   busy.value = item.id
+  const previous = item.quantity
   try {
     await apiFetch('/cart/update', { method: 'POST', body: { cart_id: item.id, quantity: next } })
     item.quantity = next
+    typed[item.id] = next
     await reload()
   } catch (err) {
+    item.quantity = previous
+    typed[item.id] = previous
     toast.error((err as Error).message)
   } finally {
     busy.value = null
   }
 }
+
+// what is in each quantity box while the student is typing
+const typed = reactive<Record<number, number>>({})
+watch(
+  productItems,
+  (items) => {
+    for (const item of items) typed[item.id] = item.quantity
+  },
+  { immediate: true },
+)
 
 async function removeProduct(item: CartItem) {
   busy.value = item.id
@@ -275,11 +298,24 @@ useSeoMeta({ title: 'Cart — Shikhor Academy', robots: 'noindex' })
                     <button type="button" class="px-2.5 py-1.5 text-gray-500 hover:text-oc-primary disabled:opacity-40" :disabled="busy === item.id || item.quantity <= 1" aria-label="Decrease quantity" @click="updateQuantity(item, item.quantity - 1)">
                       <BaseIcon name="minus" :size="14" />
                     </button>
-                    <span class="w-9 text-center text-sm font-semibold text-gray-800">{{ item.quantity }}</span>
-                    <button type="button" class="px-2.5 py-1.5 text-gray-500 hover:text-oc-primary disabled:opacity-40" :disabled="busy === item.id" aria-label="Increase quantity" @click="updateQuantity(item, item.quantity + 1)">
+                    <input
+                      v-model.number="typed[item.id]"
+                      type="number"
+                      inputmode="numeric"
+                      min="1"
+                      :max="maxQuantity(item) || undefined"
+                      :disabled="busy === item.id"
+                      class="w-12 border-0 bg-transparent text-center text-sm font-semibold text-gray-800 focus:outline-none"
+                      aria-label="Quantity"
+                      @change="updateQuantity(item, typed[item.id] as number)"
+                      @keyup.enter="($event.target as HTMLInputElement).blur()"
+                    >
+                    <button type="button" class="px-2.5 py-1.5 text-gray-500 hover:text-oc-primary disabled:opacity-40" :disabled="busy === item.id || (maxQuantity(item) > 0 && item.quantity >= maxQuantity(item))" aria-label="Increase quantity" @click="updateQuantity(item, item.quantity + 1)">
                       <BaseIcon name="plus" :size="14" />
                     </button>
                   </div>
+                  <p v-if="maxQuantity(item) > 0 && maxQuantity(item) < 99 && item.quantity >= maxQuantity(item)" class="text-[11px] text-amber-600">Max available: {{ maxQuantity(item) }}</p>
+                  <p v-else-if="maxQuantity(item) === 0" class="text-[11px] font-semibold text-rose-600">Out of stock — remove this item</p>
                   <span class="text-base font-extrabold text-gray-900">{{ formatMoney(unitPrice(item) * item.quantity) }}</span>
                 </div>
               </div>

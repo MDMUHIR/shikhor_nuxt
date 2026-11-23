@@ -73,6 +73,7 @@ const guide: Record<string, string> = {
           </div>
           <span class="text-xs text-gray-500">{{ course.total_lessons }} lessons · {{ course.total_students }} students<template v-if="course.rating?.count"> · ★ {{ course.rating.average }}</template></span>
           <StatusBadge :status="course.status" />
+          <NuxtLink :to="`/community/${course.slug}`" class="btn-secondary !px-2.5 !py-1.5 text-xs"><BaseIcon name="video" :size="14" /> Live &amp; announcements</NuxtLink>
           <NuxtLink :to="`/admin/courses/${course.id}`" class="btn-secondary !px-2.5 !py-1.5 text-xs"><BaseIcon name="edit" :size="14" /> Edit</NuxtLink>
         </li>
       </ul>

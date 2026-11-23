@@ -112,7 +112,7 @@ const toast = useToast()
       </button>
     </AdminPageHeader>
 
-    <div class="mb-4 grid gap-3 sm:grid-cols-3">
+    <div class="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
       <AdminStat label="All accounts" :value="formatNumber(counts.total)" icon="users" tone="blue" />
       <AdminStat label="Administrators" :value="formatNumber(counts.admins)" icon="shield" tone="violet" />
       <AdminStat label="Students" :value="formatNumber(counts.customers)" icon="user" tone="emerald" />

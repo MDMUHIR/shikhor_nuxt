@@ -26,6 +26,7 @@ export const AttachmentList: typeof import("../app/components/AttachmentList.vue
 export const BaseIcon: typeof import("../app/components/BaseIcon.vue")['default']
 export const BlogCard: typeof import("../app/components/BlogCard.vue")['default']
 export const ComboCard: typeof import("../app/components/ComboCard.vue")['default']
+export const CommunityFeed: typeof import("../app/components/CommunityFeed.vue")['default']
 export const CourseAttachmentsManager: typeof import("../app/components/CourseAttachmentsManager.vue")['default']
 export const CourseCard: typeof import("../app/components/CourseCard.vue")['default']
 export const EmptyState: typeof import("../app/components/EmptyState.vue")['default']
@@ -35,6 +36,9 @@ export const InstructorCard: typeof import("../app/components/InstructorCard.vue
 export const InstructorDashboard: typeof import("../app/components/InstructorDashboard.vue")['default']
 export const LearningPath: typeof import("../app/components/LearningPath.vue")['default']
 export const LessonResourcesManager: typeof import("../app/components/LessonResourcesManager.vue")['default']
+export const LiveBanner: typeof import("../app/components/LiveBanner.vue")['default']
+export const LiveChat: typeof import("../app/components/LiveChat.vue")['default']
+export const LiveClasses: typeof import("../app/components/LiveClasses.vue")['default']
 export const LoadingSkeleton: typeof import("../app/components/LoadingSkeleton.vue")['default']
 export const PaginationLinks: typeof import("../app/components/PaginationLinks.vue")['default']
 export const ProductCard: typeof import("../app/components/ProductCard.vue")['default']
@@ -152,6 +156,7 @@ export const LazyAttachmentList: LazyComponent<typeof import("../app/components/
 export const LazyBaseIcon: LazyComponent<typeof import("../app/components/BaseIcon.vue")['default']>
 export const LazyBlogCard: LazyComponent<typeof import("../app/components/BlogCard.vue")['default']>
 export const LazyComboCard: LazyComponent<typeof import("../app/components/ComboCard.vue")['default']>
+export const LazyCommunityFeed: LazyComponent<typeof import("../app/components/CommunityFeed.vue")['default']>
 export const LazyCourseAttachmentsManager: LazyComponent<typeof import("../app/components/CourseAttachmentsManager.vue")['default']>
 export const LazyCourseCard: LazyComponent<typeof import("../app/components/CourseCard.vue")['default']>
 export const LazyEmptyState: LazyComponent<typeof import("../app/components/EmptyState.vue")['default']>
@@ -161,6 +166,9 @@ export const LazyInstructorCard: LazyComponent<typeof import("../app/components/
 export const LazyInstructorDashboard: LazyComponent<typeof import("../app/components/InstructorDashboard.vue")['default']>
 export const LazyLearningPath: LazyComponent<typeof import("../app/components/LearningPath.vue")['default']>
 export const LazyLessonResourcesManager: LazyComponent<typeof import("../app/components/LessonResourcesManager.vue")['default']>
+export const LazyLiveBanner: LazyComponent<typeof import("../app/components/LiveBanner.vue")['default']>
+export const LazyLiveChat: LazyComponent<typeof import("../app/components/LiveChat.vue")['default']>
+export const LazyLiveClasses: LazyComponent<typeof import("../app/components/LiveClasses.vue")['default']>
 export const LazyLoadingSkeleton: LazyComponent<typeof import("../app/components/LoadingSkeleton.vue")['default']>
 export const LazyPaginationLinks: LazyComponent<typeof import("../app/components/PaginationLinks.vue")['default']>
 export const LazyProductCard: LazyComponent<typeof import("../app/components/ProductCard.vue")['default']>

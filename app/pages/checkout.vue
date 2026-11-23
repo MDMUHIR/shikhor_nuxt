@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { CartItem, CourseCartResponse, Coupon, DeliveryCharge, Order } from '~/utils/types'
+import type { CartItem, CourseCartResponse, Coupon, Order } from '~/utils/types'
+import { BD_DISTRICTS, areasOf } from '~/utils/bd-locations'
 
 definePageMeta({ middleware: 'auth' })
 
@@ -12,12 +13,11 @@ const runtimeConfig = useRuntimeConfig()
 const idempotencyKey = ref(typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()))
 
 const { data, pending, error, refresh } = await useAsyncData('checkout-page', async () => {
-  const [items, courses, charges] = await Promise.all([
+  const [items, courses] = await Promise.all([
     apiData<CartItem[]>('/cart'),
     apiData<CourseCartResponse>('/cart/courses'),
-    apiData<DeliveryCharge[]>('/delivery-charges').catch(() => [] as DeliveryCharge[]),
   ])
-  return { items: items ?? [], courses, charges: charges ?? [] }
+  return { items: items ?? [], courses }
 })
 
 const productItems = computed(() => (data.value?.items ?? []).filter((item) => item.is_selected))
@@ -26,25 +26,17 @@ const hasProducts = computed(() => productItems.value.length > 0)
 const hasCourses = computed(() => courseItems.value.length > 0)
 const isEmpty = computed(() => !productItems.value.length && !courseItems.value.length)
 
-const activeCharges = computed(() => (data.value?.charges ?? []).filter((charge) => charge.status !== false))
-const selectedChargeId = ref<number | null>(null)
-
-watch(
-  activeCharges,
-  (charges) => {
-    if (!charges.length) {
-      selectedChargeId.value = null
-      return
-    }
-    if (!charges.some((charge) => charge.id === selectedChargeId.value)) {
-      selectedChargeId.value = charges[0]!.id
-    }
-  },
-  { immediate: true },
-)
-
-const selectedCharge = computed(() => activeCharges.value.find((charge) => charge.id === selectedChargeId.value) ?? null)
-const deliveryCharge = computed(() => (hasProducts.value ? Number(selectedCharge.value?.charge ?? 0) : 0))
+// Delivery is priced automatically from the district: Dhaka = inside Dhaka, everywhere else = outside.
+interface DeliveryQuote {
+  zone: 'inside_dhaka' | 'outside_dhaka'
+  label: string
+  charge: number
+  free_delivery: boolean
+  free_over: number | null
+}
+const quote = ref<DeliveryQuote | null>(null)
+const quoting = ref(false)
+const deliveryCharge = computed(() => (hasProducts.value ? Number(quote.value?.charge ?? 0) : 0))
 
 function unitPrice(item: CartItem) {
   const variant = item.variant
@@ -61,6 +53,23 @@ const coursesSubtotal = computed(() =>
   courseItems.value.reduce((sum, item) => sum + Number(item.price ?? item.course.effective_price ?? 0), 0),
 )
 const subtotal = computed(() => productsSubtotal.value + coursesSubtotal.value)
+
+async function loadQuote() {
+  if (!hasProducts.value || !form.district) {
+    quote.value = null
+    return
+  }
+  quoting.value = true
+  try {
+    quote.value = await apiData<DeliveryQuote>('/delivery-charges/quote', {
+      query: { district: form.district, subtotal: productsSubtotal.value },
+    })
+  } catch {
+    quote.value = null
+  } finally {
+    quoting.value = false
+  }
+}
 
 const couponCode = ref('')
 const coupon = ref<Coupon | null>(null)
@@ -80,6 +89,7 @@ const form = reactive({
   line2: '',
   district: '',
   city: '',
+  city_other: '',
   country: 'Bangladesh',
   payment_method: runtimeConfig.public.onlinePayments ? 'stripe' : 'bkash',
   payment_sender: '',
@@ -87,9 +97,23 @@ const form = reactive({
   shipping_method: '',
 })
 
-watchEffect(() => {
-  if (!form.shipping_method && selectedCharge.value) form.shipping_method = selectedCharge.value.name
-})
+const OTHER = '__other__'
+const areas = computed(() => areasOf(form.district))
+
+// A different district means a different list of areas; the delivery zone follows the district.
+watch(
+  () => form.district,
+  () => {
+    form.city = ''
+    form.city_other = ''
+    delete errors.city
+    loadQuote()
+  },
+)
+watch(productsSubtotal, loadQuote)
+onMounted(loadQuote)
+
+const cityValue = computed(() => (form.city === OTHER ? form.city_other.trim() : form.city))
 
 const errors = reactive<Record<string, string>>({})
 const submitting = ref(false)
@@ -102,14 +126,11 @@ const paymentMethods = [
   { value: 'cod', label: 'Cash on delivery', hint: 'For physical products delivered to your address.' },
   { value: 'bkash', label: 'bKash (manual)', hint: 'Send the amount, then an admin confirms your payment.' },
   { value: 'nagad', label: 'Nagad (manual)', hint: 'Send the amount, then an admin confirms your payment.' },
-  { value: 'bank', label: 'Bank transfer', hint: 'Transfer manually; an admin confirms your payment.' },
 ]
 
-const isManualPayment = computed(() => ['bkash', 'nagad', 'bank'].includes(form.payment_method))
-const senderLabel = computed(() => (form.payment_method === 'bank' ? 'Transaction reference' : 'Sending number'))
-const senderPlaceholder = computed(() =>
-  form.payment_method === 'bank' ? 'e.g. TRX123456' : 'The number you sent the payment from',
-)
+const isManualPayment = computed(() => ['bkash', 'nagad'].includes(form.payment_method))
+const senderLabel = 'Sending number'
+const senderPlaceholder = 'The number you sent the payment from'
 
 const availablePaymentMethods = computed(() =>
   hasProducts.value ? paymentMethods : paymentMethods.filter((method) => method.value !== 'cod'),
@@ -167,15 +188,13 @@ function validate() {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) errors.email = 'Enter a valid email address.'
   if (!form.phone.trim()) errors.phone = 'A phone number is required for delivery updates.'
   if (isManualPayment.value && !form.payment_sender.trim()) {
-    errors.payment_sender = form.payment_method === 'bank'
-      ? 'A transaction reference is required.'
-      : 'The sending number is required for payment confirmation.'
+    errors.payment_sender = 'The sending number is required for payment confirmation.'
   }
 
   if (hasProducts.value) {
     if (!form.line1.trim()) errors.line1 = 'Street address is required.'
-    if (!form.district.trim()) errors.district = 'District is required.'
-    if (!form.city.trim()) errors.city = 'City or area is required.'
+    if (!form.district) errors.district = 'Please select your district.'
+    if (!cityValue.value) errors.city = form.city === OTHER ? 'Enter your area name.' : 'Please select your city / area.'
   }
   return Object.keys(errors).length === 0
 }
@@ -183,8 +202,7 @@ function validate() {
 function buildNotes() {
   const parts: string[] = []
   if (isManualPayment.value && form.payment_sender.trim()) {
-    const label = form.payment_method === 'bank' ? 'Transaction reference' : 'Sending number'
-    parts.push(`${label}: ${form.payment_sender.trim()} (${form.payment_method})`)
+    parts.push(`Sending number: ${form.payment_sender.trim()} (${form.payment_method})`)
   }
   if (form.notes.trim()) parts.push(form.notes.trim())
   return parts.join('\n') || null
@@ -211,17 +229,16 @@ async function placeOrder() {
         shipping_address: {
           line1: form.line1.trim(),
           line2: form.line2.trim() || null,
-          district: form.district.trim(),
-          city: form.city.trim(),
+          district: form.district,
+          city: cityValue.value,
           country: form.country.trim() || 'Bangladesh',
         },
         shipping: {
-          method: hasProducts.value ? form.shipping_method || selectedCharge.value?.name || null : null,
+          method: hasProducts.value ? quote.value?.label ?? null : null,
           estimated_delivery_days: null,
         },
         pricing: {
           currency: 'BDT',
-          delivery_charge: deliveryCharge.value,
           coupon_code: coupon.value?.code ?? null,
         },
         payment_method: form.payment_method,
@@ -335,12 +352,20 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
             </div>
             <div>
               <label class="field-label" for="checkout-district">District</label>
-              <input id="checkout-district" v-model="form.district" class="field-input" autocomplete="address-level1" placeholder="e.g. Dhaka">
+              <select id="checkout-district" v-model="form.district" class="field-input" autocomplete="address-level1">
+                <option value="" disabled>Select district</option>
+                <option v-for="district in BD_DISTRICTS" :key="district" :value="district">{{ district }}</option>
+              </select>
               <p v-if="errors.district" class="field-error">{{ errors.district }}</p>
             </div>
             <div>
               <label class="field-label" for="checkout-city">City / area</label>
-              <input id="checkout-city" v-model="form.city" class="field-input" autocomplete="address-level2" placeholder="e.g. Mirpur">
+              <select id="checkout-city" v-model="form.city" class="field-input" :disabled="!form.district" autocomplete="address-level2">
+                <option value="" disabled>{{ form.district ? 'Select city / area' : 'Select a district first' }}</option>
+                <option v-for="area in areas" :key="area" :value="area">{{ area }}</option>
+                <option v-if="form.district" :value="OTHER">My area is not listed</option>
+              </select>
+              <input v-if="form.city === OTHER" v-model="form.city_other" class="field-input mt-2" placeholder="Type your area / thana" maxlength="100">
               <p v-if="errors.city" class="field-error">{{ errors.city }}</p>
             </div>
             <div>
@@ -379,22 +404,17 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
           </div>
         </section>
 
-        <section v-if="hasProducts && activeCharges.length" class="card p-5">
+        <section v-if="hasProducts" class="card p-5">
           <h2 class="text-base font-bold text-gray-900">Delivery</h2>
-          <div class="mt-4 grid gap-2 sm:grid-cols-2">
-            <label
-              v-for="charge in activeCharges"
-              :key="charge.id"
-              class="flex cursor-pointer items-center justify-between gap-3 rounded-xl border p-3 text-sm transition"
-              :class="selectedChargeId === charge.id ? 'border-oc-primary bg-brand-light' : 'border-gray-200 hover:border-gray-300'"
-            >
-              <span class="flex items-center gap-2">
-                <input v-model="selectedChargeId" type="radio" :value="charge.id" class="h-4 w-4 border-gray-300 text-oc-primary focus:ring-oc-primary">
-                <span class="font-semibold text-gray-800">{{ charge.name }}</span>
-              </span>
-              <span class="font-bold text-oc-primary">{{ formatMoney(charge.charge) }}</span>
-            </label>
+          <p v-if="!form.district" class="mt-2 text-sm text-gray-500">Select your district above — the delivery charge is applied automatically.</p>
+          <div v-else-if="quote" class="mt-3 flex items-center justify-between gap-3 rounded-xl border border-oc-primary bg-brand-light p-3 text-sm">
+            <span class="flex items-center gap-2 font-semibold text-gray-800">
+              <BaseIcon name="truck" :size="16" class="text-oc-primary" />
+              {{ quote.zone === 'inside_dhaka' ? 'Inside Dhaka' : 'Outside Dhaka' }} delivery
+            </span>
+            <span class="font-bold text-oc-primary">{{ quote.free_delivery ? 'Free' : formatMoney(quote.charge) }}</span>
           </div>
+          <p v-if="quote && !quote.free_delivery && quote.free_over" class="mt-2 text-xs text-gray-500">Free delivery on product orders of {{ formatMoney(quote.free_over) }} or more.</p>
         </section>
       </div>
 
@@ -444,7 +464,7 @@ useSeoMeta({ title: 'Checkout — Shikhor Academy', robots: 'noindex' })
           <dl class="mt-4 space-y-2 border-t border-gray-100 pt-4 text-sm text-gray-600">
             <div class="flex justify-between gap-3"><dt>Subtotal</dt><dd class="font-semibold text-gray-800">{{ formatMoney(subtotal) }}</dd></div>
             <div v-if="discount" class="flex justify-between gap-3 text-emerald-600"><dt>Discount</dt><dd class="font-semibold">−{{ formatMoney(discount) }}</dd></div>
-            <div class="flex justify-between gap-3"><dt>Delivery</dt><dd class="font-semibold text-gray-800">{{ deliveryCharge ? formatMoney(deliveryCharge) : 'Free' }}</dd></div>
+            <div class="flex justify-between gap-3"><dt>Delivery</dt><dd class="font-semibold text-gray-800">{{ !hasProducts ? '—' : !form.district ? 'Select district' : deliveryCharge ? formatMoney(deliveryCharge) : 'Free' }}</dd></div>
             <div class="flex items-baseline justify-between gap-3 border-t border-gray-100 pt-3"><dt class="font-semibold text-gray-700">Total</dt><dd class="text-2xl font-extrabold text-oc-primary">{{ formatMoney(total) }}</dd></div>
           </dl>
 

@@ -39,7 +39,7 @@ const bars = computed(() => {
     <div v-if="pending" class="mt-4 h-40 animate-pulse rounded-xl bg-gray-50" />
     <ErrorState v-else-if="error" title="Could not load analytics" :message="error.message" @retry="refresh" />
     <template v-else-if="data">
-      <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="mt-4 grid grid-cols-2 gap-3 xl:grid-cols-4">
         <AdminStat label="Revenue (range)" :value="formatMoney(data.revenue.range)" icon="credit-card" tone="emerald" />
         <AdminStat label="New enrollments" :value="String(data.enrollments.range)" icon="users" tone="blue" />
         <AdminStat label="Completion rate" :value="`${data.enrollments.completion_rate}%`" icon="award" tone="violet" />
@@ -49,11 +49,11 @@ const bars = computed(() => {
       <div class="mt-5 grid gap-5 lg:grid-cols-2">
         <div>
           <p class="text-xs font-bold uppercase tracking-wide text-gray-400">Daily revenue</p>
-          <div v-if="bars.length" class="mt-3 flex h-32 items-end gap-1">
+          <div v-if="bars.length" class="mt-3 flex h-32 items-end gap-px sm:gap-1">
             <div
               v-for="bar in bars"
               :key="bar.date"
-              class="min-w-[6px] flex-1 rounded-t bg-oc-primary/80"
+              class="min-w-[2px] flex-1 rounded-t bg-oc-primary/80"
               :style="{ height: `${bar.height}%` }"
               :title="`${bar.date}: ${formatMoney(bar.value)}`"
             />

@@ -1,4 +1,4 @@
-import { i as createError$2 } from '../virtual/entry.mjs';
+import { j as createError$2 } from '../virtual/entry.mjs';
 import { defineComponent, useSSRContext } from 'vue';
 import 'nostics';
 import 'nostics/formatters/ansi';

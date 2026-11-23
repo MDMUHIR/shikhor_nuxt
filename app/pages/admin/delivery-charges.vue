@@ -17,8 +17,15 @@ const list = computed(() => charges.value ?? [])
 
 const modalOpen = ref(false)
 const editing = ref<DeliveryCharge | null>(null)
+const zoneLabels: Record<string, string> = {
+  inside_dhaka: 'Inside Dhaka (district Dhaka)',
+  outside_dhaka: 'Outside Dhaka (all other districts)',
+  free_over: 'Free delivery over the minimum order',
+}
+
 const form = reactive({
   name: '',
+  zone: 'inside_dhaka' as string,
   charge: 60,
   minimum_order: '' as string | number,
   status: true,
@@ -26,7 +33,7 @@ const form = reactive({
 
 function openCreate() {
   editing.value = null
-  Object.assign(form, { name: '', charge: 60, minimum_order: '', status: true })
+  Object.assign(form, { name: '', zone: 'inside_dhaka', charge: 60, minimum_order: '', status: true })
   resetErrors()
   modalOpen.value = true
 }
@@ -35,6 +42,7 @@ function openEdit(charge: DeliveryCharge) {
   editing.value = charge
   Object.assign(form, {
     name: charge.name,
+    zone: charge.zone ?? '',
     charge: charge.charge,
     minimum_order: charge.minimum_order ?? '',
     status: charge.status,
@@ -51,7 +59,8 @@ async function save() {
         body: {
           ...(editing.value ? { id: editing.value.id } : {}),
           name: form.name,
-          charge: form.charge,
+          zone: form.zone || null,
+          charge: form.zone === 'free_over' ? 0 : form.charge,
           minimum_order: form.minimum_order === '' ? null : Number(form.minimum_order),
           status: form.status ? 1 : 0,
         },
@@ -82,6 +91,7 @@ async function toggle(charge: DeliveryCharge) {
         body: {
           id: charge.id,
           name: charge.name,
+          zone: charge.zone ?? null,
           charge: charge.charge,
           minimum_order: charge.minimum_order,
           status: charge.status ? 0 : 1,
@@ -95,7 +105,7 @@ async function toggle(charge: DeliveryCharge) {
 
 <template>
   <div>
-    <AdminPageHeader title="Delivery charges" subtitle="Configure shipping options and minimum order values for the store." icon="truck">
+    <AdminPageHeader title="Delivery charges" subtitle="Set the charge for inside Dhaka, outside Dhaka and free-delivery thresholds. Checkout picks the zone automatically from the district." icon="truck">
       <button type="button" class="btn-primary" @click="openCreate">
         <BaseIcon name="plus" :size="16" /> New charge
       </button>
@@ -118,10 +128,11 @@ async function toggle(charge: DeliveryCharge) {
 
     <div v-else class="card overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[600px] text-left text-sm">
+        <table class="w-full min-w-[760px] text-left text-sm">
           <thead class="border-b border-gray-100 bg-gray-50/60 text-[11px] uppercase tracking-wide text-gray-400">
             <tr>
               <th class="px-4 py-2.5 font-semibold">Option</th>
+              <th class="px-3 py-2.5 font-semibold">Applies to</th>
               <th class="px-3 py-2.5 font-semibold">Charge</th>
               <th class="px-3 py-2.5 font-semibold">Minimum order</th>
               <th class="px-3 py-2.5 font-semibold">Status</th>
@@ -134,6 +145,7 @@ async function toggle(charge: DeliveryCharge) {
                 <p class="font-semibold text-gray-900">{{ charge.name }}</p>
                 <p class="text-[11px] text-gray-400">#{{ charge.id }}</p>
               </td>
+              <td class="px-3 py-3 text-xs text-gray-600">{{ charge.zone ? zoneLabels[charge.zone] : 'Not used (set a zone)' }}</td>
               <td class="px-3 py-3 font-semibold text-gray-900">{{ formatMoney(charge.charge) }}</td>
               <td class="px-3 py-3 text-gray-600">{{ charge.minimum_order ? formatMoney(charge.minimum_order) : '—' }}</td>
               <td class="px-3 py-3">
@@ -166,6 +178,14 @@ async function toggle(charge: DeliveryCharge) {
           <label class="field-label" for="charge-name">Name</label>
           <input id="charge-name" v-model="form.name" type="text" class="field-input" required placeholder="Inside Dhaka">
           <p v-if="fieldError('name')" class="field-error">{{ fieldError('name') }}</p>
+        </div>
+        <div>
+          <label class="field-label" for="charge-zone">Applies to</label>
+          <select id="charge-zone" v-model="form.zone" class="field-input">
+            <option v-for="(label, key) in zoneLabels" :key="key" :value="key">{{ label }}</option>
+          </select>
+          <p class="mt-1 text-[11px] text-gray-400">Checkout picks the zone automatically from the customer's district.</p>
+          <p v-if="fieldError('zone')" class="field-error">{{ fieldError('zone') }}</p>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>

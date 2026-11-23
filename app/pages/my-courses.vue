@@ -142,6 +142,7 @@ useSeoMeta({ title: 'My courses — Shikhor Academy', robots: 'noindex' })
           <NuxtLink :to="`/courses/${item.course.slug}`" class="mt-1 line-clamp-2 text-sm font-bold text-gray-900 hover:text-oc-primary">
             {{ item.course.title }}
           </NuxtLink>
+          <NuxtLink v-if="item.enrollment?.is_active" :to="`/community/${item.course.slug}`" class="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-oc-primary hover:underline"><BaseIcon name="video" :size="12" /> Live classes &amp; announcements</NuxtLink>
           <NuxtLink v-if="item.course.instructor" :to="`/instructors/${item.course.instructor.id}`" class="mt-0.5 block truncate text-xs text-gray-500 hover:text-oc-primary">
             by {{ item.course.instructor.name }}
           </NuxtLink>

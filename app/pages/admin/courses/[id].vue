@@ -556,7 +556,10 @@ function questionTypeLabel(type: string) {
         target="_blank"
         class="btn-secondary"
       >
-        <BaseIcon name="external-link" :size="15" /> View live
+        <BaseIcon name="external-link" :size="15" /> View on site
+      </NuxtLink>
+      <NuxtLink v-if="course" :to="`/community/${course.slug}`" class="btn-primary">
+        <BaseIcon name="video" :size="15" /> Live classes &amp; announcements
       </NuxtLink>
       <StatusBadge v-if="course" :status="course.status" />
     </AdminPageHeader>

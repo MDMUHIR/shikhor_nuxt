@@ -1,13 +1,18 @@
 const PLACEHOLDER = '/images/placeholder.svg'
 
+let mediaBase = ''
+
+/** Captured once per request/app by the media-config plugin (see app/plugins/media-config.ts). */
+export function configureMediaBase(base?: string | null): void {
+  mediaBase = String(base || '').replace(/\/+$/, '')
+}
+
 export function mediaUrl(path?: string | null): string {
   if (!path) return PLACEHOLDER
   const value = String(path).trim()
   if (!value) return PLACEHOLDER
   if (/^(https?:)?\/\//i.test(value) || value.startsWith('data:')) return value
-  const config = useRuntimeConfig()
-  const base = String(config.public.mediaUrl || '').replace(/\/+$/, '')
-  return `${base}/${value.replace(/^\/+/, '')}`
+  return `${mediaBase}/${value.replace(/^\/+/, '')}`
 }
 
 export function imageFallback(event: Event) {

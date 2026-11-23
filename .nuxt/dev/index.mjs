@@ -734,11 +734,11 @@ const _inlineRuntimeConfig = {
   },
   "appSecret": "f65a1b20e1150ba51793be0ddaf620b698ca78dbe734c542802afd72261e21bd",
   "public": {
-    "mediaUrl": "http://192.168.0.104:8000",
+    "mediaUrl": "http://127.0.0.1:8000",
     "siteUrl": "http://localhost:3000",
     "onlinePayments": false
   },
-  "apiUrl": "http://192.168.0.104:8000"
+  "apiUrl": "http://127.0.0.1:8000"
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -1341,7 +1341,7 @@ const renderSSRHeadOptions = {"omitLineBreaks":true};
 
 const NUXT_PRERENDER_NO_SSR_ROUTES = ["/index.html","/200.html","/404.html"];
 const NUXT_NO_SCRIPTS_PATTERNS = [];
-const NUXT_PAGE_PATTERNS = ["/admin/courses/:id","/admin/orders/:id","/admin/products/:slug","/admin/banners","/admin/blog-categories","/admin/blog-tags","/admin/blogs","/admin/categories","/admin/certificates","/admin/coupons","/admin/course-categories","/admin/courses","/admin/delivery-charges","/admin/enrollments","/admin/orders","/admin/payments","/admin/products","/admin/reviews","/admin/users","/certificates/verify","/certificates/verify/:number","/blog/:id","/courses/:slug","/learn/:slug","/orders/:id","/quizzes/:id","/quizzes/:id/result/:attemptId","/store/:slug","/admin","/blog","/cart","/certificates","/checkout","/courses","/login","/my-courses","/notifications","/orders","/payments","/profile","/register","/reviews","/store","/wishlist","/*","/"];
+const NUXT_PAGE_PATTERNS = ["/admin/courses/:id","/admin/exams/:id","/admin/orders/:id","/admin/products/:slug","/exams/attempt/:attemptId","/admin/banners","/admin/blog-categories","/admin/blog-tags","/admin/blogs","/admin/categories","/admin/certificates","/admin/coupons","/admin/course-categories","/admin/courses","/admin/delivery-charges","/admin/enrollments","/admin/exams","/admin/orders","/admin/payments","/admin/products","/admin/reviews","/admin/users","/certificates/verify","/certificates/verify/:number","/blog/:id","/community/:slug","/courses/:slug","/exams/:id","/instructors/:id","/learn/:slug","/orders/:id","/quizzes/:id","/quizzes/:id/result/:attemptId","/store/:slug","/admin","/blog","/cart","/certificates","/checkout","/courses","/exams","/instructors","/login","/my-courses","/notifications","/orders","/payments","/profile","/register","/reviews","/store","/wishlist","/*","/"];
 const NUXT_SSR_STREAMING = false;
 const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Shikhor Academy is a comprehensive online learning platform with expert-led courses, practical quizzes, certificates and a curated store. Learn anytime, anywhere."}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"htmlAttrs":{"lang":"en"},"title":"Shikhor Academy"};
 const appRootTag = "div";
@@ -2647,22 +2647,7 @@ _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU,
 _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs
 ];
 
-const assets = {
-  "/index.mjs": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"29d77-FBGflDjsLwRuSgp0O+IRl192ACY\"",
-    "mtime": "2026-11-20T22:52:20.490Z",
-    "size": 171383,
-    "path": "index.mjs"
-  },
-  "/index.mjs.map": {
-    "type": "application/json",
-    "etag": "\"9787a-GjkCCThT0McNzYcsqxl4vLhEnuo\"",
-    "mtime": "2026-11-20T22:52:20.490Z",
-    "size": 620666,
-    "path": "index.mjs.map"
-  }
-};
+const assets = {};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -4204,6 +4189,9 @@ const ____path_ = defineEventHandler(async (event) => {
     "user",
     "logout",
     "notifications",
+    "posts",
+    "comments",
+    "live-sessions",
     "instructors",
     "exams",
     "exam-attempts",

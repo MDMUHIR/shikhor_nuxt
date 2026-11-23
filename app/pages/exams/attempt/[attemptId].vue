@@ -250,7 +250,7 @@ useSeoMeta({ title: 'Exam — Shikhor Academy', robots: 'noindex' })
             </p>
           </div>
           <div class="flex items-center gap-3">
-            <span class="rounded-xl px-3 py-1.5 font-mono text-lg font-extrabold tabular-nums" :class="lowTime ? 'animate-pulse bg-rose-100 text-rose-600' : 'bg-gray-100 text-gray-800'">{{ formatClock(secondsLeft) }}</span>
+            <span class="rounded-xl px-2.5 py-1.5 font-mono text-base font-extrabold tabular-nums sm:px-3 sm:text-lg" :class="lowTime ? 'animate-pulse bg-rose-100 text-rose-600' : 'bg-gray-100 text-gray-800'">{{ formatClock(secondsLeft) }}</span>
             <button type="button" class="btn-primary" :disabled="submitting" @click="submit()">{{ submitting ? 'Submitting…' : 'Submit' }}</button>
           </div>
         </div>

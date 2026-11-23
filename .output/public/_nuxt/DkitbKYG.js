@@ -1,1 +1,0 @@
-import{c as e,o as t}from"./CQF437qV.js";import{i as n}from"#entry";var r=t(async t=>{let{fetchMe:r,isAuthenticated:i,isStaff:a}=n();if(i.value||await r(),!i.value)return e(`/login?next=${encodeURIComponent(t.fullPath)}`);if(!a.value)return e(`/?forbidden=admin`)});export{r as default};

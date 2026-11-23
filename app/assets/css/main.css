@@ -53,6 +53,15 @@
   --color-brand-dark: #075f9a;
   --color-brand-light: #e6f3fb;
   --color-ink: #1f2937;
+  /* Soft neo-brutalist palette: dark outline, hard offset shadow, pastel fills */
+  --color-neo-ink: #1a1a1a;
+  --color-neo-lavender: #e6dcff;
+  --color-neo-lavender-deep: #d6c6ff;
+  --color-neo-cream: #faf3e3;
+  --color-neo-mint: #cdeccf;
+  --color-neo-pink: #f9c8c8;
+  --color-neo-sky: #bfe3fb;
+  --color-neo-sun: #fdebc2;
   --font-sans: 'Baloo Da 2', 'Baloo Da 2 Fallback', Arial, sans-serif;
 }
 
@@ -69,7 +78,11 @@
     font-family: var(--font-sans);
     font-style: normal;
     color: #374053;
-    background-color: #fff;
+    /* notebook dot-grid page */
+    background-color: #fbf5e8; /* light cream, same family as --color-neo-cream */
+    background-image: radial-gradient(circle at center, rgba(60, 48, 20, 0.2) 1.1px, transparent 1.3px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -87,6 +100,66 @@
   img {
     background-color: #f3f4f6;
   }
+  /* Media never exceeds its container; long words and URLs wrap instead of stretching the page. */
+  img,
+  video,
+  canvas,
+  iframe,
+  svg {
+    max-width: 100%;
+  }
+  img,
+  video {
+    height: auto;
+  }
+  /* Grid children may shrink below their content width, so wide tables scroll inside
+     their own wrapper instead of stretching the whole page. */
+  .grid > * {
+    min-width: 0;
+  }
+  body {
+    overflow-wrap: break-word;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  /* Phones: 16px form text stops iOS Safari from zooming in on focus; comfortable tap targets. */
+  @media (max-width: 767px) {
+    input:not([type='checkbox']):not([type='radio']):not([type='file']),
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+  @media (pointer: coarse) {
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+      min-height: 2.75rem;
+    }
+    .field-input {
+      min-height: 2.75rem;
+    }
+  }
+  /* Big monitors: scale type a little so the layout does not feel tiny */
+  @media (min-width: 1920px) {
+    html {
+      font-size: 17px;
+    }
+  }
+  @media (min-width: 2560px) {
+    html {
+      font-size: 19px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 /* Shared form controls */
@@ -95,22 +168,78 @@
     @apply mb-1.5 block text-sm font-semibold text-gray-700;
   }
   .field-input {
-    @apply w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-800 shadow-sm transition placeholder:text-gray-400 focus:border-oc-primary focus:ring-2 focus:ring-oc-primary/20 focus:outline-none disabled:bg-gray-50 disabled:text-gray-500;
+    @apply w-full rounded-xl border-[1.5px] border-neo-ink/70 bg-white px-3.5 py-2.5 text-sm text-gray-800 transition placeholder:text-gray-400 focus:border-neo-ink focus:outline-none disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500;
+  }
+  .field-input:focus {
+    box-shadow: 3px 3px 0 0 var(--color-neo-lavender-deep);
   }
   .field-error {
     @apply mt-1 text-xs font-medium text-rose-600;
   }
+  /*
+   * Buttons: dark outline + hard offset shadow + pastel fill. They lift on hover and
+   * "press" into their shadow on click (same feel as the Synapse reference).
+   */
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    --neo-shadow: 3px;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-neo-ink px-5 py-2.5 text-sm font-bold text-neo-ink;
+    box-shadow: var(--neo-shadow) var(--neo-shadow) 0 0 var(--color-neo-ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
+    letter-spacing: 0.005em;
+  }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-oc-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60;
+    background-color: var(--color-neo-lavender);
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-oc-primary/40 hover:text-oc-primary disabled:cursor-not-allowed disabled:opacity-60;
+    background-color: #fff;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60;
+    background-color: var(--color-neo-pink);
+  }
+  .btn-primary:hover:not(:disabled),
+  .btn-secondary:hover:not(:disabled),
+  .btn-danger:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: calc(var(--neo-shadow) + 1px) calc(var(--neo-shadow) + 1px) 0 0 var(--color-neo-ink);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--color-neo-lavender-deep);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--color-neo-cream);
+  }
+  .btn-primary:active:not(:disabled),
+  .btn-secondary:active:not(:disabled),
+  .btn-danger:active:not(:disabled) {
+    transform: translate(var(--neo-shadow), var(--neo-shadow));
+    box-shadow: 0 0 0 0 var(--color-neo-ink);
+  }
+  .btn-primary:disabled,
+  .btn-secondary:disabled,
+  .btn-danger:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    box-shadow: 1px 1px 0 0 var(--color-neo-ink);
+  }
+  /* compact buttons (text-xs / tight padding) get a smaller shadow so they do not look heavy */
+  @media (max-width: 400px) {
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+      padding-inline: 1rem;
+    }
+  }
+  .btn-primary[class*='text-xs'],
+  .btn-secondary[class*='text-xs'],
+  .btn-danger[class*='text-xs'] {
+    --neo-shadow: 2px;
+    border-radius: 0.75rem;
+    border-width: 1.5px;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-neo-lavender/60 hover:text-neo-ink;
   }
   .card {
     @apply rounded-2xl border border-gray-100 bg-white shadow-sm;
@@ -120,6 +249,22 @@
   }
   .prose-content {
     @apply text-[15px] leading-7 text-gray-700;
+    overflow-wrap: anywhere;
+  }
+  .prose-content img,
+  .prose-content iframe,
+  .prose-content video {
+    max-width: 100%;
+    height: auto;
+  }
+  .prose-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .prose-content pre {
+    max-width: 100%;
+    overflow-x: auto;
   }
   .prose-content h1,
   .prose-content h2,
@@ -211,4 +356,11 @@
 }
 .fade-in {
   animation: fade-in 0.25s ease-out both;
+}
+
+@media print {
+  body {
+    background-image: none;
+    background-color: #fff;
+  }
 }

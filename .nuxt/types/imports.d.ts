@@ -3,14 +3,21 @@ export {}
 declare global {
   const $fetch: typeof import('../fetch').$fetch
   const ApiError: typeof import('../../app/composables/useApi').ApiError
+  const BD_DISTRICTS: typeof import('../../app/utils/bd-locations').BD_DISTRICTS
+  const BD_LOCATIONS: typeof import('../../app/utils/bd-locations').BD_LOCATIONS
+  const PROVIDERS: typeof import('../../app/utils/community').PROVIDERS
   const abortNavigation: typeof import('../../node_modules/nuxt/dist/app/composables/router').abortNavigation
   const addRouteMiddleware: typeof import('../../node_modules/nuxt/dist/app/composables/router').addRouteMiddleware
+  const areasOf: typeof import('../../app/utils/bd-locations').areasOf
+  const calendarLink: typeof import('../../app/utils/community').calendarLink
   const callOnce: typeof import('../../node_modules/nuxt/dist/app/composables/once').callOnce
   const cancelIdleCallback: typeof import('../../node_modules/nuxt/dist/app/compat/idle-callback').cancelIdleCallback
   const clearError: typeof import('../../node_modules/nuxt/dist/app/composables/error').clearError
   const clearNuxtData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').clearNuxtData
   const clearNuxtState: typeof import('../../node_modules/nuxt/dist/app/composables/state').clearNuxtState
   const computed: typeof import('vue').computed
+  const configureMediaBase: typeof import('../../app/utils/media').configureMediaBase
+  const countdown: typeof import('../../app/utils/community').countdown
   const createError: typeof import('../../node_modules/nuxt/dist/app/composables/error').createError
   const createUseAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').createUseAsyncData
   const createUseFetch: typeof import('../../node_modules/nuxt/dist/app/composables/fetch').createUseFetch
@@ -44,10 +51,12 @@ declare global {
   const getRouteRules: typeof import('../../node_modules/nuxt/dist/app/composables/manifest').getRouteRules
   const h: typeof import('vue').h
   const hasInjectionContext: typeof import('vue').hasInjectionContext
+  const hostOf: typeof import('../../app/utils/community').hostOf
   const imageFallback: typeof import('../../app/utils/media').imageFallback
   const initials: typeof import('../../app/utils/format').initials
   const inject: typeof import('vue').inject
   const injectHead: typeof import('../../node_modules/nuxt/dist/app/composables/head').injectHead
+  const isInsideDhaka: typeof import('../../app/utils/bd-locations').isInsideDhaka
   const isNuxtError: typeof import('../../node_modules/nuxt/dist/app/composables/error').isNuxtError
   const isPrerendered: typeof import('../../node_modules/nuxt/dist/app/composables/payload').isPrerendered
   const isProxy: typeof import('vue').isProxy
@@ -57,6 +66,7 @@ declare global {
   const isShallow: typeof import('vue').isShallow
   const isVue2: typeof import('../../node_modules/nuxt/dist/app/compat/vue-demi').isVue2
   const isVue3: typeof import('../../node_modules/nuxt/dist/app/compat/vue-demi').isVue3
+  const linkSegments: typeof import('../../app/utils/community').linkSegments
   const loadPayload: typeof import('../../node_modules/nuxt/dist/app/composables/payload').loadPayload
   const markRaw: typeof import('vue').markRaw
   const mediaUrl: typeof import('../../app/utils/media').mediaUrl
@@ -88,6 +98,7 @@ declare global {
   const prerenderRoutes: typeof import('../../node_modules/nuxt/dist/app/composables/ssr').prerenderRoutes
   const productImage: typeof import('../../app/utils/media').productImage
   const provide: typeof import('vue').provide
+  const providerOf: typeof import('../../app/utils/community').providerOf
   const proxyRefs: typeof import('vue').proxyRefs
   const reactive: typeof import('vue').reactive
   const readonly: typeof import('vue').readonly
@@ -107,6 +118,7 @@ declare global {
   const showError: typeof import('../../node_modules/nuxt/dist/app/composables/error').showError
   const statusClasses: typeof import('../../app/utils/format').statusClasses
   const statusLabel: typeof import('../../app/utils/format').statusLabel
+  const timeAgo: typeof import('../../app/utils/community').timeAgo
   const toRaw: typeof import('vue').toRaw
   const toRef: typeof import('vue').toRef
   const toRefs: typeof import('vue').toRefs
@@ -138,6 +150,7 @@ declare global {
   const useLazyAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').useLazyAsyncData
   const useLazyFetch: typeof import('../../node_modules/nuxt/dist/app/composables/fetch').useLazyFetch
   const useLink: typeof import('vue-router').useLink
+  const useLiveSessions: typeof import('../../app/composables/useLiveSessions').useLiveSessions
   const useLoadingIndicator: typeof import('../../node_modules/nuxt/dist/app/composables/loading-indicator').useLoadingIndicator
   const useModel: typeof import('vue').useModel
   const useNuxtApp: typeof import('../../node_modules/nuxt/dist/app/nuxt').useNuxtApp
@@ -238,6 +251,9 @@ declare global {
   export type { Toast } from '../../app/composables/useToast'
   import('../../app/composables/useToast')
   // @ts-ignore
+  export type { CommunityUser, CommunityComment, CommunityPost, LiveSessionInfo, LinkSegment } from '../../app/utils/community'
+  import('../../app/utils/community')
+  // @ts-ignore
   export type { ExamInfo, ExamListItem, ExamAttemptSummary, ExamTakeQuestion, ExamReviewItem } from '../../app/utils/exam'
   import('../../app/utils/exam')
   // @ts-ignore
@@ -250,14 +266,21 @@ declare module 'vue' {
   interface ComponentCustomProperties {
     readonly $fetch: UnwrapRef<typeof import('../fetch')['$fetch']>
     readonly ApiError: UnwrapRef<typeof import('../../app/composables/useApi')['ApiError']>
+    readonly BD_DISTRICTS: UnwrapRef<typeof import('../../app/utils/bd-locations')['BD_DISTRICTS']>
+    readonly BD_LOCATIONS: UnwrapRef<typeof import('../../app/utils/bd-locations')['BD_LOCATIONS']>
+    readonly PROVIDERS: UnwrapRef<typeof import('../../app/utils/community')['PROVIDERS']>
     readonly abortNavigation: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['abortNavigation']>
     readonly addRouteMiddleware: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['addRouteMiddleware']>
+    readonly areasOf: UnwrapRef<typeof import('../../app/utils/bd-locations')['areasOf']>
+    readonly calendarLink: UnwrapRef<typeof import('../../app/utils/community')['calendarLink']>
     readonly callOnce: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/once')['callOnce']>
     readonly cancelIdleCallback: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/compat/idle-callback')['cancelIdleCallback']>
     readonly clearError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['clearError']>
     readonly clearNuxtData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['clearNuxtData']>
     readonly clearNuxtState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['clearNuxtState']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
+    readonly configureMediaBase: UnwrapRef<typeof import('../../app/utils/media')['configureMediaBase']>
+    readonly countdown: UnwrapRef<typeof import('../../app/utils/community')['countdown']>
     readonly createError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['createError']>
     readonly createUseAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['createUseAsyncData']>
     readonly createUseFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['createUseFetch']>
@@ -291,10 +314,12 @@ declare module 'vue' {
     readonly getRouteRules: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getRouteRules']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hasInjectionContext: UnwrapRef<typeof import('vue')['hasInjectionContext']>
+    readonly hostOf: UnwrapRef<typeof import('../../app/utils/community')['hostOf']>
     readonly imageFallback: UnwrapRef<typeof import('../../app/utils/media')['imageFallback']>
     readonly initials: UnwrapRef<typeof import('../../app/utils/format')['initials']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectHead: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/head')['injectHead']>
+    readonly isInsideDhaka: UnwrapRef<typeof import('../../app/utils/bd-locations')['isInsideDhaka']>
     readonly isNuxtError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['isNuxtError']>
     readonly isPrerendered: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/payload')['isPrerendered']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
@@ -304,6 +329,7 @@ declare module 'vue' {
     readonly isShallow: UnwrapRef<typeof import('vue')['isShallow']>
     readonly isVue2: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/compat/vue-demi')['isVue2']>
     readonly isVue3: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/compat/vue-demi')['isVue3']>
+    readonly linkSegments: UnwrapRef<typeof import('../../app/utils/community')['linkSegments']>
     readonly loadPayload: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/payload')['loadPayload']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly mediaUrl: UnwrapRef<typeof import('../../app/utils/media')['mediaUrl']>
@@ -335,6 +361,7 @@ declare module 'vue' {
     readonly prerenderRoutes: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['prerenderRoutes']>
     readonly productImage: UnwrapRef<typeof import('../../app/utils/media')['productImage']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
+    readonly providerOf: UnwrapRef<typeof import('../../app/utils/community')['providerOf']>
     readonly proxyRefs: UnwrapRef<typeof import('vue')['proxyRefs']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
     readonly readonly: UnwrapRef<typeof import('vue')['readonly']>
@@ -354,6 +381,7 @@ declare module 'vue' {
     readonly showError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['showError']>
     readonly statusClasses: UnwrapRef<typeof import('../../app/utils/format')['statusClasses']>
     readonly statusLabel: UnwrapRef<typeof import('../../app/utils/format')['statusLabel']>
+    readonly timeAgo: UnwrapRef<typeof import('../../app/utils/community')['timeAgo']>
     readonly toRaw: UnwrapRef<typeof import('vue')['toRaw']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
@@ -385,6 +413,7 @@ declare module 'vue' {
     readonly useLazyAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useLazyAsyncData']>
     readonly useLazyFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useLazyFetch']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useLiveSessions: UnwrapRef<typeof import('../../app/composables/useLiveSessions')['useLiveSessions']>
     readonly useLoadingIndicator: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/loading-indicator')['useLoadingIndicator']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['useNuxtApp']>

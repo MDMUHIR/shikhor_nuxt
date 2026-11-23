@@ -21,13 +21,13 @@ const tones: Record<string, string> = {
 </script>
 
 <template>
-  <div class="card flex items-center gap-3 p-4">
-    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" :class="tones[tone]">
+  <div class="card flex items-center gap-2.5 p-3 sm:gap-3 sm:p-4">
+    <span class="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl min-[400px]:flex" :class="tones[tone]">
       <BaseIcon :name="icon" :size="20" />
     </span>
     <div class="min-w-0">
       <p class="truncate text-xs font-medium text-gray-500">{{ label }}</p>
-      <p class="text-xl font-extrabold leading-tight text-gray-900">{{ value }}</p>
+      <p class="break-words text-lg font-extrabold leading-tight text-gray-900 sm:text-xl">{{ value }}</p>
       <p v-if="hint" class="truncate text-[11px] text-gray-400">{{ hint }}</p>
     </div>
   </div>

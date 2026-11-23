@@ -192,7 +192,7 @@ export interface ProductVariant {
   sku: string
   price: number
   offer_price: number | null
-  stock: number
+  stock: number | null
   images: ProductImage[]
   attributes: VariantAttribute[]
 }
@@ -205,7 +205,7 @@ export interface Product {
   short_description: string | null
   price: number
   offer_price: number | null
-  stock: number
+  stock: number | null
   status: string
   category_id: number | null
   category?: { id: number; name: string; slug: string } | null
@@ -287,6 +287,7 @@ export interface Coupon {
 export interface DeliveryCharge {
   id: number
   name: string
+  zone?: 'inside_dhaka' | 'outside_dhaka' | 'free_over' | null
   charge: number
   minimum_order: number | null
   status: boolean

@@ -44,10 +44,16 @@ const displayPrice = computed(() => {
   }
   return formatMoney(0)
 })
+// null stock means "not tracked" (unlimited) on the API; cap the selector at 99 in that case.
+const unlimited = computed(() => {
+  if (selectedVariant.value) return selectedVariant.value.stock === null || selectedVariant.value.stock === undefined
+  if (product.value?.variants.length) return false
+  return product.value?.stock === null || product.value?.stock === undefined
+})
 const stock = computed(() => {
-  if (selectedVariant.value) return Number(selectedVariant.value.stock)
+  if (selectedVariant.value) return unlimited.value ? 99 : Number(selectedVariant.value.stock)
   if (product.value?.variants.length) return null
-  return Number(product.value?.stock ?? 0)
+  return unlimited.value ? 99 : Number(product.value?.stock ?? 0)
 })
 const inStock = computed(() => (stock.value === null ? product.value?.variants.some((variant) => Number(variant.stock) > 0) ?? false : stock.value > 0))
 const needsVariant = computed(() => !!product.value?.variants.length && !selectedVariant.value)
@@ -71,6 +77,17 @@ watch(
   { immediate: true },
 )
 
+/** Always a whole number between 1 and the available stock (the input can be empty or NaN while typing). */
+function cleanQuantity(): number {
+  const max = stock.value === null ? 99 : Math.max(1, stock.value)
+  const raw = Math.floor(Number(quantity.value))
+  return Math.min(max, Math.max(1, Number.isFinite(raw) ? raw : 1))
+}
+
+function commitQuantity() {
+  quantity.value = cleanQuantity()
+}
+
 watch(selectedVariantId, () => {
   quantity.value = 1
   activeImage.value = images.value[0] || ''
@@ -89,6 +106,11 @@ async function addToCart(buyNow = false) {
     toast.info('Please choose an option first.')
     return
   }
+  if (!inStock.value) {
+    toast.error('This item is out of stock.')
+    return
+  }
+  commitQuantity()
   adding.value = true
   try {
     await apiFetch('/cart/add', {
@@ -97,11 +119,16 @@ async function addToCart(buyNow = false) {
         product_id: product.value.id,
         variant_id: selectedVariantId.value,
         quantity: quantity.value,
+        // Buy now checks out exactly this quantity, on its own.
+        buy_now: buyNow,
       },
     })
     await cart.refresh()
+    if (buyNow) {
+      await navigateTo('/checkout')
+      return
+    }
     toast.success('Added to your cart.')
-    if (buyNow) await navigateTo('/checkout')
   } catch (err) {
     toast.error((err as Error).message)
   } finally {
@@ -138,8 +165,8 @@ async function toggleWishlist() {
 }
 
 function changeQty(delta: number) {
-  const max = stock.value === null ? 99 : Math.max(1, stock.value)
-  quantity.value = Math.min(max, Math.max(1, quantity.value + delta))
+  quantity.value = cleanQuantity()
+  quantity.value = Math.min(stock.value === null ? 99 : Math.max(1, stock.value), Math.max(1, quantity.value + delta))
 }
 
 useSeoMeta({
@@ -203,7 +230,7 @@ useSeoMeta({
             </span>
           </div>
           <p class="mt-1 text-xs" :class="inStock ? 'text-emerald-600' : 'text-rose-600'">
-            {{ inStock ? (stock === null ? 'Options available' : `${stock} in stock`) : 'Out of stock' }}
+            {{ inStock ? (stock === null ? 'Options available' : unlimited ? 'In stock' : `${stock} in stock`) : 'Out of stock' }}
           </p>
 
           <div v-if="product.variants.length" class="mt-5">
@@ -234,7 +261,7 @@ useSeoMeta({
               <button type="button" class="px-3 py-2.5 text-gray-500 transition hover:text-oc-primary" aria-label="Decrease quantity" @click="changeQty(-1)">
                 <BaseIcon name="minus" :size="16" />
               </button>
-              <input v-model.number="quantity" type="number" min="1" :max="stock ?? 99" class="w-14 border-0 bg-transparent text-center text-sm font-semibold focus:outline-none" aria-label="Quantity">
+              <input v-model.number="quantity" type="number" inputmode="numeric" min="1" :max="stock ?? 99" class="w-14 border-0 bg-transparent text-center text-sm font-semibold focus:outline-none" aria-label="Quantity" @blur="commitQuantity" @keyup.enter="commitQuantity">
               <button type="button" class="px-3 py-2.5 text-gray-500 transition hover:text-oc-primary" aria-label="Increase quantity" @click="changeQty(1)">
                 <BaseIcon name="plus" :size="16" />
               </button>

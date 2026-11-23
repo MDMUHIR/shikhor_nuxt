@@ -75,7 +75,7 @@ const paymentStatuses = ['pending', 'paid', 'failed', 'cancelled', 'partially_re
       </button>
     </AdminPageHeader>
 
-    <div class="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="mb-4 grid grid-cols-2 gap-3 xl:grid-cols-4">
       <AdminStat label="Orders" :value="formatNumber(totals.count)" icon="shopping-bag" tone="blue" />
       <AdminStat label="Revenue" :value="formatMoney(totals.revenue)" icon="chart" tone="emerald" hint="Paid orders, net of refunds" />
       <AdminStat label="Awaiting confirmation" :value="formatNumber(totals.pending)" icon="clock" tone="amber" />

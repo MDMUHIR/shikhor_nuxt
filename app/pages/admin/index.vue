@@ -107,7 +107,7 @@ function orderItems(order: AdminOrder) {
     <template v-else>
     <AdminAnalytics />
 
-    <div v-if="pending" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div v-if="pending" class="grid grid-cols-2 gap-3 xl:grid-cols-4">
       <div v-for="i in 8" :key="i" class="card h-[86px] animate-pulse bg-gray-50" />
     </div>
 
@@ -119,7 +119,7 @@ function orderItems(order: AdminOrder) {
     />
 
     <template v-else>
-      <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="grid grid-cols-2 gap-3 xl:grid-cols-4">
         <AdminStat label="Revenue (all orders)" :value="formatMoney(stats.revenue)" icon="chart" tone="emerald" hint="Excludes cancelled & refunded" />
         <AdminStat label="Orders" :value="formatNumber(stats.orders)" icon="shopping-bag" tone="blue" :hint="`${stats.pendingOrders} awaiting confirmation`" />
         <AdminStat label="Students" :value="formatNumber(stats.customers)" icon="users" tone="violet" hint="Customer accounts" />

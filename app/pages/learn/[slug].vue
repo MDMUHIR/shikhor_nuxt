@@ -262,13 +262,15 @@ useSeoMeta({
     </ErrorState>
 
     <template v-else-if="course">
+      <LiveBanner :slug="slug" />
       <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <nav class="text-xs text-gray-500" aria-label="Breadcrumb">
           <NuxtLink to="/my-courses" class="hover:text-oc-primary">My courses</NuxtLink>
           <span class="mx-1.5">/</span>
           <span class="text-gray-700">{{ course.title }}</span>
         </nav>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <NuxtLink :to="`/community/${slug}`" class="btn-secondary"><BaseIcon name="video" :size="15" /> Live classes &amp; announcements</NuxtLink>
           <NuxtLink to="/my-courses" class="btn-ghost"><BaseIcon name="arrow-left" :size="15" /> My courses</NuxtLink>
           <button type="button" class="btn-ghost" :disabled="savingProgress" @click="refresh">
             <BaseIcon name="refresh" :size="15" /> Sync

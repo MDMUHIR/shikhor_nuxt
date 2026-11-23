@@ -485,7 +485,10 @@ useSeoMeta({
               <p class="mt-2 text-xs text-gray-500">{{ accessLabel }} · {{ course.access_type === 'lifetime' ? 'one-time payment' : 'limited access' }}</p>
 
               <template v-if="isEnrolled">
-                <NuxtLink :to="`/learn/${course.slug}`" class="btn-primary mt-4 w-full">
+                <NuxtLink :to="`/community/${course.slug}`" class="btn-secondary mt-4 w-full">
+                  <BaseIcon name="video" :size="16" /> Live classes &amp; announcements
+                </NuxtLink>
+                <NuxtLink :to="`/learn/${course.slug}`" class="btn-primary mt-2 w-full">
                   <BaseIcon name="play" :size="16" /> Continue learning
                 </NuxtLink>
                 <p class="mt-2 text-center text-xs text-emerald-600">You already have access to this course.</p>

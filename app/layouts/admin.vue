@@ -49,7 +49,7 @@ watch(() => route.fullPath, () => (sidebarOpen.value = false))
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen">
     <aside
       class="fixed inset-y-0 left-0 z-50 w-64 -translate-x-full border-r border-gray-200 bg-white transition-transform duration-200 lg:translate-x-0"
       :class="{ 'translate-x-0': sidebarOpen }"
@@ -120,7 +120,7 @@ watch(() => route.fullPath, () => (sidebarOpen.value = false))
         </div>
       </header>
 
-      <main class="px-4 py-6 md:px-6 lg:px-8">
+      <main class="mx-auto w-full max-w-[1680px] px-4 py-6 md:px-6 lg:px-8">
         <slot />
       </main>
     </div>

@@ -21,7 +21,7 @@ function retry() {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-gray-50">
+  <div class="flex min-h-screen flex-col">
     <header class="border-b border-gray-100 bg-white">
       <div class="mx-auto flex h-18 w-full max-w-[1280px] items-center px-4 md:px-6">
         <NuxtLink to="/" class="flex h-12 w-24 items-center" aria-label="Shikhor Academy home">
