@@ -8,7 +8,7 @@ const image = computed(() => mediaUrl(props.blog.image))
 <template>
   <NuxtLink
     :to="`/blog/${blog.id}`"
-    class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+    class="card group flex h-full flex-col overflow-hidden"
   >
     <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
       <img

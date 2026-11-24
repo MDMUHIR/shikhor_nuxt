@@ -25,9 +25,9 @@ const inStock = computed(() => {
 <template>
   <NuxtLink
     :to="`/store/${product.slug}`"
-    class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+    class="card group flex h-full flex-col overflow-hidden"
   >
-    <div class="relative aspect-square overflow-hidden bg-gray-50">
+    <div class="relative aspect-square overflow-hidden border-b-2 border-neo-ink bg-gray-50">
       <img
         :src="image"
         :alt="product.name"
@@ -37,7 +37,7 @@ const inStock = computed(() => {
       >
       <span
         v-if="off"
-        class="absolute left-3 top-3 rounded-full bg-rose-500 px-2.5 py-1 text-[11px] font-bold text-white"
+        class="absolute left-3 top-3 rounded-full border-2 border-neo-ink bg-neo-pink px-2.5 py-0.5 text-[11px] font-extrabold text-neo-ink"
       >-{{ off }}%</span>
       <span
         v-if="!inStock"

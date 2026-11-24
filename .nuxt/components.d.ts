@@ -32,6 +32,7 @@ export const CourseCard: typeof import("../app/components/CourseCard.vue")['defa
 export const EmptyState: typeof import("../app/components/EmptyState.vue")['default']
 export const ErrorState: typeof import("../app/components/ErrorState.vue")['default']
 export const HeroCarousel: typeof import("../app/components/HeroCarousel.vue")['default']
+export const HomeHero: typeof import("../app/components/HomeHero.vue")['default']
 export const InstructorCard: typeof import("../app/components/InstructorCard.vue")['default']
 export const InstructorDashboard: typeof import("../app/components/InstructorDashboard.vue")['default']
 export const LearningPath: typeof import("../app/components/LearningPath.vue")['default']
@@ -162,6 +163,7 @@ export const LazyCourseCard: LazyComponent<typeof import("../app/components/Cour
 export const LazyEmptyState: LazyComponent<typeof import("../app/components/EmptyState.vue")['default']>
 export const LazyErrorState: LazyComponent<typeof import("../app/components/ErrorState.vue")['default']>
 export const LazyHeroCarousel: LazyComponent<typeof import("../app/components/HeroCarousel.vue")['default']>
+export const LazyHomeHero: LazyComponent<typeof import("../app/components/HomeHero.vue")['default']>
 export const LazyInstructorCard: LazyComponent<typeof import("../app/components/InstructorCard.vue")['default']>
 export const LazyInstructorDashboard: LazyComponent<typeof import("../app/components/InstructorDashboard.vue")['default']>
 export const LazyLearningPath: LazyComponent<typeof import("../app/components/LearningPath.vue")['default']>

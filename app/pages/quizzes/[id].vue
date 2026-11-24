@@ -139,7 +139,7 @@ useSeoMeta({
       <div class="card p-6">
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Quiz</p>
+            <p class="eyebrow">Quiz</p>
             <h1 class="mt-1 text-2xl font-extrabold text-gray-900">{{ quiz.title }}</h1>
             <p v-if="quiz.description" class="mt-2 text-sm text-gray-600">{{ quiz.description }}</p>
           </div>

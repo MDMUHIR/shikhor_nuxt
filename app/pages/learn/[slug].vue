@@ -331,7 +331,7 @@ useSeoMeta({
 
             <!-- Text lesson -->
             <section v-else-if="activeLesson.type === 'text'" class="card p-6 md:p-8">
-              <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Reading</p>
+              <p class="eyebrow">Reading</p>
               <h1 class="mt-1 text-xl font-extrabold text-gray-900 md:text-2xl">{{ activeLesson.title }}</h1>
               <div class="prose-content mt-4" v-html="sanitizeHtml(activeLesson.content)" />
             </section>

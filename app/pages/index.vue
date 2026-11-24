@@ -128,16 +128,25 @@ useSeoMeta({
       />
 
       <template v-else>
-        <HeroCarousel :banners="data?.banners ?? []" />
+        <section id="start-here" class="scroll-mt-24">
+          <!-- <div class="mb-4 flex items-end justify-between gap-3">
+            <div>
+              <span class="eyebrow">What's new</span>
+              <h2 class="display mt-2 text-3xl md:text-4xl">Featured right now</h2>
+            </div>
+          </div> -->
+          <HeroCarousel :banners="data?.banners ?? []" />
+        </section>
 
         <section class="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
           <div
-            v-for="stat in stats"
+            v-for="(stat, i) in stats"
             :key="stat.label"
             class="card flex items-center gap-3 p-4"
+            :class="['neo-mint', 'neo-sky', 'neo-sun', 'neo-pink'][i % 4]"
           >
             <span
-              class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-light text-oc-primary"
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-neo-ink bg-white text-neo-ink"
             >
               <BaseIcon :name="stat.icon" :size="20" />
             </span>
@@ -154,7 +163,7 @@ useSeoMeta({
           <div class="mb-5 flex items-end justify-between gap-3">
             <div>
               <p
-                class="text-xs font-bold uppercase tracking-widest text-oc-primary"
+                class="eyebrow"
               >
                 Browse by topic
               </p>
@@ -168,21 +177,22 @@ useSeoMeta({
           </div>
           <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <NuxtLink
-              v-for="category in data.categories.slice(0, 6)"
+              v-for="(category, ci) in data.categories.slice(0, 6)"
               :key="category.id"
+              :class="['neo-lavender', 'neo-mint', 'neo-sun', 'neo-sky', 'neo-pink', 'neo-cream'][ci % 6]"
               :to="{ path: '/courses', query: { category: category.slug } }"
-              class="card group flex flex-col items-center gap-2 p-4 text-center transition hover:-translate-y-0.5 hover:border-oc-primary/30 hover:shadow-md"
+              class="card group flex flex-col items-center gap-2 p-4 text-center"
             >
               <span
-                class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-light text-oc-primary"
+                class="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-neo-ink bg-white text-neo-ink"
               >
                 <BaseIcon name="book" :size="22" />
               </span>
               <span
-                class="line-clamp-2 text-sm font-semibold text-gray-800 group-hover:text-oc-primary"
+                class="line-clamp-2 text-sm font-extrabold text-neo-ink"
                 >{{ category.name }}</span
               >
-              <span class="text-[11px] text-gray-400"
+              <span class="text-[11px] font-semibold text-gray-600"
                 >{{ category.courses_count ?? 0 }} courses</span
               >
             </NuxtLink>
@@ -193,7 +203,7 @@ useSeoMeta({
           <div class="mb-5 flex items-end justify-between gap-3">
             <div>
               <p
-                class="text-xs font-bold uppercase tracking-widest text-oc-primary"
+                class="eyebrow"
               >
                 Handpicked
               </p>
@@ -232,7 +242,7 @@ useSeoMeta({
           <div class="grid items-center gap-8 lg:grid-cols-2">
             <div>
               <p
-                class="text-xs font-bold uppercase tracking-widest text-oc-primary"
+                class="eyebrow"
               >
                 Why Shikhor
               </p>
@@ -345,7 +355,7 @@ useSeoMeta({
           <div class="mb-5 flex items-end justify-between gap-3">
             <div>
               <p
-                class="text-xs font-bold uppercase tracking-widest text-oc-primary"
+                class="eyebrow"
               >
                 From the store
               </p>
@@ -370,7 +380,7 @@ useSeoMeta({
           <div class="mb-5 flex items-end justify-between gap-3">
             <div>
               <p
-                class="text-xs font-bold uppercase tracking-widest text-oc-primary"
+                class="eyebrow"
               >
                 Learning notes
               </p>
@@ -390,7 +400,7 @@ useSeoMeta({
         <section v-if="data?.reviews.length" class="mt-14">
           <div class="mb-5">
             <p
-              class="text-xs font-bold uppercase tracking-widest text-oc-primary"
+              class="eyebrow"
             >
               Student voices
             </p>
@@ -431,7 +441,7 @@ useSeoMeta({
         </section>
 
         <section
-          class="mt-14 rounded-3xl bg-gradient-to-r from-oc-primary to-indigo-600 px-6 py-10 text-center text-white md:px-12"
+          class="card neo-banner neo-sun mt-14 px-6 py-10 text-center md:px-12"
         >
           <h2 class="text-2xl font-extrabold md:text-3xl">
             Ready to learn something new?

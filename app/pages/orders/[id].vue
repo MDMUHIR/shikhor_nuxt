@@ -144,7 +144,7 @@ useSeoMeta({
 
       <div class="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Order</p>
+          <p class="eyebrow">Order</p>
           <h1 class="mt-1 text-2xl font-extrabold text-gray-900 md:text-3xl">{{ order.order_number }}</h1>
           <p class="mt-1 text-sm text-gray-500">Placed {{ formatDate(order.created_at, true) }}</p>
         </div>

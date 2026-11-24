@@ -52,7 +52,7 @@ useSeoMeta({
         <img v-if="instructor.avatar" :src="mediaUrl(instructor.avatar)" :alt="instructor.name" class="h-32 w-32 shrink-0 rounded-full object-cover shadow" @error="imageFallback">
         <span v-else class="flex h-32 w-32 shrink-0 items-center justify-center rounded-full bg-brand-light text-5xl font-extrabold text-oc-primary">{{ initial(instructor.name) }}</span>
         <div class="min-w-0">
-          <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Instructor</p>
+          <p class="eyebrow">Instructor</p>
           <h1 class="mt-1 text-2xl font-extrabold text-gray-900 md:text-3xl">{{ instructor.name }}</h1>
           <p v-if="instructor.headline" class="mt-1 text-base font-semibold text-gray-600">{{ instructor.headline }}</p>
           <p v-if="instructor.bio" class="mt-3 whitespace-pre-line text-sm leading-7 text-gray-600">{{ instructor.bio }}</p>

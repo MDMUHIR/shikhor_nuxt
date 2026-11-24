@@ -157,7 +157,7 @@ useSeoMeta({
     </nav>
 
     <div
-      class="rounded-2xl bg-gradient-to-r from-oc-primary to-indigo-600 p-6 text-white md:p-8"
+      class="card neo-banner neo-lavender p-6 md:p-8"
     >
       <h1 class="text-2xl font-extrabold md:text-3xl">Find your next course</h1>
       <p class="mt-2 max-w-2xl text-sm text-white/85">

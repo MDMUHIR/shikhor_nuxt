@@ -18,7 +18,7 @@ const support = [
 </script>
 
 <template>
-  <footer class="border-t border-gray-200 bg-gray-50 text-gray-800 print:hidden">
+  <footer class="mt-16 border-t-2 border-neo-ink bg-neo-lavender/70 text-gray-800 print:hidden">
     <div class="mx-auto w-full max-w-[1280px] px-4 py-12 md:px-6 md:py-16">
       <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div class="space-y-4">
@@ -34,7 +34,7 @@ const support = [
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-gray-600 ring-1 ring-gray-200 transition hover:bg-blue-600 hover:text-white"
+              class="icon-btn !h-9 !w-9 hover:!bg-neo-sky"
               aria-label="Facebook"
             >
               <svg viewBox="0 0 320 512" width="14" height="14" fill="currentColor" aria-hidden="true">
@@ -45,7 +45,7 @@ const support = [
               href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-gray-600 ring-1 ring-gray-200 transition hover:bg-red-600 hover:text-white"
+              class="icon-btn !h-9 !w-9 hover:!bg-neo-pink"
               aria-label="YouTube"
             >
               <svg viewBox="0 0 576 512" width="15" height="15" fill="currentColor" aria-hidden="true">
@@ -89,14 +89,14 @@ const support = [
               <span>House 1085, Road 6/A, Avenue 8, Mirpur DOHS, Dhaka</span>
             </li>
           </ul>
-          <div class="mt-5 rounded-xl bg-white p-3 ring-1 ring-gray-200">
+          <div class="card mt-5 p-3">
             <p class="text-xs font-semibold uppercase tracking-wide text-gray-400">Payments</p>
-            <p class="mt-1 text-sm text-gray-600">Cash on delivery, bank transfer or manual bKash. An admin confirms every payment.</p>
+            <p class="mt-1 text-sm text-gray-600">Cash on delivery, bKash, Nagad or card. An admin confirms every manual payment.</p>
           </div>
         </div>
       </div>
 
-      <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-6 md:flex-row">
+      <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t-2 border-neo-ink pt-6 md:flex-row">
         <p class="text-sm text-gray-500">© {{ year }} Shikhor Academy. All rights reserved.</p>
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
           <NuxtLink to="/certificates/verify" class="transition hover:text-oc-primary">Certificate verification</NuxtLink>

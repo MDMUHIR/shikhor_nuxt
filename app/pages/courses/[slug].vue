@@ -211,7 +211,7 @@ useSeoMeta({
 
       <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div class="space-y-6">
-          <section class="overflow-hidden rounded-2xl bg-gray-900">
+          <section class="overflow-hidden rounded-3xl border-2 border-neo-ink bg-gray-900 shadow-[5px_5px_0_0_#1a1a1a]">
             <div class="relative aspect-video">
               <iframe
                 v-if="promoEmbed"
@@ -260,7 +260,7 @@ useSeoMeta({
             <img v-if="course.instructor.avatar" :src="mediaUrl(course.instructor.avatar)" :alt="course.instructor.name" class="h-16 w-16 shrink-0 rounded-full object-cover" @error="imageFallback">
             <span v-else class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-light text-xl font-bold text-oc-primary">{{ initials(course.instructor.name) }}</span>
             <div class="min-w-0">
-              <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Your instructor</p>
+              <p class="eyebrow">Your instructor</p>
               <h2 class="mt-0.5 text-lg font-bold text-gray-900"><NuxtLink :to="`/instructors/${course.instructor.id}`" class="hover:text-oc-primary">{{ course.instructor.name }}</NuxtLink></h2>
               <p v-if="course.instructor.headline" class="text-sm font-semibold text-gray-500">{{ course.instructor.headline }}</p>
               <p v-if="course.instructor.bio" class="mt-1 line-clamp-4 text-sm leading-6 text-gray-600">{{ course.instructor.bio }}</p>
@@ -511,7 +511,7 @@ useSeoMeta({
             </ul>
 
             <div class="border-t border-gray-100 bg-gray-50 p-5 text-xs text-gray-500">
-              <p class="flex items-start gap-2"><BaseIcon name="info" :size="14" class="mt-0.5 shrink-0" /> No card gateway is connected. Checkout records your payment method and an admin confirms it.</p>
+              <p class="flex items-start gap-2"><BaseIcon name="info" :size="14" class="mt-0.5 shrink-0" /> After payment is confirmed, an admin approves your order and enrolls you in the course.</p>
             </div>
           </div>
 

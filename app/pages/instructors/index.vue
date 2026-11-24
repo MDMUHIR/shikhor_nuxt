@@ -51,7 +51,7 @@ useSeoMeta({
 
     <div v-else class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <NuxtLink v-for="instructor in data" :key="instructor.id" :to="`/instructors/${instructor.id}`" class="card group flex flex-col overflow-hidden transition hover:-translate-y-0.5 hover:shadow-lg">
-        <div class="h-20 bg-gradient-to-r from-oc-primary/70 to-oc-primary" />
+        <div class="h-20 border-b-2 border-neo-ink bg-neo-lavender" />
         <div class="-mt-12 flex justify-center">
           <img
             v-if="instructor.avatar"

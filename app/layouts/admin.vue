@@ -51,7 +51,7 @@ watch(() => route.fullPath, () => (sidebarOpen.value = false))
 <template>
   <div class="min-h-screen">
     <aside
-      class="fixed inset-y-0 left-0 z-50 w-64 -translate-x-full border-r border-gray-200 bg-white transition-transform duration-200 lg:translate-x-0"
+      class="fixed inset-y-0 left-0 z-50 w-64 -translate-x-full border-r-2 border-neo-ink bg-[#fbf5e8] transition-transform duration-200 lg:translate-x-0"
       :class="{ 'translate-x-0': sidebarOpen }"
     >
       <div class="flex h-16 items-center justify-between border-b border-gray-100 px-4">
@@ -67,8 +67,8 @@ watch(() => route.fullPath, () => (sidebarOpen.value = false))
           v-for="item in nav"
           :key="item.to"
           :to="item.to"
-          class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
-          :class="{ 'bg-brand-light text-oc-primary': active(item.to, item.exact) }"
+          class="flex items-center gap-2.5 rounded-xl border-2 border-transparent px-3 py-2 text-sm font-bold text-neo-ink transition hover:border-neo-ink hover:bg-white"
+          :class="{ '!border-neo-ink bg-neo-lavender shadow-[2px_2px_0_0_#1a1a1a]': active(item.to, item.exact) }"
         >
           <BaseIcon :name="item.icon" :size="17" />
           {{ item.label }}
@@ -89,7 +89,7 @@ watch(() => route.fullPath, () => (sidebarOpen.value = false))
     />
 
     <div class="lg:pl-64">
-      <header class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-gray-200 bg-white px-4 md:px-6">
+      <header class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b-2 border-neo-ink bg-[#fbf5e8]/95 px-4 backdrop-blur md:px-6">
         <button type="button" class="btn-ghost lg:hidden" aria-label="Open menu" @click="sidebarOpen = true">
           <BaseIcon name="menu" :size="22" />
         </button>

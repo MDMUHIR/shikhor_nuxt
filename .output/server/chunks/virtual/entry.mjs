@@ -1055,7 +1055,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$20 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/_id_-BENO8tHj.mjs')
+		component: () => import('../build/_id_-Mek0RtP1.mjs')
 	},
 	{
 		name: "admin-orders-id",
@@ -1196,7 +1196,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$5 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/orders-R-JXSHts.mjs')
+		component: () => import('../build/orders-DeAPr1nX.mjs')
 	},
 	{
 		name: "admin-payments",
@@ -1232,7 +1232,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta$1 || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/users-eXQLB2ET.mjs')
+		component: () => import('../build/users-Bio9ej0K.mjs')
 	},
 	{
 		name: "certificates-verify",
@@ -1247,7 +1247,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "blog-id",
 		path: "/blog/:id()",
-		component: () => import('../build/_id_-Bc9iUS0Y.mjs')
+		component: () => import('../build/_id_-ChAWVolw.mjs')
 	},
 	{
 		name: "community-slug",
@@ -1258,7 +1258,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "courses-slug",
 		path: "/courses/:slug()",
-		component: () => import('../build/_slug_-B5AhGAOK.mjs')
+		component: () => import('../build/_slug_-v0otryJs.mjs')
 	},
 	{
 		name: "exams-id",
@@ -1269,25 +1269,25 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "instructors-id",
 		path: "/instructors/:id()",
-		component: () => import('../build/_id_-CrXoF-BB.mjs')
+		component: () => import('../build/_id_-CgxuKMiQ.mjs')
 	},
 	{
 		name: "learn-slug",
 		path: "/learn/:slug()",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/_slug_-B8fbZsn0.mjs')
+		component: () => import('../build/_slug_-CaCtCMgM.mjs')
 	},
 	{
 		name: "orders-id",
 		path: "/orders/:id()",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/_id_-BHw_yLBR.mjs')
+		component: () => import('../build/_id_-Ccfw5_Cx.mjs')
 	},
 	{
 		name: "quizzes-id",
 		path: "/quizzes/:id()",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/_id_-CI2JOAfc.mjs'),
+		component: () => import('../build/_id_-C-SdvFPP.mjs'),
 		children: [{
 			name: "quizzes-id-result-attemptId",
 			path: "result/:attemptId()",
@@ -1298,7 +1298,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "store-slug",
 		path: "/store/:slug()",
-		component: () => import('../build/_slug_-CJCdePwB.mjs')
+		component: () => import('../build/_slug_-CW7TcK2A.mjs')
 	},
 	{
 		name: "admin",
@@ -1307,12 +1307,12 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 			...__nuxt_page_meta || {},
 			"middleware": "admin"
 		},
-		component: () => import('../build/admin-DE0cVDWR.mjs')
+		component: () => import('../build/admin-71AKK10M.mjs')
 	},
 	{
 		name: "blog",
 		path: "/blog",
-		component: () => import('../build/blog-BO332Wup.mjs')
+		component: () => import('../build/blog-CEhHa07E.mjs')
 	},
 	{
 		name: "cart",
@@ -1335,7 +1335,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "courses",
 		path: "/courses",
-		component: () => import('../build/courses-DbSv5dt-.mjs')
+		component: () => import('../build/courses-BTM7oJvY.mjs')
 	},
 	{
 		name: "exams",
@@ -1346,12 +1346,12 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "instructors",
 		path: "/instructors",
-		component: () => import('../build/instructors-BWBCzonf.mjs')
+		component: () => import('../build/instructors-DmWhlwLq.mjs')
 	},
 	{
 		name: "login",
 		path: "/login",
-		component: () => import('../build/login-uZLmo0Ex.mjs')
+		component: () => import('../build/login-Gg4nUMvQ.mjs')
 	},
 	{
 		name: "my-courses",
@@ -1381,7 +1381,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 		name: "profile",
 		path: "/profile",
 		meta: { "middleware": "auth" },
-		component: () => import('../build/profile-D5lo9sGp.mjs')
+		component: () => import('../build/profile-xKx6dLkc.mjs')
 	},
 	{
 		name: "register",
@@ -1396,7 +1396,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "store",
 		path: "/store",
-		component: () => import('../build/store-DUT3G0_8.mjs')
+		component: () => import('../build/store-DBZFJhiO.mjs')
 	},
 	{
 		name: "wishlist",
@@ -1412,7 +1412,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "index",
 		path: "/",
-		component: () => import('../build/pages-DfwtAW2x.mjs')
+		component: () => import('../build/pages-IKI8Yd_y.mjs')
 	}
 ];
 // node_modules/nuxt/dist/pages/runtime/plugins/router.js
@@ -2056,8 +2056,8 @@ function resolveLayoutName(route, name) {
 }
 // virtual:nuxt:node_modules%2F.cache%2Fnuxt%2F.nuxt%2Flayouts.mjs
 var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Flayouts_default = {
-	admin: defineAsyncComponent(() => import('../build/admin-BHUenaVd.mjs').then((m) => m.default || m)),
-	default: defineAsyncComponent(() => import('../build/default-CrWZCWy2.mjs').then((m) => m.default || m))
+	admin: defineAsyncComponent(() => import('../build/admin-E8p0N3A_.mjs').then((m) => m.default || m)),
+	default: defineAsyncComponent(() => import('../build/default-DxPk2hf4.mjs').then((m) => m.default || m))
 };
 // node_modules/nuxt/dist/app/components/nuxt-layout.js
 var LayoutLoader = defineComponent({

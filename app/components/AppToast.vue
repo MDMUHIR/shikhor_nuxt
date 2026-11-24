@@ -8,11 +8,11 @@ const { toasts, remove } = useToast()
       <div
         v-for="toast in toasts"
         :key="toast.id"
-        class="pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-xl border p-4 shadow-lg backdrop-blur"
+        class="pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-2xl border-2 border-neo-ink p-4 text-neo-ink shadow-[4px_4px_0_0_#1a1a1a]"
         :class="{
-          'border-emerald-200 bg-emerald-50/95 text-emerald-900': toast.type === 'success',
-          'border-rose-200 bg-rose-50/95 text-rose-900': toast.type === 'error',
-          'border-blue-200 bg-blue-50/95 text-blue-900': toast.type === 'info',
+          'bg-neo-mint': toast.type === 'success',
+          'bg-neo-pink': toast.type === 'error',
+          'bg-neo-sky': toast.type === 'info',
         }"
         role="status"
         aria-live="polite"

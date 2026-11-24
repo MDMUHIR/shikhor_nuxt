@@ -86,7 +86,7 @@ function handleFocus() {
 
 <template>
   <header class="fixed inset-x-0 top-0 z-50 print:hidden">
-    <div class="border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
+    <div class="border-b-2 border-neo-ink bg-[#fbf5e8]/95 backdrop-blur">
       <div class="mx-auto flex h-18 w-full  md:container items-center gap-3 px-4 md:px-6">
         <NuxtLink to="/" class="flex h-12 w-24 shrink-0 items-center" aria-label="Shikhor Academy home">
           <img src="/logo.png" alt="Shikhor Academy" class="h-full w-full object-contain" >
@@ -97,8 +97,8 @@ function handleFocus() {
             v-for="link in links"
             :key="link.href"
             :to="link.href"
-            class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-brand-light hover:text-oc-primary"
-            :class="{ 'text-oc-primary': isActive(link.href) }"
+            class="rounded-full border-2 border-transparent px-3.5 py-1.5 text-sm font-bold text-neo-ink transition hover:border-neo-ink hover:bg-white"
+            :class="{ '!border-neo-ink bg-neo-lavender shadow-[2px_2px_0_0_#1a1a1a]': isActive(link.href) }"
           >
             {{ link.label }}
           </NuxtLink>
@@ -107,38 +107,38 @@ function handleFocus() {
         <div class="ml-auto flex items-center gap-1.5">
           <button
             type="button"
-            class="btn-ghost hidden sm:inline-flex"
+            class="icon-btn hidden sm:inline-flex"
             aria-label="Search courses"
             @click="searchOpen = !searchOpen"
           >
             <BaseIcon name="search" :size="20" />
           </button>
 
-          <NuxtLink to="/wishlist" class="btn-ghost relative" aria-label="Wishlist">
+          <NuxtLink to="/wishlist" class="icon-btn" aria-label="Wishlist">
             <BaseIcon name="heart" :size="20" />
             <span
               v-if="wishlistCount"
-              class="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white"
+              class="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-neo-ink bg-neo-pink px-1 text-[10px] font-extrabold text-neo-ink"
             >{{ wishlistCount }}</span>
           </NuxtLink>
 
-          <NuxtLink to="/cart" class="btn-ghost relative" aria-label="Cart">
+          <NuxtLink to="/cart" class="icon-btn" aria-label="Cart">
             <BaseIcon name="cart" :size="20" />
             <span
               v-if="totalCount"
-              class="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-oc-primary px-1 text-[10px] font-bold text-white"
+              class="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-neo-ink bg-neo-mint px-1 text-[10px] font-extrabold text-neo-ink"
             >{{ totalCount }}</span>
           </NuxtLink>
 
           <div v-if="isAuthenticated" ref="accountRef" class="relative hidden lg:block">
             <button
               type="button"
-              class="flex items-center gap-2 rounded-full border border-gray-200 py-1 pl-1 pr-3 transition hover:border-oc-primary/40"
+              class="flex items-center gap-2 rounded-full border-2 border-neo-ink bg-white py-1 pl-1 pr-3 shadow-[2px_2px_0_0_#1a1a1a] transition hover:-translate-x-px hover:-translate-y-px hover:bg-neo-lavender"
               :aria-expanded="accountOpen"
               aria-haspopup="menu"
               @click.stop="accountOpen = !accountOpen"
             >
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-oc-primary text-sm font-bold text-white">
+              <span class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-neo-ink bg-neo-sun text-sm font-extrabold text-neo-ink">
                 {{ initials }}
               </span>
               <span class="max-w-24 truncate text-sm font-semibold text-gray-700">{{ user?.name }}</span>
@@ -146,7 +146,7 @@ function handleFocus() {
             </button>
             <div
               v-if="accountOpen"
-              class="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-gray-100 bg-white py-1.5 shadow-xl"
+              class="absolute right-0 mt-3 w-60 overflow-hidden rounded-2xl bg-white py-1.5"
               role="menu"
             >
               <div class="border-b border-gray-100 px-4 py-2.5">
@@ -194,13 +194,13 @@ function handleFocus() {
             </div>
           </div>
 
-          <NuxtLink v-else to="/login" class="hidden rounded-full bg-violet-100 px-5 py-2 text-sm font-semibold text-oc-primary transition-colors hover:bg-violet-200 lg:inline-flex">
+          <NuxtLink v-else to="/login" class="btn-primary hidden lg:inline-flex">
             Login
           </NuxtLink>
 
           <button
             type="button"
-            class="btn-ghost lg:hidden"
+            class="icon-btn lg:hidden"
             :aria-expanded="open"
             aria-label="Toggle menu"
             @click="open = !open"
@@ -210,7 +210,7 @@ function handleFocus() {
         </div>
       </div>
 
-      <div v-if="searchOpen" class="border-t border-gray-100 bg-white">
+      <div v-if="searchOpen" class="border-t-2 border-neo-ink bg-white">
         <form class="mx-auto flex w-full max-w-[1280px] items-center gap-2 px-4 py-3 md:px-6" @submit.prevent="submitSearch">
           <BaseIcon name="search" :size="18" class="text-gray-400" />
           <input
@@ -226,14 +226,14 @@ function handleFocus() {
       </div>
     </div>
 
-    <div v-if="open" class="border-b border-gray-100 bg-white shadow-md lg:hidden">
+    <div v-if="open" class="border-b-2 border-neo-ink bg-[#fbf5e8] lg:hidden">
       <nav class="mx-auto w-full max-w-[1280px] px-4 py-2" aria-label="Mobile">
         <NuxtLink
           v-for="link in links"
           :key="link.href"
           :to="link.href"
-          class="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          :class="{ 'text-oc-primary': isActive(link.href) }"
+          class="mb-1 block rounded-xl border-2 border-transparent px-3 py-2.5 text-sm font-bold text-neo-ink hover:border-neo-ink hover:bg-white"
+          :class="{ '!border-neo-ink bg-neo-lavender': isActive(link.href) }"
         >
           {{ link.label }}
         </NuxtLink>

@@ -40,7 +40,7 @@ useSeoMeta({ title: 'Sign in — Shikhor Academy', robots: 'noindex' })
 
 <template>
   <div class="mx-auto grid w-full max-w-[1000px] gap-8 px-4 py-10 md:px-6 md:py-14 lg:grid-cols-2 lg:items-center">
-    <div class="hidden rounded-3xl bg-gradient-to-br from-oc-primary to-indigo-700 p-10 text-white lg:block">
+    <div class="card neo-banner neo-lavender hidden p-10 lg:block">
       <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
         <BaseIcon name="book-open" :size="26" />
       </span>

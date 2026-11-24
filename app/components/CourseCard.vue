@@ -34,10 +34,10 @@ const levelLabel = computed(() => {
 <template>
   <!-- The whole card opens the course; the instructor link sits above that overlay (no nested <a>). -->
   <article
-    class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+    class="card group relative flex h-full flex-col overflow-hidden"
   >
     <NuxtLink :to="`/courses/${course.slug}`" class="absolute inset-0 z-[1]" :aria-label="course.title" />
-    <div class="pointer-events-none relative aspect-video overflow-hidden bg-gray-100">
+    <div class="pointer-events-none relative aspect-video overflow-hidden border-b-2 border-neo-ink bg-gray-100">
       <img
         :src="image"
         :alt="course.title"
@@ -45,16 +45,16 @@ const levelLabel = computed(() => {
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         @error="imageFallback"
       >
-      <span class="absolute left-3 top-3 rounded-full bg-oc-primary px-2.5 py-1 text-[11px] font-semibold text-white">
+      <span class="absolute left-3 top-3 rounded-full border-2 border-neo-ink bg-neo-lavender px-2.5 py-0.5 text-[11px] font-extrabold text-neo-ink">
         {{ course.category?.name || levelLabel }}
       </span>
       <span
         v-if="off"
-        class="absolute right-3 top-3 rounded-full bg-rose-500 px-2.5 py-1 text-[11px] font-bold text-white"
+        class="absolute right-3 top-3 rounded-full border-2 border-neo-ink bg-neo-pink px-2.5 py-0.5 text-[11px] font-extrabold text-neo-ink"
       >-{{ off }}%</span>
       <span
         v-if="course.is_featured"
-        class="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-black/70 px-2.5 py-1 text-[11px] font-semibold text-white"
+        class="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full border-2 border-neo-ink bg-neo-sun px-2.5 py-0.5 text-[11px] font-extrabold text-neo-ink"
       >
         <BaseIcon name="sparkles" :size="12" /> Featured
       </span>

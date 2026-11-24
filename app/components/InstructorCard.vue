@@ -13,10 +13,10 @@ defineProps<{
 
 <template>
   <div class="relative w-full bg-white rounded-3xl shadow-lg overflow-hidden cursor-pointer group h-full flex flex-col">
-    <div class="relative h-24 bg-gradient-to-r from-oc-primary/70 to-oc-primary" />
+    <div class="relative h-24 border-b-2 border-neo-ink bg-neo-lavender" />
     <div class="relative -mt-12 flex justify-center mb-3">
       <div class="relative">
-        <div class="w-32 h-32 rounded-full p-1 bg-gradient-to-r from-oc-primary/70 to-oc-primary shadow-lg">
+        <div class="w-32 h-32 rounded-full border-2 border-neo-ink bg-neo-sun p-1 shadow-[3px_3px_0_0_#1a1a1a]">
           <div class="w-full h-full rounded-full border-4 border-white overflow-hidden bg-transparent">
             <img
               :alt="instructor.alt || instructor.name"

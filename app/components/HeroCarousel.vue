@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
   <div class="mb-12 md:mb-16">
     <div class="relative flex items-center justify-center">
       <div
-        class="pointer-events-none absolute inset-x-[6%] inset-y-[6%] -z-10 rounded-[2.5rem] bg-gradient-to-r from-oc-primary/20 via-fuchsia-500/10 to-cyan-400/20 blur-3xl"
+        class="hidden"
       />
 
       <!-- Peek: previous -->
@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
         v-if="slides.length > 1"
         type="button"
         aria-label="Previous slide"
-        class="group/peek hidden lg:block absolute left-0 top-1/2 z-0 h-[82%] w-[13%] -translate-y-1/2 overflow-hidden rounded-2xl opacity-50 shadow-xl shadow-black/50 ring-1 ring-white/10 transition-all duration-300 hover:opacity-90 hover:scale-[1.03]"
+        class="group/peek hidden lg:block absolute left-0 top-1/2 z-0 h-[82%] w-[13%] -translate-y-1/2 overflow-hidden rounded-2xl border-2 border-neo-ink opacity-60 transition-all duration-300 hover:opacity-90 hover:scale-[1.03]"
         @click="go(prevIndex)"
       >
         <img
@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
 
       <!-- Main slide -->
       <div
-        class="relative z-10 w-full lg:w-[70%] aspect-video overflow-hidden rounded-2xl md:rounded-3xl ring-1 ring-white/10 shadow-2xl shadow-black/50 bg-slate-900 transition-transform duration-500 hover:shadow-oc-primary/20"
+        class="relative z-10 w-full lg:w-[70%] aspect-video overflow-hidden rounded-2xl md:rounded-3xl border-2 border-neo-ink shadow-[6px_6px_0_0_#1a1a1a] bg-slate-900"
       >
         <div class="absolute inset-0">
           <NuxtLink
@@ -160,7 +160,7 @@ onBeforeUnmount(() => {
           <NuxtLink
             v-else
             to="/courses"
-            class="relative flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-oc-primary via-indigo-600 to-violet-700 text-center text-white"
+            class="relative flex h-full w-full flex-col items-center justify-center gap-3 neo-banner bg-neo-lavender text-center text-white"
           >
             <BaseIcon name="book-open" :size="64" class="text-white/70" />
             <h1 class="text-2xl font-extrabold md:text-4xl">
@@ -179,7 +179,7 @@ onBeforeUnmount(() => {
           <button
             type="button"
             aria-label="Previous slide"
-            class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-20 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/40 text-white/90 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/50"
+            class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-20 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-neo-ink bg-white text-neo-ink shadow-[2px_2px_0_0_#1a1a1a] transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:bg-neo-lavender focus:outline-none"
             @click="go(prevIndex)"
           >
             <svg

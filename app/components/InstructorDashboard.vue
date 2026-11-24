@@ -35,7 +35,7 @@ const guide: Record<string, string> = {
   <div>
     <div class="card mb-5 flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-brand-light to-white p-5">
       <div>
-        <p class="text-xs font-bold uppercase tracking-widest text-oc-primary">Instructor</p>
+        <p class="eyebrow">Instructor</p>
         <h2 class="mt-1 text-xl font-extrabold text-gray-900">Welcome back, {{ user?.name }}</h2>
         <p class="mt-1 text-sm text-gray-500">Manage your courses, lessons, quizzes, files and exams. An administrator publishes courses and handles enrollments.</p>
       </div>

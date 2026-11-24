@@ -1,3 +1,4 @@
+@import '@fontsource-variable/outfit';
 @import 'tailwindcss';
 
 @font-face {
@@ -48,11 +49,11 @@
 }
 
 @theme {
-  --color-oc-primary: #0a7cc9;
-  --color-brand: #0a7cc9;
-  --color-brand-dark: #075f9a;
-  --color-brand-light: #e6f3fb;
-  --color-ink: #1f2937;
+  --color-oc-primary: #6246ea;
+  --color-brand: #6246ea;
+  --color-brand-dark: #4a30c8;
+  --color-brand-light: #ece6ff;
+  --color-ink: #1a1a1a;
   /* Soft neo-brutalist palette: dark outline, hard offset shadow, pastel fills */
   --color-neo-ink: #1a1a1a;
   --color-neo-lavender: #e6dcff;
@@ -62,7 +63,8 @@
   --color-neo-pink: #f9c8c8;
   --color-neo-sky: #bfe3fb;
   --color-neo-sun: #fdebc2;
-  --font-sans: 'Baloo Da 2', 'Baloo Da 2 Fallback', Arial, sans-serif;
+  /* Outfit for Latin text, Baloo Da 2 supplies the Bengali glyphs */
+  --font-sans: 'Outfit Variable', 'Baloo Da 2', 'Baloo Da 2 Fallback', Arial, sans-serif;
 }
 
 @layer base {
@@ -77,7 +79,7 @@
   body {
     font-family: var(--font-sans);
     font-style: normal;
-    color: #374053;
+    color: #2b2b33;
     /* notebook dot-grid page */
     background-color: #fbf5e8; /* light cream, same family as --color-neo-cream */
     background-image: radial-gradient(circle at center, rgba(60, 48, 20, 0.2) 1.1px, transparent 1.3px);
@@ -94,8 +96,37 @@
     cursor: pointer;
   }
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 3px solid var(--color-neo-lavender-deep);
     outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+  ::selection {
+    background: var(--color-neo-lavender-deep);
+    color: var(--color-neo-ink);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-neo-ink);
+    letter-spacing: -0.02em;
+  }
+  input[type='checkbox'],
+  input[type='radio'],
+  progress {
+    accent-color: var(--color-oc-primary);
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-neo-lavender-deep);
+    border: 3px solid #fbf5e8;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
   img {
     background-color: #f3f4f6;
@@ -139,15 +170,18 @@
       min-height: 2.75rem;
     }
   }
-  /* Big monitors: scale type a little so the layout does not feel tiny */
+  /* Larger base type: every rem-based size (Tailwind text-*, spacing) scales with it */
+  html {
+    font-size: 17.5px;
+  }
   @media (min-width: 1920px) {
     html {
-      font-size: 17px;
+      font-size: 19px;
     }
   }
   @media (min-width: 2560px) {
     html {
-      font-size: 19px;
+      font-size: 21px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -241,12 +275,110 @@
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-neo-lavender/60 hover:text-neo-ink;
   }
+  /* Cards: bold outline, hard offset shadow, rounded corners. */
   .card {
-    @apply rounded-2xl border border-gray-100 bg-white shadow-sm;
+    @apply rounded-3xl border-2 border-neo-ink bg-white;
+    box-shadow: 4px 4px 0 0 var(--color-neo-ink);
+  }
+  /* a card inside a card stays flat so shadows never pile up */
+  .card .card {
+    border-width: 1.5px;
+    border-radius: 1.25rem;
+    box-shadow: none;
+  }
+  a.card,
+  .card.group,
+  .card[role='button'] {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  a.card:hover,
+  .card.group:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 0 var(--color-neo-ink);
+  }
+  /* pastel surfaces: <div class="card neo-mint"> */
+  .neo-mint { background-color: var(--color-neo-mint); }
+  .neo-pink { background-color: var(--color-neo-pink); }
+  .neo-sky { background-color: var(--color-neo-sky); }
+  .neo-sun { background-color: var(--color-neo-sun); }
+  .neo-lavender { background-color: var(--color-neo-lavender); }
+  .neo-cream { background-color: var(--color-neo-cream); }
+  /* round "sticker" with a hard shadow, e.g. the smiley */
+  .sticker {
+    border: 2px solid var(--color-neo-ink);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 3px 3px 0 0 var(--color-neo-ink);
+  }
+  /* round icon buttons (header, toolbars) */
+  .icon-btn {
+    @apply relative inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-neo-ink bg-white text-neo-ink;
+    box-shadow: 2px 2px 0 0 var(--color-neo-ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
+  }
+  .icon-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 0 var(--color-neo-ink);
+    background-color: var(--color-neo-lavender);
+  }
+  .icon-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 0 var(--color-neo-ink);
+  }
+  /* menus and dialogs share the same outline + hard shadow */
+  [role='menu'],
+  [role='dialog'] {
+    border: 2px solid var(--color-neo-ink) !important;
+    box-shadow: 5px 5px 0 0 var(--color-neo-ink) !important;
+  }
+  [role='dialog'] {
+    background-color: #fff;
+  }
+  /* pastel banners: any white text inside turns to ink so it stays readable */
+  .neo-banner [class*='text-white'] {
+    color: var(--color-neo-ink) !important;
+  }
+  .neo-banner [class*='bg-white/'] {
+    background-color: #fff !important;
+    border: 2px solid var(--color-neo-ink);
+  }
+  table thead {
+    background-color: var(--color-neo-cream) !important;
+    border-bottom: 2px solid var(--color-neo-ink) !important;
+    color: #44403c !important;
+  }
+  table tbody tr:hover {
+    background-color: rgba(230, 220, 255, 0.35);
+  }
+  .wobble {
+    transition: transform 0.2s ease;
+  }
+  .wobble:hover {
+    transform: rotate(-3deg) scale(1.04);
+  }
+  /* big friendly page headings */
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    color: var(--color-neo-ink);
+  }
+  .eyebrow {
+    width: fit-content;
+    @apply inline-flex items-center gap-1.5 rounded-full border-2 border-neo-ink bg-neo-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-neo-ink;
   }
   .badge {
-    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset;
+    @apply inline-flex items-center gap-1 rounded-full border-[1.5px] border-neo-ink/80 px-2.5 py-0.5 text-xs font-bold;
   }
+  .badge[class*='bg-emerald'] { background-color: var(--color-neo-mint) !important; color: #14532d !important; }
+  .badge[class*='bg-rose'] { background-color: var(--color-neo-pink) !important; color: #881337 !important; }
+  .badge[class*='bg-amber'] { background-color: var(--color-neo-sun) !important; color: #78350f !important; }
+  .badge[class*='bg-blue'],
+  .badge[class*='bg-indigo'],
+  .badge[class*='bg-sky'] { background-color: var(--color-neo-sky) !important; color: #0c4a6e !important; }
+  .badge[class*='bg-violet'],
+  .badge[class*='bg-purple'] { background-color: var(--color-neo-lavender) !important; color: #3b1d8f !important; }
+  .badge[class*='bg-gray'] { background-color: #fff !important; color: #374151 !important; }
   .prose-content {
     @apply text-[15px] leading-7 text-gray-700;
     overflow-wrap: anywhere;

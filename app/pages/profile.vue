@@ -33,7 +33,7 @@ useSeoMeta({ title: 'My profile — Shikhor Academy', robots: 'noindex' })
     </nav>
 
     <div class="card overflow-hidden">
-      <div class="bg-gradient-to-r from-oc-primary to-indigo-600 p-6 text-white md:p-8">
+      <div class="neo-banner neo-sky border-b-2 border-neo-ink p-6 md:p-8">
         <div class="flex flex-wrap items-center gap-4">
           <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-xl font-extrabold">
             {{ initial(user?.name) }}

@@ -219,7 +219,7 @@ useSeoMeta({
         </div>
 
         <div>
-          <p v-if="product.category" class="text-xs font-bold uppercase tracking-widest text-oc-primary">{{ product.category.name }}</p>
+          <p v-if="product.category" class="eyebrow">{{ product.category.name }}</p>
           <h1 class="mt-1 text-2xl font-extrabold leading-tight text-gray-900 md:text-3xl">{{ product.name }}</h1>
           <p v-if="product.short_description" class="mt-2 text-sm text-gray-600">{{ product.short_description }}</p>
 
